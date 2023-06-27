@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Search from '../../../images/search-icon.png';
+import { BsSearch } from 'react-icons/bs';
 
 import './NavLinks.css';
 
@@ -21,7 +21,7 @@ const NavLinks = props => {
 
   const toggleSearchBar = event => {
     event.stopPropagation();
-    console.log("Kliknuo");
+    console.log('Kliknuo');
     setShowSearchBar(!showSearchBar);
   };
 
@@ -33,34 +33,34 @@ const NavLinks = props => {
 
   return (
     <ul className='nav-links'>
+      <li>
+        <NavLink to='/'>ALL LEAGUES</NavLink>
+      </li>
+      <li>
+        <NavLink to='/login'>LOGIN</NavLink>
+      </li>
+      <li>
+        <NavLink to='/search' exact className='search-link' onClick={toggleSearchBar}>
+          <BsSearch className='nav-link-icon black-icon' />
+        </NavLink>
+      </li>
+
       {
-        //auth.isLoggedIn &&click && 
-        (
-          <li>
-            <NavLink to='/'>All LEAGUES</NavLink>
-          </li>
-        )
+        //auth.isLoggedIn &&click &&
       }
       <li>
-      {/*provjeriti bolje ovaj search napraviti komponentu search*/}
-      <NavLink to="/" exact className="search-link" onClick={toggleSearchBar}>
-        <img src={Search} alt="Search" className="nav-link-icon" />
-      </NavLink>
-      {showSearchBar && (
+        {/*provjeriti bolje ovaj search napraviti komponentu search*/}
+        {/*showSearchBar && (
         <div className="search-bar">
          {<form onSubmit={handleSearchSubmitHandler} className="search-form">
             <input type="text" placeholder="Search" />
             <button type="submit" onClick={closeSearchHandler}>Close</button>
           </form>}
         </div>
-      )}
-    </li>
+      )*/}
+      </li>
       {
         //auth.isLoggedIn && ni prijava ni registracija nemaju svoju rutu vec ce iskakati.
-
-        <li>
-          <NavLink to='/login'>LOGIN</NavLink>
-        </li>
       }
       {
         //auth.isLoggedIn && onClick={auth.logout}

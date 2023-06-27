@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Leagues from './leagues/pages/Leagues';
 import Brazil from './leagues/pages/Brazil';
@@ -15,7 +15,6 @@ import NotFound from './leagues/pages/NotFound';
 import SignUp from './user/pages/SignUp';
 
 const App = () => {
-  const [isValidPage, setIsValidPage] = useState(true);
 
   let routes;
 
@@ -24,6 +23,7 @@ const App = () => {
       <Route path='/' element={<Leagues />} />
       <Route path='/login' element={<Auth />} />
       <Route path='/register' element={<SignUp />} />
+      <Route path='/search' element={<Leagues />} />
       <Route path='/brazil/brazilian-a-series' element={<Brazil />}></Route>
       <Route path='/england/premier-league' element={<England />}></Route>
       <Route path='/italy/seria-a' element={<Italy />}></Route>
@@ -45,31 +45,3 @@ const App = () => {
 
 export default App;
 
-/*const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<MainNavigation />} exact/>
-      </Routes>
-    </Router>
-  );
-};*/
-
-/*const App = () => {
-  return (
-    <React.Fragment>
-      <Router>
-        <Routes>
-          <Route path='/'>
-            <Leagues />
-          </Route>
-        </Routes>
-        {/*  <Navigate to='/' /> */ //}
-/*  </Router>
-    </React.Fragment>
-  );
-};*/
-
-//1. korak za pocetak cemo poslati glavnoj navigaciji 12 kartica ajde prosto
-
-//naslov ce biti dinamicki

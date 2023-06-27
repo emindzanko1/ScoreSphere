@@ -22,9 +22,14 @@
     color: white;
     text-align: left;
   }
+
+  .main-navigation__title a:hover {
+    text-decoration: none; 
+  }
   
   .main-navigation__header-nav {
     display: none;
+    margin-right: 5rem;
   }
   
   .main-navigation__drawer-nav {

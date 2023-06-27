@@ -84,7 +84,6 @@ label {
 
 .apple-login {
   background-color: #000;
-  /* You can change the background color to the desired value */
 }
 
 p {
@@ -99,8 +98,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-/* ...existing CSS code... */
 
 .separator {
   display: flex;
@@ -122,4 +119,3 @@ a:hover {
   text-transform: uppercase;
 }
 
-/* ...existing CSS code... */

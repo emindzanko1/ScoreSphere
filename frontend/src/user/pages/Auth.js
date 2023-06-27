@@ -27,17 +27,16 @@ const Auth = () => {
       <h2>Sign In</h2>
       <form className='signin-form'>
         <div className='form-group'>
-          <label htmlFor='email'>Email/Username:</label>
+          {/*<label htmlFor='email'>Email/Username:</label>*/}
           <input type='text' id='email' className='input-field' placeholder='Email Address'/>
         </div>
         <div className='form-group'>
-          <label htmlFor='password'>Password:</label>
+          {/*<label htmlFor='password'>Password:</label>*/}
           <input type='password' id='password' className='input-field' placeholder='Password' />
         </div>
         <button type='submit' className='signin-button'>
           Sign In
         </button>
-        {/* Separator */}
         <div className='separator'>
           <div className='separator-line'></div>
           <div className='separator-label'>or</div>

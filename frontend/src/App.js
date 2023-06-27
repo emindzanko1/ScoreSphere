@@ -12,6 +12,7 @@ import Spain from './leagues/pages/Spain';
 import Portugal from './leagues/pages/Portugal';
 import Auth from './user/pages/Auth';
 import NotFound from './leagues/pages/NotFound';
+import SignUp from './user/pages/SignUp';
 
 const App = () => {
   const [isValidPage, setIsValidPage] = useState(true);
@@ -22,7 +23,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Leagues />} />
       <Route path='/login' element={<Auth />} />
-      <Route path='/register' element={<Auth />} />
+      <Route path='/register' element={<SignUp />} />
       <Route path='/brazil/brazilian-a-series' element={<Brazil />}></Route>
       <Route path='/england/premier-league' element={<England />}></Route>
       <Route path='/italy/seria-a' element={<Italy />}></Route>

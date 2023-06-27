@@ -53,6 +53,7 @@
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
+    justify-content: center; 
   }
 
   .nav-links li {
@@ -71,10 +72,15 @@
   }
 
   .nav-links button:hover,
-  .nav-links button:active {
+  .nav-links button {
     background: #52ab98;
     color: #292929;
+    border-radius: 5px;
   }
+  /*.nav-links button:active {
+    background: #52ab98;
+    color: #292929;
+  }*/
 }
 
 .nav-link-icon {
@@ -85,17 +91,17 @@
 .search-form {
   display: flex;
   align-items: center;
-  /*top: 100;
+  top: 100;
   background-color: #ffffff;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;*/
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .search-bar {
   position: absolute;
-  top: 50;
-  left: 60%;
+  top: 2.5%;
+  left: 80%;
   align-content: center;
   transform: translateX(-50%);
   background-color: #52ab98;

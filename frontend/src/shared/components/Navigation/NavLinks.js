@@ -33,18 +33,33 @@ const NavLinks = props => {
 
   return (
     <ul className='nav-links'>
-      <li>
-        <NavLink to='/'>ALL LEAGUES</NavLink>
-      </li>
-      <li>
-        <NavLink to='/login'>LOGIN</NavLink>
-      </li>
-      <li>
-        <NavLink to='/search' exact className='search-link' onClick={toggleSearchBar}>
-          <BsSearch className='nav-link-icon black-icon' />
-        </NavLink>
-      </li>
-
+      {!showSearchBar && (
+        <>
+          <li>
+            <NavLink to='/'>ALL LEAGUES</NavLink>
+          </li>
+          <li>
+            <NavLink to='/login'>LOGIN</NavLink>
+          </li>
+          <li>
+            <NavLink to='/search' exact className='search-link' onClick={toggleSearchBar}>
+              <BsSearch className='nav-link-icon black-icon' />
+            </NavLink>
+          </li>
+        </>
+      )}
+      {showSearchBar && (
+        <li>
+          <div className='search-bar'>
+            <form onSubmit={handleSearchSubmitHandler} className='search-form'>
+              <input type='text' placeholder='Search' />
+              <button type='submit' onClick={closeSearchHandler}>
+                Close
+              </button>
+            </form>
+          </div>
+        </li>
+      )}
       {
         //auth.isLoggedIn &&click &&
       }

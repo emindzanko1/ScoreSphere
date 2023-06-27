@@ -13,6 +13,7 @@ import Portugal from './leagues/pages/Portugal';
 import Auth from './user/pages/Auth';
 import NotFound from './leagues/pages/NotFound';
 import SignUp from './user/pages/SignUp';
+import Search from './page/components/Search';
 
 const App = () => {
 
@@ -23,7 +24,7 @@ const App = () => {
       <Route path='/' element={<Leagues />} />
       <Route path='/login' element={<Auth />} />
       <Route path='/register' element={<SignUp />} />
-      <Route path='/search' element={<Leagues />} />
+      <Route path='/search' element={<Search />} />
       <Route path='/brazil/brazilian-a-series' element={<Brazil />}></Route>
       <Route path='/england/premier-league' element={<England />}></Route>
       <Route path='/italy/seria-a' element={<Italy />}></Route>

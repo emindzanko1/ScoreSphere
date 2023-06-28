@@ -35,7 +35,7 @@
   }
   
   .registration-form-input {
-    width: 100%;
+    width: calc(100% - 22px); 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -191,6 +191,13 @@
     font-size: 14px;
     text-transform: uppercase;
   }
+
+  .error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
   
   
   

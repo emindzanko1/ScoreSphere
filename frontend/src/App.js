@@ -22,6 +22,7 @@ const App = () => {
   routes = (
     <Routes>
       <Route path='/' element={<Leagues />} />
+      <Route path='/leagues' element={<Leagues />} />
       <Route path='/login' element={<Auth />} />
       <Route path='/register' element={<SignUp />} />
       <Route path='/search' element={<Search />} />

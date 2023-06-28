@@ -17,18 +17,30 @@ const SignUp = () => {
     agreeTerms: false,
   });
 
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
   const handleChange = event => {
     const { name, value, type, checked } = event.target;
     const newValue = type === 'checkbox' ? checked : value;
-
+  
     setFormData(prevFormData => ({
       ...prevFormData,
-      [name]: newValue,
+      [name]: newValue
     }));
+  
+    if (name === 'confirmPassword') {
+      setPasswordMatch(formData.password === value);
+    }
   };
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordMatch(false);
+      return;
+    }
+
     console.log(formData);
     // Handle form submission
   };
@@ -126,6 +138,7 @@ const SignUp = () => {
               className='registration-form-input'
               placeholder='Repeat your password'
             />
+            {!passwordMatch && <span className='error-message'>Your password and confirmation password must match.</span>}
           </div>
           <div className='form-group'>
             <label htmlFor='agreeTerms' className='checkbox-label'>

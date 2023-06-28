@@ -27,7 +27,7 @@ label {
 }
 
 .input-field {
-  width: 100%;
+  width: calc(100% - 18px); 
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;

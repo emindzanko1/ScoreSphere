@@ -1,14 +1,21 @@
-import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import AppleLogin from 'react-apple-login';
 import { FaGoogle, FaFacebook, FaApple } from 'react-icons/fa';
+import AuthContext from '../../shared/context/auth-context';
 
 import './Auth.css';
 
 const Auth = () => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const auth = useContext(AuthContext);
+
   const responseGoogle = response => {
     console.log(response);
+    //setIsLoggedIn(true);
     // Handle Google login response
   };
 
@@ -22,17 +29,33 @@ const Auth = () => {
     // Handle Apple login response
   };
 
+  const handleLogin = event => {
+    event.preventDefault();
+    auth.login();
+  };
+
+  const handleLogout = () => {
+    //setIsLoggedIn(false);
+  };
+
   return (
     <div className='signin-form-container'>
       <h2>Sign In</h2>
-      <form className='signin-form'>
+      <form className='signin-form' onSubmit={handleLogin}>
         <div className='form-group'>
           {/*<label htmlFor='email'>Email/Username:</label>*/}
-          <input type='text' id='email' className='input-field' placeholder='Email Address'/>
+          <input type='email' id='email' name='email' required className='input-field' placeholder='Email Address' />
         </div>
         <div className='form-group'>
           {/*<label htmlFor='password'>Password:</label>*/}
-          <input type='password' id='password' className='input-field' placeholder='Password' />
+          <input
+            type='password'
+            id='password'
+            name='password'
+            required
+            className='input-field'
+            placeholder='Password'
+          />
         </div>
         <button type='submit' className='signin-button'>
           Sign In
@@ -44,8 +67,15 @@ const Auth = () => {
         </div>
       </form>
       <div className='signin-options'>
+        {/*isLoggedIn ? (
+          <GoogleLogout
+            clientId='658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com'
+            buttonText='Logout'
+            onLogoutSuccess={handleLogout}
+          />
+        ) : (*/}
         <GoogleLogin
-          clientId='YOUR_GOOGLE_CLIENT_ID'
+          clientId={process.env.REACT_APP_CLIENT_ID}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
@@ -56,7 +86,7 @@ const Auth = () => {
           )}
         />
         <FacebookLogin
-          appId='YOUR_FACEBOOK_APP_ID'
+          appId='123249320805201'
           autoLoad={false}
           fields='name,email,picture'
           callback={responseFacebook}

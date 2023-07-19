@@ -12,7 +12,7 @@ const LeaguesList = props => {
     <ul className='league-list'>
       {props.items.map(league => (
         <LeagueItem
-        //moguće treba dodati key={league.id}
+         key={league.id}
          id={league.id}
          name={league.name}
          title={league.title}

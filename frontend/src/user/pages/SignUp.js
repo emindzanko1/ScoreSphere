@@ -22,12 +22,12 @@ const SignUp = () => {
   const handleChange = event => {
     const { name, value, type, checked } = event.target;
     const newValue = type === 'checkbox' ? checked : value;
-  
+
     setFormData(prevFormData => ({
       ...prevFormData,
-      [name]: newValue
+      [name]: newValue,
     }));
-  
+
     if (name === 'confirmPassword') {
       setPasswordMatch(formData.password === value);
     }
@@ -138,7 +138,9 @@ const SignUp = () => {
               className='registration-form-input'
               placeholder='Repeat your password'
             />
-            {!passwordMatch && <span className='error-message'>Your password and confirmation password must match.</span>}
+            {!passwordMatch && (
+              <span className='error-message'>Your password and confirmation password must match.</span>
+            )}
           </div>
           <div className='form-group'>
             <label htmlFor='agreeTerms' className='checkbox-label'>
@@ -166,7 +168,7 @@ const SignUp = () => {
         </form>
         <div className='signup-options'>
           <GoogleLogin
-            clientId='YOUR_GOOGLE_CLIENT_ID'
+            clientId={process.env.REACT_APP_CLIENT_ID}
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
@@ -177,7 +179,7 @@ const SignUp = () => {
             )}
           />
           <FacebookLogin
-            appId='YOUR_FACEBOOK_APP_ID'
+            appId={process.env.REACT_APP_CLIENT_ID_FB}
             autoLoad={false}
             fields='name,email,picture'
             callback={responseFacebook}

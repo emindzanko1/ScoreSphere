@@ -28,7 +28,7 @@
   }
   
   .main-navigation__header-nav {
-    display: none;
+    display: flex;
     margin-right: 5rem;
   }
   

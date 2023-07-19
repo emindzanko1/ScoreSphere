@@ -1,0 +1,31 @@
+.search-form {
+    display: flex;
+    align-items: center;
+    top: 100;
+    background-color: #52ab98;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    color: #000;
+  }
+  
+  .search-form input[type='text'] {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .search-form input[type='text']::placeholder {
+    color: white;
+    font-style: italic;
+  }
+  
+  .search-link {
+    position: relative;
+    text-align: center; 
+  }
+  

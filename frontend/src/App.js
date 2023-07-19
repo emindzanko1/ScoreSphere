@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -20,13 +20,26 @@ const App = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+
+    if(storedToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
   const login = () => {
     setIsLoggedIn(true);
+    localStorage.setItem('token', 'your_auth_token_here');
   };
 
   const logout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem('token');
   };
+
+  
 
   let routes;
 

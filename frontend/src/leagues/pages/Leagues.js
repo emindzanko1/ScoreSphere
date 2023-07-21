@@ -1,15 +1,15 @@
 import React from 'react';
 import LeaguesList from '../components/LeaguesList';
-import Brazil from '../../images/Flag_of_Brazil.svg.png';
+import BrazilImg from '../../images/Flag_of_Brazil.svg.png';
 import England from '../../images/Flag_of_England.svg.png';
 import Italy from '../../images/Flag_of_Italy.svg.png';
 import France from '../../images/Flag_of_France.svg.png';
 import Netherlands from '../../images/Flag_of_Netherlands.svg.png';
 import Spain from '../../images/Flag_of_Spain.svg.png';
 import Portugal from '../../images/Flag_of_Portugal.svg.png';
+import { useLocation } from 'react-router-dom';
 import LeaguesTables from '../components/LeaguesTables';
-import { Link } from 'react-router-dom';
-import './Leagues.css';
+import Brazil from './Brazil.js';
 
 const Leagues = () => {
   const leagues = [
@@ -17,7 +17,7 @@ const Leagues = () => {
       id: 'l1',
       name: 'brazil',
       title: 'brazilian-a-series',
-      image: Brazil,
+      image: BrazilImg,
       clubs: [
         'Atlético Mineiro',
         'Bahia',
@@ -203,10 +203,14 @@ const Leagues = () => {
     },
   ];
 
+  const location = useLocation();
+  const country = location.pathname.split("/")[1]; 
+
   return (
     <div className='leagues-container'>
       <LeaguesList items={leagues} />
       <LeaguesTables items={leagues} />
+      {/*ovo jednostavno ne radi <Brazil items={leagues} />*/}
       {/*leagues.map(league => (*/}
         
      {/* ))} */}

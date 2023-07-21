@@ -15,6 +15,8 @@ import NotFound from './leagues/pages/NotFound';
 import SignUp from './user/pages/SignUp';
 import AuthContext from './shared/context/auth-context';
 import SearchBar from './shared/components/Navigation/SearchBar';
+import leagues from './leagues/pages/Leagues';
+
 
 const App = () => {
 
@@ -66,7 +68,7 @@ const App = () => {
         <Route path='/search' element={<Leagues />} /> 
         <Route path='/login' element={<Auth />} />
         <Route path='/register' element={<SignUp />} />
-        <Route path='/brazil/brazilian-a-series' element={<Brazil />}></Route>
+        <Route path='/brazil/brazilian-a-series' element={<Brazil/>} />
         <Route path='/england/premier-league' element={<England />}></Route>
         <Route path='/italy/seria-a' element={<Italy />}></Route>
         <Route path='/france/ligue-1' element={<France />}></Route>

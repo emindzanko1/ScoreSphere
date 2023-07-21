@@ -22,33 +22,3 @@ const LeagueItem = props => {
 
 export default LeagueItem;
 
-
-/*import React from 'react';
-import { Link } from 'react-router-dom';
-import Card from '../../shared/components/UIElements/Card';
-import Avatar from '../../shared/components/UIElements/Avatar';
-
-import './LeagueItem.css';
-
-const LeagueItem = props => {
-    return (
-        <li className="league-item">
-          <Card className="league-item__content">
-            <Link to={`/${props.name}/${props.title}`}>
-              <div className="league-item__image">
-                <Avatar image={props.image} alt={props.name} />
-              </div>
-              <div className="league-item__info">
-                <h2><b>{props.title}</b></h2>
-              </div>
-              <div>
-                <h3>{props.name}</h3>
-              </div>
-            </Link>
-          </Card>
-        </li>
-      );
-    
-}
-
-export default LeagueItem;*/

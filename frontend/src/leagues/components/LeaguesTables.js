@@ -1,5 +1,6 @@
 import React from 'react';
 import LeagueTable from './LeagueTable.js';
+import './LeaguesTables.css'
 
 const LeaguesTables = props => {
   if (!props.items) {

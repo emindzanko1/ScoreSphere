@@ -40,7 +40,6 @@ const App = () => {
   };
 
   
-
   let routes;
 
   if (isLoggedIn) {

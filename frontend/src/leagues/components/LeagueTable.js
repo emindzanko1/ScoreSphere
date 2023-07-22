@@ -6,7 +6,6 @@ import MatchModal from '../../matches/components/MatchModal';
 import './LeagueTable.css';
 
 const LeagueTable = props => {
-  
   const getCurrentDate = () => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
@@ -25,11 +24,21 @@ const LeagueTable = props => {
   const navigate = useNavigate();
 
   const teamNameClickHandler = (teamName, event) => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     //console.log(`Clicked on team name: ${teamName}`);
-    // ovo kasnije 
-    //navigate(`/team/${teamName}`); 
+    // ovo kasnije
+    //navigate(`/team/${teamName}`);
     navigate(`/${props.name}/${props.title}`);
+  };
+
+  const [hoveredTeam, setHoveredTeam] = useState(null);
+
+  const onMouseEnterHandler = teamName => {
+    setHoveredTeam(teamName);
+  };
+
+  const onMouseLeaveHandler = () => {
+    setHoveredTeam(null);
   };
 
   return (
@@ -60,14 +69,29 @@ const LeagueTable = props => {
                 <tr key={index} onClick={() => rowClickHandler(match)} className='clickable-row'>
                   <td className='date-time-cell'>{getCurrentDate()}</td>
                   <td className='team-cell'>
-                    <span className='team-name' onClick={(e) => teamNameClickHandler(club, e)}>
-                      {club}
-                    </span>
+                    <div
+                      className='team-container'
+                      onMouseEnter={() => onMouseEnterHandler(club)}
+                      onMouseLeave={onMouseLeaveHandler}
+                      onClick={e => teamNameClickHandler(club, e)}
+                    >
+                      <span className='team-name'>{club}</span>
+                      {hoveredTeam === club && <span className='tooltip'>Click for team details!</span>}
+                      
+                    </div>
                   </td>
                   <td className='team-cell'>
-                    <span className='team-name' onClick={(e) => teamNameClickHandler(awayTeam, e)}>
-                      {awayTeam}
-                    </span>
+                    <div
+                      className='team-container'
+                      onMouseEnter={() => onMouseEnterHandler(awayTeam)}
+                      onMouseLeave={onMouseLeaveHandler}
+                      onClick={e => teamNameClickHandler(awayTeam, e)}
+                    >
+                      <span className='team-name'>
+                        {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
+                        {awayTeam}
+                      </span>
+                    </div>
                   </td>
                   <td className='results'>0:0</td>
                 </tr>

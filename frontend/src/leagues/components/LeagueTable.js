@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import MatchModal from '../../matches/components/MatchModal';
 
 import './LeagueTable.css';
 
 const LeagueTable = props => {
-
+  
   const getCurrentDate = () => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
@@ -20,10 +22,21 @@ const LeagueTable = props => {
     setSelectedMatch(match);
   };
 
+  const navigate = useNavigate();
+
+  const teamNameClickHandler = (teamName, event) => {
+    event.stopPropagation(); 
+    //console.log(`Clicked on team name: ${teamName}`);
+    // ovo kasnije 
+    //navigate(`/team/${teamName}`); 
+    navigate(`/${props.name}/${props.title}`);
+  };
 
   return (
     <div key={props.id} className='league-table'>
-      <h2 className='title'>{props.title}</h2>
+      <Link to={`/${props.name}/${props.title}`} className='title-link' style={{ textDecoration: 'none' }}>
+        <h2 className='title'>{props.title}</h2>
+      </Link>
       <table>
         <thead>
           <tr>
@@ -41,13 +54,21 @@ const LeagueTable = props => {
                 dateTime: getCurrentDate(),
                 homeTeam: club,
                 awayTeam: awayTeam,
-                result: '0:0', 
+                result: '0:0',
               };
               return (
-                <tr key={index} onClick={() => rowClickHandler(match)} className="clickable-row">
+                <tr key={index} onClick={() => rowClickHandler(match)} className='clickable-row'>
                   <td className='date-time-cell'>{getCurrentDate()}</td>
-                  <td  className='team-cell'>{club}</td>
-                  <td  className='team-cell'>{awayTeam}</td>
+                  <td className='team-cell'>
+                    <span className='team-name' onClick={(e) => teamNameClickHandler(club, e)}>
+                      {club}
+                    </span>
+                  </td>
+                  <td className='team-cell'>
+                    <span className='team-name' onClick={(e) => teamNameClickHandler(awayTeam, e)}>
+                      {awayTeam}
+                    </span>
+                  </td>
                   <td className='results'>0:0</td>
                 </tr>
               );
@@ -57,12 +78,7 @@ const LeagueTable = props => {
         </tbody>
       </table>
       {selectedMatch && (
-        <MatchModal
-          show={true}
-          onClose={() => setSelectedMatch(null)}
-          title={props.title} 
-          {...selectedMatch}
-        />
+        <MatchModal show={true} onClose={() => setSelectedMatch(null)} title={props.title} {...selectedMatch} />
       )}
     </div>
   );

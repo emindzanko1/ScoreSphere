@@ -8,21 +8,20 @@ import SignUp from './user/pages/SignUp';
 import AuthContext from './shared/context/auth-context';
 import Clubs from './clubs/pages/Clubs';
 import League from './leagues/components/League';
+import LeagueTable from './leagues/components/LeagueTable';
 
 import { leagues } from './leagues/pages/Leagues';
 
 const App = () => {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
 
-    if(storedToken) {
+    if (storedToken) {
       setIsLoggedIn(true);
     }
   }, []);
-
 
   const login = () => {
     setIsLoggedIn(true);
@@ -34,65 +33,51 @@ const App = () => {
     localStorage.removeItem('token');
   };
 
-  
   let routes;
 
-  routes = (
-    <Routes>
-      <Route path='/' element={<Leagues />} />
-      <Route path='/leagues' element={<Leagues />} />
-      <Route path='/search' element={<Leagues />} /> 
-      <Route path='/login' element={<Auth />} />
-      <Route path='/register' element={<SignUp />} />
-      {/*<Route path='/brazil/brazilian-a-series' element={<Brazil/>} />
-      <Route path='/england/premier-league' element={<England />}></Route>
-      <Route path='/italy/seria-a' element={<Italy />}></Route>
-      <Route path='/france/ligue-1' element={<France />}></Route>
-      <Route path='/netherlands/eredivisie' element={<Netherlands />}></Route>
-      <Route path='/spain/primera-division' element={<Spain />}></Route>
-      <Route path='/portugal/primeira-liga' element={<Portugal />}></Route>*/}
-      <Route path='/:country/:league' element={<League leagues={leagues} />} />
-      {/*leagues.map((league) => (
-              <Route
-                key={league.id}
-                path={`/${league.name}/${league.title}`}
-                element={<League leagues={leagues} />}
-              />
-        ))*/}
-      <Route path='/:country/:league/:club' element={<Clubs />} />
-      {/*
-       {leagues.map((league) =>
-        league.clubs.map((club) => (
-          <Route
-            key={`${league.name}-${club}`} // Create a unique key for each route
-            path={`/${league.name}/${league.title}/${club}`}
-            element={<ClubDetail country={league.name} league={league.title} club={club} />}
-          />
-        ))
-      )}s*/ }
-      <Route path='*' element={<Navigate to='/' />} />
-    </Routes>
-  );
-
-  /*if (isLoggedIn) {
+  if (isLoggedIn) {
     routes = (
       <Routes>
         <Route path='/' element={<Leagues />} />
         <Route path='/leagues' element={<Leagues />} />
-        <Route path='/search' element={<Leagues />} /> 
-        <Route path='/brazil/brazilian-a-series' element={<Brazil />}></Route>
-        <Route path='/england/premier-league' element={<England />}></Route>
-        <Route path='/italy/seria-a' element={<Italy />}></Route>
-        <Route path='/france/ligue-1' element={<France />}></Route>
-        <Route path='/netherlands/eredivisie' element={<Netherlands />}></Route>
-        <Route path='/spain/primera-division' element={<Spain />}></Route>
-        <Route path='/portugal/primeira-liga' element={<Portugal />}></Route>
+        <Route path='/search' element={<Leagues />} />
+        <Route path='/:country/:league' element={<League leagues={leagues} />} />
+        <Route path='/:country/:league/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     );
-  } else {*/
-    
-  //}
+  } else {
+    routes = (
+      <Routes>
+        <Route path='/' element={<Leagues />} />
+        <Route path='/leagues' element={<Leagues />} />
+        <Route path='/search' element={<Leagues />} />
+        <Route path='/login' element={<Auth />} />
+        <Route path='/register' element={<SignUp />} />
+        <Route path='/:country/:league' element={<League leagues={leagues} />} />
+        <Route path='/:country/:league/:club' element={<Clubs />} />
+        <Route path='/:country/:league/table' element={<League leagues={leagues}/> }/>
+        {/*leagues.map((league) => (
+                <Route
+                  key={league.id}
+                  path={`/${league.name}/${league.title}`}
+                  element={<League leagues={leagues} />}
+                />
+          ))*/}
+        {/*
+         {leagues.map((league) =>
+          league.clubs.map((club) => (
+            <Route
+              key={`${league.name}-${club}`} // Create a unique key for each route
+              path={`/${league.name}/${league.title}/${club}`}
+              element={<ClubDetail country={league.name} league={league.title} club={club} />}
+            />
+          ))
+        )}s*/}
+        <Route path='*' element={<Navigate to='/' />} />
+      </Routes>
+    );
+  }
 
   return (
     <AuthContext.Provider

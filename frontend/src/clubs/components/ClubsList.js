@@ -5,25 +5,29 @@ import './ClubList.css';
 import { useParams } from 'react-router-dom';
 
 const ClubsList = props => {
-
+  const { clubs, leagues } = props;
   const { club } = useParams();
 
   if (!props.clubs) {
     return <p>No clubs available.</p>;
   }
 
-  const myClub = props.clubs.filter(
-    clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club 
-  );
+  const myClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
+
+  const myLeague = leagues.find(league => league.id === myClub.leagueId);
 
   return (
     <ul>
-      {myClub.map(club => (
-        <ClubDetails key={club.id} id={club.id} name={club.name} image={club.image} leagueId={club.leagueId} />
-      ))}
+      <ClubDetails
+        key={myClub.id}
+        id={myClub.id}
+        name={myClub.name}
+        image={myClub.image}
+        leagueId={myClub.leagueId}
+        league={myLeague}
+      />
     </ul>
   );
 };
 
 export default ClubsList;
-

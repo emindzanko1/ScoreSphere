@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import LeagueTable from './Table';
-import LeaguesTables from '../components/LeaguesTables';
 import Table from './Table';
+import LeagueTable from './LeagueTable';
 import { clubs } from '../../clubs/pages/Clubs';
+
+import './League.css';
 
 const capitalizeWords = str => {
   const smallWords = ['and', 'is', 'of'];
   return str
-    .split('-') // Split on hyphens instead of spaces
+    .split('-')
     .map((word, index) =>
       smallWords.includes(word.toLowerCase()) && index !== 0
         ? word.toLowerCase()
         : word.charAt(0).toUpperCase() + word.slice(1)
     )
-    .join(' '); // Join with spaces instead of hyphens
+    .join(' ');
 };
 
 const League = props => {
 
+  const [activeTable, setActiveTable] = useState('table');
   const { leagues } = props;
   const { country, league } = useParams();
   const capitalizedCountry = capitalizeWords(country);
   const navigate = useNavigate();
 
+  const handleFixturesClick = () => {
+      setActiveTable('table');
+      //navigate(`./proba`);    
+  };
 
+  const handleTableClick = () => {
+      setActiveTable('leagueTable');
+      //navigate(`./table`); sa useEffect probati
+    
+  };
+ 
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
 
   if (!selectedLeague) {
@@ -32,20 +44,33 @@ const League = props => {
     return null;
   }
 
-
   const leagueClubs = clubs.filter(club => club.leagueId === selectedLeague.id);
 
   return (
-    <div className="center-container"> 
+    <div className='league-title'>
       <h2>Welcome to {capitalizedCountry}!</h2>
-      <Table
-        key={selectedLeague.id}
-        id={selectedLeague.id}
-        name={selectedLeague.name}
-        title={selectedLeague.title}
-        clubs={leagueClubs}
-      />
-      <Link to='/'>Go back to homepage</Link>
+      <div className='league-container'>
+        <div className='button-container'>
+          <button onClick={handleFixturesClick} className={activeTable === 'table' ? 'active' : ''}>
+            Fixtures
+          </button>
+          <button onClick={handleTableClick} className={activeTable === 'leagueTable' ? 'active' : ''}>
+            Table
+          </button>
+        </div>
+        {activeTable === 'table' ? (
+          <Table
+            key={selectedLeague.id}
+            id={selectedLeague.id}
+            name={selectedLeague.name}
+            title={selectedLeague.title}
+            clubs={leagueClubs}
+          />
+        ) : (
+          <LeagueTable leagues={leagues} teams={clubs} />
+        )}
+        <Link to='/'>Go back to homepage</Link>
+      </div>
     </div>
   );
 };

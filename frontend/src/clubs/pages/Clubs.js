@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClubsList from '../components/ClubsList';
+import { leagues } from '../../leagues/pages/Leagues';
 
 import ManchesterCityImg from '../../images/clubs/Manchester_City_FC.png';
 
@@ -154,7 +155,7 @@ const Clubs = () => {
 
   return (
     <div>
-      <ClubsList clubs={clubs} />
+      <ClubsList clubs={clubs} leagues={leagues} />
     </div>
   );
 };

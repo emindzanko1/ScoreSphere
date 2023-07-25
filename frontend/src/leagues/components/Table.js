@@ -6,7 +6,6 @@ import MatchModal from '../../matches/components/MatchModal';
 import './Table.css';
 
 const Table = props => {
-  
   const getCurrentDate = () => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
@@ -30,11 +29,8 @@ const Table = props => {
 
   const teamNameClickHandler = (teamName, event) => {
     event.stopPropagation();
-    //console.log(`Clicked on team name: ${teamName}`);
-    // ovo kasnije
-    //navigate(`/team/${teamName}`);
-    // VRATITI SE na ovonavigate(`/${props.name}/${props.title}/${teamName}`);
-    navigate(`/`);
+    const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/${props.name}/${props.title}/${formattedTeamName}`);
   };
 
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -70,27 +66,12 @@ const Table = props => {
     }
   };
 
-  if (!Array.isArray(props.clubs) ) {
+  if (!Array.isArray(props.clubs)) {
     console.log(typeof props.clubs);
     return <p>No clubs available.</p>;
   }
 
- /* return (
-    <div className='league-table'>
-      <table >
-        <thead>
-          <tr>
-            <th>Date & Time</th>
-            <th>Home Team</th>
-            <th>Away Team</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  ); */
-
-   return (
+  return (
     <div key={props.id} className='league-table'>
       <Link to={`/${props.name}/${props.title}`} className='title-link' style={{ textDecoration: 'none' }}>
         <h2 className='title'>{props.title}</h2>
@@ -127,21 +108,21 @@ const Table = props => {
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(club)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(club.name)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(club, e)}
+                      onClick={e => teamNameClickHandler(club.name, e)}
                     >
                       <span className='team-name'>{club.name}</span>
-                      {hoveredRow === index && <span className='tooltip'>Click for match details!</span>} 
+                      {hoveredRow === index && <span className='tooltip'>Click for match details!</span>}
                       {hoveredTeam === club && <span className='tooltip'>Click for team details!</span>}
                     </div>
                   </td>
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(awayTeam)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(awayTeam.name)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(awayTeam, e)}
+                      onClick={e => teamNameClickHandler(awayTeam.name, e)}
                     >
                       <span className='team-name'>
                         {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}

@@ -36,7 +36,7 @@ const League = props => {
   const leagueClubs = clubs.filter(club => club.leagueId === selectedLeague.id);
 
   return (
-    <div>
+    <div className="center-container"> 
       <h2>Welcome to {capitalizedCountry}!</h2>
       <Table
         key={selectedLeague.id}

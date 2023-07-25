@@ -75,7 +75,7 @@ const Auth = () => {
           />
         ) : (*/}
         <GoogleLogin
-          clientId={process.env.REACT_APP_CLIENT_ID}
+          clientId='MY_CLIENT_ID'
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}
@@ -86,7 +86,7 @@ const Auth = () => {
           )}
         />
         <FacebookLogin
-          appId='123249320805201'
+          appId='MY_FACEBOOK_APP_ID'
           autoLoad={false}
           fields='name,email,picture'
           callback={responseFacebook}

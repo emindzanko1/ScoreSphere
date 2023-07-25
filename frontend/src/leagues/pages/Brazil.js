@@ -5,8 +5,6 @@ import LeaguesTables from "../components/LeaguesTables";
 
 const Brazil = props => {
 
-  console.log("Proba" + props.items);
-
   return (
     <div>
       <h2>Dobro došao u Brazil!</h2>

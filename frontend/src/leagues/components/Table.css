@@ -1,6 +1,8 @@
 .league-table {
   border: 1px solid #ccc;
-  background-color: #fff;
+  /*background-color: #fff;*/
+    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   /*max-width: 300px;*/
@@ -36,6 +38,9 @@ table td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
+ /*border-left: none;
+  border-right: none;*/
+  transition: background-color 0.2s ease-in-out; 
 }
 
 table th {
@@ -44,6 +49,7 @@ table th {
 }
 
 table tr.clickable-row:hover {
+  background-color: #f2f2f2;
   cursor: pointer;
 }
 
@@ -86,7 +92,8 @@ td.team-cell:hover {
   padding: 5px;
   border-radius: 5px;
   font-size: 12px;
-  left: 40px;
+  left: auto;
+  right: 20px;
   top: -10px;
 }
 

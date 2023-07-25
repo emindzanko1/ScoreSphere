@@ -168,7 +168,7 @@ const SignUp = () => {
         </form>
         <div className='signup-options'>
           <GoogleLogin
-            clientId={process.env.REACT_APP_CLIENT_ID}
+            clientId='MY_GOOGLE_CLIENT_ID'
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
@@ -179,7 +179,7 @@ const SignUp = () => {
             )}
           />
           <FacebookLogin
-            appId={process.env.REACT_APP_CLIENT_ID_FB}
+            appId='MY_FACEBOOK_APP'
             autoLoad={false}
             fields='name,email,picture'
             callback={responseFacebook}

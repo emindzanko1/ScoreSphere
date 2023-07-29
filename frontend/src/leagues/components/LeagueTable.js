@@ -6,7 +6,7 @@ import './LeagueTable.css';
 const LeagueTable = props => {
   const navigate = useNavigate();
 
-  const { league, teams } = props;
+  const { league, teams, selectedClub } = props;
 
   const { country } = useParams();
 
@@ -46,7 +46,7 @@ const LeagueTable = props => {
           {leagueClubs.map((team, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td className='team-cell'>
+              <td className={`team-cell ${selectedClub && team.id === selectedClub.id ? 'selected' : ''}`}>
                 <div className='team-container' onClick={e => teamNameClickHandler(team.name, e)}>
                   <span className='team-name'>{team.name}</span>
                 </div>

@@ -18,14 +18,11 @@ const ClubsList = props => {
   const clubIdNumber = parseInt(myClub.id.slice(1), 10);
   let myClubs;
 
-
   const opponentId = clubIdNumber % 2 === 0 ? clubIdNumber - 1 : clubIdNumber + 1;
-  console.log(opponentId);
 
   const opponentClub = clubs.find(c => parseInt(c.id.slice(1), 10) === opponentId);
 
-  myClubs = clubIdNumber < opponentId ? [myClub, opponentClub] : [opponentClub, myClub];
- 
+  myClubs = clubIdNumber < opponentId ? [myClub, opponentClub] : [opponentClub, myClub]; 
 
   return (
     <ul>
@@ -37,7 +34,8 @@ const ClubsList = props => {
         leagueId={myClub.leagueId}
         club = {myClub}
         league={myLeague}
-        clubs={myClubs}
+        myClubs={myClubs}
+        clubs = {clubs}
       />
     </ul>
   );

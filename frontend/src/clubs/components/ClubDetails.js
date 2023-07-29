@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Table from '../../leagues/components/Table';
 import LeagueTable from '../../leagues/components/LeagueTable';
 
 import './ClubDetails.css';
 
 const ClubDetails = props => {
-  
   const [activeTable, setActiveTable] = useState('table');
-  const [selectedClub, setSelectedClub] = useState(null); 
+  const [selectedClub, setSelectedClub] = useState(null);
 
   const club = props.club;
   const league = props.league;
@@ -24,10 +24,9 @@ const ClubDetails = props => {
     setSelectedClub(club);
     //navigate(`./table`); sa useEffect probati
   };
- 
 
   console.log(selectedClub);
-  
+
   return (
     <div className='container'>
       <h1>{name}</h1>
@@ -52,6 +51,11 @@ const ClubDetails = props => {
       ) : (
         <LeagueTable league={league} teams={props.clubs} selectedClub={selectedClub} />
       )}
+      <Link to='/' className='link'>
+        <div className='button-container'>
+          <button>Homepage</button>
+        </div>
+      </Link>
     </div>
   );
 };

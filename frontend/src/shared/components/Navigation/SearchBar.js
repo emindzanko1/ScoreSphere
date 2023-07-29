@@ -15,20 +15,15 @@ const SearchBar = props => {
   const values = leagues.map(league => `${league.name} ${league.title}`);
   values.push(...clubs.map(club => club.name));
 
-  //const values = ['apple', 'banana', 'orange'];
-
   const filteredValues = values.filter(value => value.toLowerCase().startsWith(searchText.toLowerCase()));
 
   const handleSearchInputChange = event => {
     const searchText = event.target.value;
     setSearchText(searchText);
-    //console.log(searchText);
-    //props.onSearchChange(searchText);
   };
 
   const closeSearchHandler = event => {
     event.preventDefault();
-    //setShowSearchBar(false);
     setSearchText('');
   };
 

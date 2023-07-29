@@ -1,54 +1,42 @@
-import React, {useState, useRef} from "react";
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { leagues } from '../../../leagues/pages/Leagues';
+import { clubs } from '../../../clubs/pages/Clubs';
 
 import './DropDown.css';
 
-const DropDown = () => {
-    const optionsArray = [
-        "India",
-        "United States",
-        "United Kingdom",
-        "japan",
-        "Canada",
-        "Germany"
-      ];
-      const [openselect, setOpenSelect] = useState(false);
-    
-      const leagueInput = useRef();
-    
-      function selectvalue(e) {
-        leagueInput.current.value = e.target.outerText;
-        setOpenSelect(false);
-      }
-    
-      function openOption() {
-        setOpenSelect(true);
-      }
-      
-      return (
-        <div className="proba">
-          <div className="selectOption">
-            <input
-              onClick={openOption}
-              onBlur={() => {
-                setOpenSelect(false);
-              }}
-              ref={leagueInput}
-              id="league"
-              type="text"
-              placeholder="Select Your Country"
-              readOnly
-            />
-    
-            <div className={openselect ? "options active" : "options"}>
-              {optionsArray.map((item, index) => (
-                <li onClick={selectvalue} key={index}>
-                  {item}
-                </li>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-}
+const DropDown = props => {
+
+  /*const navigate = useNavigate();
+
+  const values = leagues.map(league => `${league.name} ${league.title}`);
+  values.push(...clubs.map(club => club.name));
+
+  const filteredValues = values.filter(value => value.toLowerCase().startsWith(props.searchText.toLowerCase()));
+
+  const handleSuggestedTeamClick = teamName => {
+    const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
+    const leagueMatch = leagues.find(league => `${league.name} ${league.title}` === teamName);
+
+    let club, leagueId, league;
+
+    if (!leagueMatch) {
+      club = clubs.find(c => c.name === teamName);
+      league = leagues.find(l => l.id === club.leagueId);
+    }
+
+    leagueMatch
+      ? navigate(`/${leagueMatch.name}/${leagueMatch.title}`)
+      : navigate(`/${league.name}/${league.title}/${formattedTeamName}`);
+  };
+
+  <ul className='suggestions-list '>
+    {filteredValues.map((filteredValue, index) => (
+      <li onClick={() => handleSuggestedTeamClick(filteredValue)} key={index}>
+        {filteredValue}
+      </li>
+    ))}
+  </ul>;*/
+};
 
 export default DropDown;

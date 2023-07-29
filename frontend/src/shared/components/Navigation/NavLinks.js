@@ -4,6 +4,9 @@ import { BsSearch } from 'react-icons/bs';
 import AuthContext from '../../context/auth-context';
 import SearchBar from './SearchBar';
 
+import { leagues } from '../../../leagues/pages/Leagues';
+import { clubs } from '../../../clubs/pages/Clubs';
+
 import './NavLinks.css';
 
 const NavLinks = props => {

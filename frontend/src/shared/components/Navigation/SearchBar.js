@@ -12,7 +12,7 @@ const SearchBar = props => {
 
   const navigate = useNavigate();
 
-   const values = leagues.map(league => `${league.name} ${league.title}`);
+  const values = leagues.map(league => `${league.name} ${league.title}`);
   values.push(...clubs.map(club => club.name));
 
   //const values = ['apple', 'banana', 'orange'];
@@ -32,25 +32,26 @@ const SearchBar = props => {
     setSearchText('');
   };
 
-  const handleSuggestedTeamClick = (teamName, e) => {
-    //e .stopPropagation();
+  const handleSuggestedTeamClick = teamName => {
     const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/${props.name}/${props.title}/${formattedTeamName}`);
+    const leagueMatch = leagues.find(league => `${league.name} ${league.title}` === teamName);
 
-   // navigate(`/leagues/${formattedTeamName}`);
-    console.log(teamName);
-  };
+    let club, leagueId, league;
 
-  const proba = () => {
-    console.log('proba');
+    if (!leagueMatch) {
+      club = clubs.find(c => c.name === teamName);
+      league = leagues.find(l => l.id === club.leagueId);
+    }
+
+    leagueMatch ? navigate(`/${leagueMatch.name}/${leagueMatch.title}`) : navigate(`/${league.name}/${league.title}/${formattedTeamName}`);
   };
 
   return (
     <form className='search-form'>
       <input type='text' placeholder='Search' value={searchText} onChange={handleSearchInputChange} />
-      <ul >
+      <ul className='suggestions-list '>
         {filteredValues.map((filteredValue, index) => (
-          <li onClick={e => handleSuggestedTeamClick(filteredValue, e)} key={index}>
+          <li onClick={() => handleSuggestedTeamClick(filteredValue)} key={index}>
             {filteredValue}
           </li>
         ))}

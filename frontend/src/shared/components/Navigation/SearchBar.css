@@ -8,6 +8,7 @@
   border-radius: 5px;
   padding: 5px;
   color: #000;
+  position: relative;
 }
 
 .search-form input[type='text'] {
@@ -33,6 +34,51 @@
 .search-form button {
   color: #000;
 }
+
+.suggestions-list {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease-in-out;
+  position: absolute;
+  box-sizing: border-box;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f0f8ff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  color: #000;
+  z-index: 1;
+  list-style-type: none;
+  margin-top: 5px;
+}
+
+.suggestions-list li {
+  height: 2rem;
+  padding: 5px;
+}
+
+.suggestions-list li:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.search-form input[type='text']:focus + .suggestions-list {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*.suggestions-list li a {
+  color: black;
+  text-decoration: none;
+}
+
+.suggestions-list li a:hover {
+  background-color: #52ab98;
+  color: white;
+}*/
 
 .nav-links button {
   color: black;

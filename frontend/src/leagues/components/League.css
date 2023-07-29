@@ -33,3 +33,11 @@
 .button-container button.active {
   background-color: #f0f8ff;
 }
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: none;
+}

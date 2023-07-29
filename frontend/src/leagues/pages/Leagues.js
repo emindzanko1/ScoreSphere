@@ -55,18 +55,10 @@ export const leagues = [
 ];
 
 const Leagues = () => {
-  
-  //const location = useLocation();
-  //const country = location.pathname.split("/")[1]; 
-
   return (
     <div className='leagues-container'>
       <LeaguesList items={leagues} />
       <LeaguesTables items={leagues} />
-      {/*ovo jednostavno ne radi <Brazil items={leagues} />*/}
-      {/*leagues.map(league => (*/}
-        
-     {/* ))} */}
     </div>
   );
 };

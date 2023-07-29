@@ -51,7 +51,7 @@ const Table = props => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
 
   const onMouseTeamEnterHandler = team => {
-    clearTimeout(rowTimeoutRef.current); // Clear any existing timeout
+    clearTimeout(rowTimeoutRef.current);
     teamTimeoutRef.current = setTimeout(() => {
       setHoveredTeam(team);
       setHoveredRow(null);
@@ -94,6 +94,8 @@ const Table = props => {
                 homeTeam: club.name,
                 awayTeam: awayTeam.name,
                 result: '0:0',
+                homeTeamImage: club.image, 
+                awayTeamImage: awayTeam.image, 
               };
               return (
                 <tr
@@ -139,7 +141,12 @@ const Table = props => {
         </tbody>
       </table>
       {selectedMatch && (
-        <MatchModal show={true} onClose={() => setSelectedMatch(null)} title={props.title} {...selectedMatch} />
+        <MatchModal
+          show={true}
+          onClose={() => setSelectedMatch(null)}
+          title={props.title}
+          {...selectedMatch}
+        />
       )}
     </div>
   );

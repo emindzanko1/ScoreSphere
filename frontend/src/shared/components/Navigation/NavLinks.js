@@ -7,26 +7,27 @@ import SearchBar from './SearchBar';
 import './NavLinks.css';
 
 const NavLinks = props => {
-
   const auth = useContext(AuthContext);
 
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const toggleSearchBar = event => {
     event.stopPropagation();
-    console.log('Kliknuo');
     setShowSearchBar(!showSearchBar);
   };
 
+  const closeSearchBar = () => {
+    setShowSearchBar(false);
+  };
   const closeSearchHandler = event => {
     event.preventDefault();
     setShowSearchBar(false);
   };
-  
+
   return (
     <ul className='nav-links'>
       {showSearchBar ? (
-          <SearchBar onCloseSearch={closeSearchHandler} />
+        <SearchBar onCloseSearch={closeSearchBar} />
       ) : (
         <>
           <li>

@@ -1,3 +1,120 @@
 .league-table {
-    
-}
+    border: 1px solid #ccc;
+    /*background-color: #fff;
+     
+      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+      background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+        background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
+      background-color: #c8d8e4;*/
+    background-color: #f0f8ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    /*max-width: 300px;*/
+    width: 60rem;
+    padding: 10px;
+  }
+  
+  .league-table h2.title {
+    background-color: #84a7b0;
+  
+    /*background-color: #1c4d5d;
+    background-color: #007bff;*/
+    /*background-image: url("../../images/Flag_of_Brazil.svg.png");*/
+  
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    /*border-left: none;
+    border-right: none;*/
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  table tr.clickable-row:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+  
+  td.date-time-cell,
+  .results {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  td.team-cell {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  td.team-cell:hover {
+    cursor: pointer;
+  }
+  
+  .team-name {
+    color: black;
+  }
+  
+  .team-name:hover {
+    text-decoration: underline;
+  }
+  
+  .title-link {
+    text-decoration: none;
+  }
+  
+  .tooltip {
+    position: absolute;
+    z-index: 1;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    left: auto;
+    right: 20px;
+    top: -10px;
+  }
+  
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+  }
+  
+  .team-container {
+    position: relative;
+    display: inline-block;
+  }
+  

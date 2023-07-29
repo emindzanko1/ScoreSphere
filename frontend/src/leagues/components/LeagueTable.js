@@ -1,24 +1,33 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+
+import './LeagueTable.css';
 
 const LeagueTable = props => {
+  const navigate = useNavigate();
 
-  const { leagues, teams } = props;
-  
+  const { league, teams } = props;
+
   const { country } = useParams();
-  
-  const selectedLeague = leagues.find(l => l.name === country);
-  
-  if (!selectedLeague) {
+
+  //const selectedLeague = leagues.find(l => l.name === country);
+
+  if (!league) {
     return null;
   }
-  
-  const leagueClubs = teams.filter(team => team.leagueId === selectedLeague.id);
+
+  const leagueClubs = teams.filter(team => team.leagueId === league.id);
+
+  const teamNameClickHandler = (teamName, event) => {
+    event.stopPropagation();
+    const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/${league.name}/${league.title}/${formattedTeamName}`);
+  };
 
   return (
     <div className='league-table'>
-      <Link to={`/${selectedLeague.name}/${selectedLeague.title}`} className='title-link' style={{ textDecoration: 'none' }}>
-        <h2 className='title'>{selectedLeague.title}</h2>
+      <Link to={`/${league.name}/${league.title}`} className='title-link' style={{ textDecoration: 'none' }}>
+        <h2 className='title'>{league.title}</h2>
       </Link>
       <table>
         <thead>
@@ -37,7 +46,11 @@ const LeagueTable = props => {
           {leagueClubs.map((team, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{team.name}</td>
+              <td className='team-cell'>
+                <div className='team-container' onClick={e => teamNameClickHandler(team.name, e)}>
+                  <span className='team-name'>{team.name}</span>
+                </div>
+              </td>
               <td>0</td>
               <td>0</td>
               <td>0</td>

@@ -4,19 +4,20 @@ import ClubsList from '../components/ClubsList';
 import { leagues } from '../../leagues/pages/Leagues';
 
 import ManchesterCityImg from '../../images/clubs/Manchester_City_FC.png';
+import LiverpoolImg from '../../images/clubs/Liverpool_FC.png';
 
 export const clubs = [
   { id: 'c1', name: 'Arsenal', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c2', name: 'Aston Villa', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c3', name: 'Brentford', image: ManchesterCityImg, leagueId: 'l1' },
-  { id: 'c4', name: 'Brighton & Hove Albion', img: ManchesterCityImg, leagueId: 'l1' },
+  { id: 'c4', name: 'Brighton & Hove Albion', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c5', name: 'Burnley', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c6', name: 'Chelsea', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c7', name: 'Crystal Palace', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c8', name: 'Everton', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c9', name: 'Leeds United', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c10', name: 'Leicester City', image: ManchesterCityImg, leagueId: 'l1' },
-  { id: 'c11', name: 'Liverpool', image: ManchesterCityImg, leagueId: 'l1' },
+  { id: 'c11', name: 'Liverpool', image: LiverpoolImg, leagueId: 'l1' },
   { id: 'c12', name: 'Manchester City', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c13', name: 'Manchester United', image: ManchesterCityImg, leagueId: 'l1' },
   { id: 'c14', name: 'Newcastle United', image: ManchesterCityImg, leagueId: 'l1' },
@@ -162,11 +163,3 @@ const Clubs = () => {
 
 export default Clubs;
 
-/*  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<ClubsList clubs={clubs} />} />
-        <Route path=":clubId" element={<ClubDetail clubs={clubs} />} />
-      </Routes>
-    </div>
-  );*/

@@ -13,15 +13,19 @@ const MatchModal = props => {
           </span>
           <div className='teams-container'>
             <div className='team'>
-              <img src={props.homeTeamImage} alt={props.homeTeam} />
+              <div className='team-image-container'>
+                <img src={props.homeTeamImage} alt={props.homeTeam} className='team-image' />
+              </div>
               <p>{props.homeTeam}</p>
             </div>
             <div className='result'>
-              <p>{props.dateTime}</p>
+              <p className='date-time'>{props.dateTime}</p>
               <h2>{props.result}</h2>
             </div>
             <div className='team'>
-              <img src={props.awayTeamImage} alt={props.awayTeam} />
+              <div className='team-image-container'>
+                <img src={props.awayTeamImage} alt={props.awayTeam} className='team-image' />
+              </div>
               <p>{props.awayTeam}</p>
             </div>
           </div>

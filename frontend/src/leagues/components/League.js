@@ -19,7 +19,6 @@ const capitalizeWords = str => {
 };
 
 const League = props => {
-
   const [activeTable, setActiveTable] = useState('table');
   const { leagues } = props;
   const { country, league } = useParams();
@@ -27,16 +26,15 @@ const League = props => {
   const navigate = useNavigate();
 
   const handleFixturesClick = () => {
-      setActiveTable('table');
-      //navigate(`./proba`);    
+    setActiveTable('table');
+    //navigate(`./proba`);
   };
 
   const handleTableClick = () => {
-      setActiveTable('leagueTable');
-      //navigate(`./table`); sa useEffect probati
-    
+    setActiveTable('leagueTable');
+    //navigate(`./table`); sa useEffect probati
   };
- 
+
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
 
   if (!selectedLeague) {
@@ -67,9 +65,13 @@ const League = props => {
             clubs={leagueClubs}
           />
         ) : (
-          <LeagueTable leagues={leagues} teams={clubs} />
+          <LeagueTable league={selectedLeague} teams={clubs} />
         )}
-        <Link to='/'>Go back to homepage</Link>
+        <Link to='/' className='link'>
+          <div className='button-container'>
+            <button>Homepage</button>
+          </div>
+        </Link>
       </div>
     </div>
   );

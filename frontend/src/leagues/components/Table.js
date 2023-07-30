@@ -6,14 +6,32 @@ import MatchModal from '../../matches/components/MatchModal';
 import './Table.css';
 
 const Table = props => {
-  const getCurrentDate = () => {
+  const getCurrentDate = matchTime => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const [hours, minutes] = matchTime.split(':');
     return `${day}.${month}. ${hours}:${minutes}`;
   };
+
+  const calculateMatchTime = startTime => {
+    const startDateTime = new Date(`2023-07-30T${startTime}:00`);
+    const currentDateTime = new Date();
+    const diffInMinutes = Math.floor((currentDateTime - startDateTime) / 60000);
+
+    if (diffInMinutes >= 105) {
+      return 'The End';
+    } else if (diffInMinutes >= 45 && diffInMinutes <= 60) {
+      return 'Half Time';
+    } else if (diffInMinutes <= 0) {
+      return getCurrentDate(startTime);
+    } else {
+      return `${diffInMinutes-15}'`;
+    }
+  };
+
+  const matchTime = '11:50';
+  const newMatchTime = calculateMatchTime(matchTime);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
 
@@ -79,7 +97,7 @@ const Table = props => {
       <table>
         <thead>
           <tr>
-            <th>Date & Time</th>
+            {newMatchTime !== getCurrentDate(matchTime) ? <th>Match Time</th> : <th>Date & Time</th>}
             <th>Home Team</th>
             <th>Away Team</th>
             <th>Result</th>
@@ -90,12 +108,12 @@ const Table = props => {
             if (index % 2 === 0 && index + 1 < props.clubs.length) {
               const awayTeam = props.clubs[index + 1];
               const match = {
-                dateTime: getCurrentDate(),
+                dateTime: getCurrentDate(matchTime),
                 homeTeam: club.name,
                 awayTeam: awayTeam.name,
                 result: '0:0',
-                homeTeamImage: club.image, 
-                awayTeamImage: awayTeam.image, 
+                homeTeamImage: club.image,
+                awayTeamImage: awayTeam.image,
               };
               return (
                 <tr
@@ -106,7 +124,7 @@ const Table = props => {
                   onMouseEnter={() => onMouseRowEnterHandler(index)}
                   onMouseLeave={onMouseRowLeaveHandler}
                 >
-                  <td className='date-time-cell'>{getCurrentDate()}</td>
+                  <td className='date-time-cell'>{newMatchTime}</td>
                   <td className='team-cell'>
                     <div
                       className='team-container'
@@ -141,12 +159,7 @@ const Table = props => {
         </tbody>
       </table>
       {selectedMatch && (
-        <MatchModal
-          show={true}
-          onClose={() => setSelectedMatch(null)}
-          title={props.title}
-          {...selectedMatch}
-        />
+        <MatchModal show={true} onClose={() => setSelectedMatch(null)} title={props.title} newMatchTime={newMatchTime}  {...selectedMatch} />
       )}
     </div>
   );

@@ -21,6 +21,7 @@ const MatchModal = props => {
             <div className='result'>
               <p className='date-time'>{props.dateTime}</p>
               <h2>{props.result}</h2>
+              <p>{props.newMatchTime}</p>
             </div>
             <div className='team'>
               <div className='team-image-container'>
@@ -37,36 +38,3 @@ const MatchModal = props => {
 
 export default MatchModal;
 
-/*
-
-/*}
-  {/*<div className={`match-modal ${props.show ? 'show' : ''}`}>       </div>}
-
-      {/* <div className='modal-content'></div>}*/
-/*import React from 'react';
-import Modal from '../../shared/UI/Modal';
-
-import './MatchModal.css';
-
-const MatchModal = props => {
-  return (
-    <Modal>
-      {/* <div className={`match-modal ${props.show ? 'show' : ''}`}>
-           </div>
-*/
-/*
-      <div className='modal-content'>
-        <span className='close' onClick={props.onClose}>
-          &times;
-        </span>
-        <h2>{props.title}</h2>
-        <p>Date & Time: {props.dateTime}</p>
-        <p>Home Team: {props.homeTeam}</p>
-        <p>Away Team: {props.awayTeam}</p>
-        <p>Result: {props.result}</p>
-      </div>
-    </Modal>
-  );
-};
-
-export default MatchModal;*/

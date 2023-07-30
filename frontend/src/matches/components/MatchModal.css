@@ -97,14 +97,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between; 
   margin: 1rem;
   font-size: 30px;
   font-weight: bold;
+  height: 100%; 
 }
 
-.date-time {
+.date-time,
+.new-match-time {
   font-size: 12px;
   margin-bottom: 0.5rem;
+}
+
+.new-match-time-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto; 
 }
 
 @media (min-width: 768px) {

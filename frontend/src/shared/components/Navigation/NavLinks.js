@@ -4,9 +4,6 @@ import { BsSearch } from 'react-icons/bs';
 import AuthContext from '../../context/auth-context';
 import SearchBar from './SearchBar';
 
-import { leagues } from '../../../leagues/pages/Leagues';
-import { clubs } from '../../../clubs/pages/Clubs';
-
 import './NavLinks.css';
 
 const NavLinks = props => {
@@ -22,6 +19,7 @@ const NavLinks = props => {
   const closeSearchBar = () => {
     setShowSearchBar(false);
   };
+
   const closeSearchHandler = event => {
     event.preventDefault();
     setShowSearchBar(false);
@@ -34,8 +32,8 @@ const NavLinks = props => {
       ) : (
         <>
           <li>
-            <NavLink to='/search' className='search-link' onClick={toggleSearchBar}>
-              <BsSearch className='nav-link-icon black-icon' />
+            <NavLink to='/search' onClick={toggleSearchBar}>
+              <BsSearch />
             </NavLink>
           </li>
           <li>
@@ -48,7 +46,7 @@ const NavLinks = props => {
           )}
           {auth.isLoggedIn && (
             <li>
-              <button to='/' onClick={auth.logout} className='logout-button'>
+              <button to='/' onClick={auth.logout}>
                 LOGOUT
               </button>
             </li>

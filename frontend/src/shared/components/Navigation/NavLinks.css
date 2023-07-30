@@ -41,18 +41,8 @@
   }
 
   .nav-links a {
-    color: black;
+    color: white;
     text-decoration: none;
   }
-}
-
-.nav-link-icon {
-  width: 16px; 
-  height: 16px; 
-}
-
-
-.black-icon {
-  color: #000;
 }
 

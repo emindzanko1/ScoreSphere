@@ -26,15 +26,6 @@
   font-style: italic;
 }
 
-.search-link {
-  position: relative;
-  text-align: center;
-}
-
-.search-form button {
-  color: #000;
-}
-
 .suggestions-list-container {
   max-height: 200px; 
   overflow-y: auto;
@@ -82,30 +73,30 @@
   opacity: 1;
 }
 
-.nav-links button {
+.no-matches {
+  color: black;
+  text-align: center;
+}
+
+.search-form button {
   color: black;
   background: transparent;
-  width: 60px;
-  height: 40px;
   border: none;
   font: inherit;
   cursor: pointer;
   padding: 0.5rem;
+  width: 60px;
+  height: 40px;
 }
 
-.nav-links button:focus {
+.search-form button:focus {
   outline: none;
 }
 
-.nav-links button:hover,
-.nav-links button:active {
-  background-color: #f2f2f2;
+.search-form button:hover,
+.search-form button.active {
   color: black;
-  border-radius: 5px;
-  border: 1px solid black;
-}
-
-.no-matches {
-  color: black;
-  text-align: center;
+ /* border: 1px solid black;
+  border-radius: 5px;*/
+  border: none;
 }

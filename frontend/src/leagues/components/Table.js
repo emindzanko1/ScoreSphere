@@ -83,6 +83,7 @@ const Table = props => {
       rowRef.current.dispatchEvent(new MouseEvent('mouseenter'));
     }
   };
+  
 
   if (!Array.isArray(props.clubs)) {
     console.log(typeof props.clubs);
@@ -128,9 +129,9 @@ const Table = props => {
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(club.name)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(club)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(club.name, e)}
+                      onClick={(e) => teamNameClickHandler(club.name, e)}
                     >
                       <span className='team-name'>{club.name}</span>
                       {hoveredRow === index && <span className='tooltip'>Click for match details!</span>}
@@ -140,9 +141,9 @@ const Table = props => {
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(awayTeam.name)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(awayTeam)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(awayTeam.name, e)}
+                      onClick={(e) => teamNameClickHandler(awayTeam.name, e)}
                     >
                       <span className='team-name'>
                         {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}

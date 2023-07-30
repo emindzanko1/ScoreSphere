@@ -1,6 +1,6 @@
 import React from 'react';
 import LeaguesList from '../components/LeaguesList';
-import BrazilImg from '../../images/countries/Flag_of_Brazil.svg.png';
+import Brazil from '../../images/countries/Flag_of_Brazil.svg.png';
 import England from '../../images/countries/Flag_of_England.svg.png';
 import Italy from '../../images/countries/Flag_of_Italy.svg.png';
 import France from '../../images/countries/Flag_of_France.svg.png';
@@ -20,7 +20,7 @@ export const leagues = [
     id: 'l2',
     name: 'brazil',
     title: 'brazilian-a-series',
-    image: BrazilImg,
+    image: Brazil,
   },
   {
     id: 'l3',

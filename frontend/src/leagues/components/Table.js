@@ -15,22 +15,31 @@ const Table = props => {
   };
 
   const calculateMatchTime = startTime => {
-    const startDateTime = new Date(`2023-07-30T${startTime}:00`);
+    const currentDate = new Date(); 
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const currentDay = String(currentDate.getDate()).padStart(2, '0');
+
+    const startDateTime = new Date(`${currentYear}-${currentMonth}-${currentDay}T${startTime}:00`);
     const currentDateTime = new Date();
     const diffInMinutes = Math.floor((currentDateTime - startDateTime) / 60000);
 
-    if (diffInMinutes >= 105) {
-      return 'The End';
-    } else if (diffInMinutes >= 45 && diffInMinutes <= 60) {
-      return 'Half Time';
-    } else if (diffInMinutes <= 0) {
-      return getCurrentDate(startTime);
-    } else {
-      return `${diffInMinutes-15}'`;
+    switch (true) {
+      case diffInMinutes > 105:
+        return 'The End';
+      case diffInMinutes >= 90 && diffInMinutes <= 105:
+      case diffInMinutes > 60 && diffInMinutes < 90:
+        return `${diffInMinutes - 15}'`;
+      case diffInMinutes > 45 && diffInMinutes <= 60:
+        return 'Half Time';
+      case diffInMinutes <= 0:
+        return getCurrentDate(startTime);
+      default:
+        return `${diffInMinutes}'`;
     }
   };
 
-  const matchTime = '11:50';
+  const matchTime = '18:00';
   const newMatchTime = calculateMatchTime(matchTime);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -83,10 +92,8 @@ const Table = props => {
       rowRef.current.dispatchEvent(new MouseEvent('mouseenter'));
     }
   };
-  
 
   if (!Array.isArray(props.clubs)) {
-    console.log(typeof props.clubs);
     return <p>No clubs available.</p>;
   }
 
@@ -131,7 +138,7 @@ const Table = props => {
                       className='team-container'
                       onMouseEnter={() => onMouseTeamEnterHandler(club)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={(e) => teamNameClickHandler(club.name, e)}
+                      onClick={e => teamNameClickHandler(club.name, e)}
                     >
                       <span className='team-name'>{club.name}</span>
                       {hoveredRow === index && <span className='tooltip'>Click for match details!</span>}
@@ -143,7 +150,7 @@ const Table = props => {
                       className='team-container'
                       onMouseEnter={() => onMouseTeamEnterHandler(awayTeam)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={(e) => teamNameClickHandler(awayTeam.name, e)}
+                      onClick={e => teamNameClickHandler(awayTeam.name, e)}
                     >
                       <span className='team-name'>
                         {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
@@ -160,7 +167,13 @@ const Table = props => {
         </tbody>
       </table>
       {selectedMatch && (
-        <MatchModal show={true} onClose={() => setSelectedMatch(null)} title={props.title} newMatchTime={newMatchTime}  {...selectedMatch} />
+        <MatchModal
+          show={true}
+          onClose={() => setSelectedMatch(null)}
+          title={props.title}
+          newMatchTime={newMatchTime}
+          {...selectedMatch}
+        />
       )}
     </div>
   );

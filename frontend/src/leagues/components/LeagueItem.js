@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './LeagueItem.css';
 
 const LeagueItem = props => {
+
+  console.log(props.length);
   return (
     <li className="league-item">
       <Link to={`/${props.name}/${props.title}`} className="league-item__link">

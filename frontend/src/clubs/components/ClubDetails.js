@@ -34,10 +34,6 @@ const ClubDetails = props => {
         <img src={club.image} alt={club.name} className='club-image' />
       </div>
       <h2 className='club-name'>{club.name}</h2>
-      {/*<div className='button-container'>
-        <button> Fixtures</button>
-        <button>Table</button>
-      </div> */}
       <div className='button-container'>
         <button onClick={handleFixturesClick} className={activeTable === 'table' ? 'active' : ''}>
           Fixtures

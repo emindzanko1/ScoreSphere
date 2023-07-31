@@ -143,29 +143,22 @@ export const clubs = [
 
 const Clubs = () => {
   const navigate = useNavigate();
-  const { league, club } = useParams();
+  const { league, club, country } = useParams();
 
   const isValidClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
-  const newLeague = leagues.find(leagueItem => leagueItem.title.toLowerCase().replace(/\s+/g, '-') === league); 
-  
-  let isValidLeagueClub;
-  if(isValidClub && newLeague) {
-    isValidLeagueClub = newLeague.id === isValidClub.leagueId;
-  }
+  const newLeague = leagues.find(leagueItem => leagueItem.title.toLowerCase().replace(/\s+/g, '-') === league);
+  const isValidCountry = newLeague && newLeague.name.toLowerCase().replace(/\s+/g, '-') === country;
+  const isValidLeagueClub = isValidClub && newLeague && newLeague.id === isValidClub.leagueId;
 
   useEffect(() => {
-    if (!isValidClub || !isValidLeagueClub || !newLeague) {
+    if (!isValidClub || !isValidLeagueClub || !newLeague || !isValidCountry) {
       navigate('/');
     }
-  }, [isValidClub, isValidLeagueClub, newLeague, navigate]);
+  }, [isValidClub, isValidLeagueClub, isValidCountry, newLeague, navigate]);
 
-  if (!isValidClub) {
+  if (!isValidClub || !newLeague || !isValidCountry) {
     return null;
   }
-
-  if(!newLeague) {
-     return null;
-   }
 
   return (
     <div>
@@ -175,3 +168,4 @@ const Clubs = () => {
 };
 
 export default Clubs;
+

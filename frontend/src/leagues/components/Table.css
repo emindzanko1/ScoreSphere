@@ -32,7 +32,7 @@ table {
   width: 100%;
 }
 
-table th, 
+table th,
 table td {
   border-bottom: none;
   padding: 8px;
@@ -45,11 +45,14 @@ table th {
   font-weight: bold;
 }
 
+table tr:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
 table tr.clickable-row:hover {
   background-color: #f2f2f2;
   cursor: pointer;
 }
-
 
 td.date-time-cell,
 .results {
@@ -110,11 +113,11 @@ td.team-cell:hover {
 .team-container {
   position: relative;
   display: inline-block;
-  align-items: center; 
+  align-items: center;
 }
 
 .team-container img {
-  width: 17px; 
-  height: 17px; 
+  width: 17px;
+  height: 17px;
   margin-right: 10px;
 }

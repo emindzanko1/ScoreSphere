@@ -8,10 +8,7 @@ const LeagueTable = props => {
 
   const { league, teams, selectedClub, image } = props;
 
-  const { country } = useParams();
-
   const [hoveredRow, setHoveredRow] = useState(null);
-  const rowRef = useRef(null);
 
   const rowTimeoutRef = useRef(null);
 
@@ -26,6 +23,7 @@ const LeagueTable = props => {
     clearTimeout(rowTimeoutRef.current);
     setHoveredRow(null);
   };
+
   if (!league) {
     return null;
   }
@@ -61,14 +59,20 @@ const LeagueTable = props => {
         </thead>
         <tbody>
           {leagueClubs.map((team, index) => (
-            <tr key={index} onMouseEnter={() => onMouseRowEnterHandler(index)} onMouseLeave={onMouseRowLeaveHandler} onClick={e => teamNameClickHandler(team.name, e)}>
+            <tr
+              key={index}
+              onMouseEnter={() => onMouseRowEnterHandler(index)}
+              onMouseLeave={onMouseRowLeaveHandler}
+              onClick={e => teamNameClickHandler(team.name, e)}
+            >
               <td>
                 <span className='position'> {index + 1}</span>
               </td>
               <td className={`league-team-cell ${selectedClub && team.id === selectedClub.id ? 'selected' : ''}`}>
-                <div className='league-team-container' >
+                <div className='league-team-container'>
                   <img src={team.image} alt={team.image} />
                   <span className='league-team-name'>{team.name}</span>
+                  {hoveredRow === index && <span className='tooltip'>Click for team details!</span>}
                 </div>
               </td>
               <td>0</td>

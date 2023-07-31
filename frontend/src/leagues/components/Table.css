@@ -34,7 +34,7 @@ table {
 
 table th, 
 table td {
-  border: none;
+  border-bottom: none;
   padding: 8px;
   text-align: center;
   transition: background-color 0.2s ease-in-out;
@@ -49,6 +49,7 @@ table tr.clickable-row:hover {
   background-color: #f2f2f2;
   cursor: pointer;
 }
+
 
 td.date-time-cell,
 .results {
@@ -109,4 +110,11 @@ td.team-cell:hover {
 .team-container {
   position: relative;
   display: inline-block;
+  align-items: center; 
+}
+
+.team-container img {
+  width: 17px; 
+  height: 17px; 
+  margin-right: 10px;
 }

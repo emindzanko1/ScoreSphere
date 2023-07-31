@@ -39,7 +39,7 @@ const Table = props => {
     }
   };
 
-  const matchTime = '17:00';
+  const matchTime = '19:00';
   const newMatchTime = calculateMatchTime(matchTime);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -102,7 +102,7 @@ const Table = props => {
       <Link to={`/${props.name}/${props.title}`} className='title-link' style={{ textDecoration: 'none' }}>
         <h2 className='title'>
           {props.title}
-          <img src={props.image} alt={props.image}/>
+          <img src={props.image} alt={props.image} />
         </h2>
       </Link>
       <table>
@@ -143,6 +143,7 @@ const Table = props => {
                       onMouseLeave={onMouseTeamLeaveHandler}
                       onClick={e => teamNameClickHandler(club.name, e)}
                     >
+                      <img src={club.image} alt={club.image} />
                       <span className='team-name'>{club.name}</span>
                       {hoveredRow === index && <span className='tooltip'>Click for match details!</span>}
                       {hoveredTeam === club && <span className='tooltip'>Click for team details!</span>}
@@ -157,6 +158,7 @@ const Table = props => {
                     >
                       <span className='team-name'>
                         {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
+                        <img src={club.image} alt={club.image} />
                         {awayTeam.name}
                       </span>
                     </div>

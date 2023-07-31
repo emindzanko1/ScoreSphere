@@ -27,12 +27,12 @@ const League = props => {
 
   const handleFixturesClick = () => {
     setActiveTable('table');
-    //navigate(`./proba`);
+    //navigate(`./fixtures`);
   };
 
   const handleTableClick = () => {
     setActiveTable('leagueTable');
-    //navigate(`./table`); sa useEffect probati
+    //navigate(`./table`);
   };
 
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
@@ -68,9 +68,10 @@ const League = props => {
             name={selectedLeague.name}
             title={selectedLeague.title}
             clubs={leagueClubs}
+            image={selectedLeague.image}
           />
         ) : (
-          <LeagueTable league={selectedLeague} teams={clubs} />
+          <LeagueTable league={selectedLeague} teams={clubs} image={selectedLeague.image} />
         )}
         <Link to='/' className='link'>
           <div className='button-container'>

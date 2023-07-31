@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import AppleLogin from 'react-apple-login';
@@ -43,11 +42,9 @@ const Auth = () => {
       <h2>Sign In</h2>
       <form className='signin-form' onSubmit={handleLogin}>
         <div className='form-group'>
-          {/*<label htmlFor='email'>Email/Username:</label>*/}
           <input type='email' id='email' name='email' required className='input-field' placeholder='Email Address' />
         </div>
         <div className='form-group'>
-          {/*<label htmlFor='password'>Password:</label>*/}
           <input
             type='password'
             id='password'
@@ -67,15 +64,8 @@ const Auth = () => {
         </div>
       </form>
       <div className='signin-options'>
-        {/*isLoggedIn ? (
-          <GoogleLogout
-            clientId='658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com'
-            buttonText='Logout'
-            onLogoutSuccess={handleLogout}
-          />
-        ) : (*/}
         <GoogleLogin
-          clientId='MY_CLIENT_ID'
+          clientId={process.env.REACT_APP_CLIENT_ID}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={'single_host_origin'}

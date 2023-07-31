@@ -1,27 +1,15 @@
-.league-table {
+.table {
   border: 1px solid #ccc;
-  /*background-color: #fff;
-   
-    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
-    background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
-      background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
-    background-color: #c8d8e4;*/
   background-color: #f0f8ff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
-  /*max-width: 300px;*/
   width: 60rem;
   padding: 10px;
 }
 
-.league-table h2.title {
+.table h2.title {
   background-color: #84a7b0;
-
-  /*background-color: #1c4d5d;
-  background-color: #007bff;*/
-  /*background-image: url("../../images/Flag_of_Brazil.svg.png");*/
-
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -33,18 +21,22 @@
   text-align: center;
 }
 
+.table h2.title img {
+  margin-left: 10px;
+  width: 15px;
+  height: 15px;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
-table th,
+table th, 
 table td {
-  border: 1px solid #ccc;
+  border: none;
   padding: 8px;
   text-align: center;
-  /*border-left: none;
-  border-right: none;*/
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -71,6 +63,7 @@ td.team-cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 td.team-cell:hover {

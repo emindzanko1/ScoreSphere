@@ -15,7 +15,7 @@ const Table = props => {
   };
 
   const calculateMatchTime = startTime => {
-    const currentDate = new Date(); 
+    const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
     const currentDay = String(currentDate.getDate()).padStart(2, '0');
@@ -39,7 +39,7 @@ const Table = props => {
     }
   };
 
-  const matchTime = '19:00';
+  const matchTime = '17:00';
   const newMatchTime = calculateMatchTime(matchTime);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -97,11 +97,13 @@ const Table = props => {
     return <p>No clubs available.</p>;
   }
 
-  
   return (
-    <div key={props.id} className='league-table'>
+    <div key={props.id} className='table'>
       <Link to={`/${props.name}/${props.title}`} className='title-link' style={{ textDecoration: 'none' }}>
-        <h2 className='title'>{props.title}</h2>
+        <h2 className='title'>
+          {props.title}
+          <img src={props.image} alt={props.image}/>
+        </h2>
       </Link>
       <table>
         <thead>

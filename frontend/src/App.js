@@ -56,7 +56,6 @@ const App = () => {
         <Route path='/register' element={<SignUp />} />
         <Route path='/:country/:league' element={<League leagues={leagues} />} />
         <Route path='/:country/:league/:club' element={<Clubs />} />
-        <Route path='/:country/:league/:club/table' element={<League leagues={leagues}/> }/>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     );

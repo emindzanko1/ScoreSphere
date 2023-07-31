@@ -13,7 +13,7 @@ const LeaguesTables = props => {
     <ul className='league-tables'>
       {props.items.map(league => {
         const leagueClubs = clubs.filter(club => club.leagueId === league.id);
-        return <Table key={league.id} id={league.id} name={league.name} title={league.title} clubs={leagueClubs} />;
+        return <Table key={league.id} id={league.id} name={league.name} title={league.title} clubs={leagueClubs} image={league.image}/>;
       })}
     </ul>
   );

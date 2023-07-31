@@ -43,9 +43,9 @@ const ClubDetails = props => {
         </button>
       </div>
       {activeTable === 'table' ? (
-        <Table key={league.id} id={league.id} name={league.name} title={league.title} clubs={props.myClubs} />
+        <Table key={league.id} id={league.id} name={league.name} title={league.title} clubs={props.myClubs}  image={league.image}/>
       ) : (
-        <LeagueTable league={league} teams={props.clubs} selectedClub={selectedClub} />
+        <LeagueTable league={league} teams={props.clubs} selectedClub={selectedClub} image={league.image}/>
       )}
       <Link to='/' className='link'>
         <div className='button-container'>

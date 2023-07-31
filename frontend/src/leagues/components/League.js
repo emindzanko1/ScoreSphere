@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
 import LeagueTable from './LeagueTable';
@@ -37,13 +37,13 @@ const League = props => {
 
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
 
-  //const selectedLeague = leagues.find(l => l.name === country);
-
-  //console.log("liga " + selectedLeague.name);
+  useEffect(() => {
+    if (!selectedLeague) {
+      navigate(`/`);
+    }
+  }, [selectedLeague, navigate]);
 
   if (!selectedLeague) {
-    console.log("tu sam");
-    navigate(`/`);
     return null;
   }
 

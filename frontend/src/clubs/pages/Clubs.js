@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClubsList from '../components/ClubsList';
 import { leagues } from '../../leagues/pages/Leagues';
@@ -49,43 +49,43 @@ export const clubs = [
   { id: 'c40', name: 'Bologna', image: ManchesterCity, leagueId: 'l3' },
   { id: 'c41', name: 'Cagliari', image: ManchesterCity, leagueId: 'l3' },
   { id: 'c42', name: 'Empoli', image: ManchesterCity, leagueId: 'l3' },
-  { id: 'c43', name: 'Fiorentina', leagueId: 'l3' },
-  { id: 'c44', name: 'Genoa', leagueId: 'l3' },
-  { id: 'c45', name: 'Hellas Verona', leagueId: 'l3' },
-  { id: 'c46', name: 'Inter Milan', leagueId: 'l3' },
-  { id: 'c47', name: 'Juventus', leagueId: 'l3' },
-  { id: 'c48', name: 'Lazio', leagueId: 'l3' },
-  { id: 'c49', name: 'Napoli', leagueId: 'l3' },
-  { id: 'c50', name: 'Sampdoria', leagueId: 'l3' },
-  { id: 'c51', name: 'Sassuolo', leagueId: 'l3' },
-  { id: 'c52', name: 'Spezia', leagueId: 'l3' },
-  { id: 'c53', name: 'Torino', leagueId: 'l3' },
-  { id: 'c54', name: 'Udinese', leagueId: 'l3' },
-  { id: 'c55', name: 'Venezia', leagueId: 'l3' },
-  { id: 'c56', name: 'Salernitana', leagueId: 'l3' },
-  { id: 'c57', name: 'Angers', leagueId: 'l4' },
-  { id: 'c58', name: 'AS Monaco', leagueId: 'l4' },
-  { id: 'c59', name: 'Bordeaux', leagueId: 'l4' },
-  { id: 'c60', name: 'Brest', leagueId: 'l4' },
-  { id: 'c61', name: 'Clermont Foot', leagueId: 'l4' },
-  { id: 'c62', name: 'Lille', leagueId: 'l4' },
-  { id: 'c63', name: 'Lorient', leagueId: 'l4' },
-  { id: 'c64', name: 'Lyon', leagueId: 'l4' },
-  { id: 'c65', name: 'Marseille', leagueId: 'l4' },
-  { id: 'c66', name: 'Metz', leagueId: 'l4' },
-  { id: 'c67', name: 'Montpellier', leagueId: 'l4' },
-  { id: 'c68', name: 'Nantes', leagueId: 'l4' },
-  { id: 'c69', name: 'Nice', leagueId: 'l4' },
-  { id: 'c70', name: 'Paris Saint-Germain', leagueId: 'l4' },
-  { id: 'c71', name: 'Rennes', leagueId: 'l4' },
-  { id: 'c72', name: 'Saint-Étienne', leagueId: 'l4' },
-  { id: 'c73', name: 'Strasbourg', leagueId: 'l4' },
-  { id: 'c74', name: 'Troyes', leagueId: 'l4' },
-  { id: 'c75', name: 'Lens', leagueId: 'l4' },
-  { id: 'c76', name: 'Reims', leagueId: 'l4' },
-  { id: 'c77', name: 'Ajax', leagueId: 'l5' },
-  { id: 'c78', name: 'AZ Alkmaar', leagueId: 'l5' },
-  { id: 'c79', name: 'Cambuur', leagueId: 'l5' },
+  { id: 'c43', name: 'Fiorentina', image: Liverpool, leagueId: 'l3' },
+  { id: 'c44', name: 'Genoa', image: Liverpool, leagueId: 'l3' },
+  { id: 'c45', name: 'Hellas Verona', image: Liverpool, leagueId: 'l3' },
+  { id: 'c46', name: 'Inter Milan', image: Liverpool, leagueId: 'l3' },
+  { id: 'c47', name: 'Juventus', image: Liverpool, leagueId: 'l3' },
+  { id: 'c48', name: 'Lazio', image: Liverpool, leagueId: 'l3' },
+  { id: 'c49', name: 'Napoli', image: Liverpool, leagueId: 'l3' },
+  { id: 'c50', name: 'Sampdoria', image: Liverpool, leagueId: 'l3' },
+  { id: 'c51', name: 'Sassuolo', image: Liverpool, leagueId: 'l3' },
+  { id: 'c52', name: 'Spezia', image: Liverpool, leagueId: 'l3' },
+  { id: 'c53', name: 'Torino', image: Liverpool, leagueId: 'l3' },
+  { id: 'c54', name: 'Udinese', image: Liverpool, leagueId: 'l3' },
+  { id: 'c55', name: 'Venezia', image: Liverpool, leagueId: 'l3' },
+  { id: 'c56', name: 'Salernitana', image: Liverpool, leagueId: 'l3' },
+  { id: 'c57', name: 'Angers', image: Liverpool, leagueId: 'l4' },
+  { id: 'c58', name: 'AS Monaco', image: Liverpool, leagueId: 'l4' },
+  { id: 'c59', name: 'Bordeaux', image: Liverpool, leagueId: 'l4' },
+  { id: 'c60', name: 'Brest', image: Liverpool, leagueId: 'l4' },
+  { id: 'c61', name: 'Clermont Foot', image: Liverpool, leagueId: 'l4' },
+  { id: 'c62', name: 'Lille', image: Liverpool, leagueId: 'l4' },
+  { id: 'c63', name: 'Lorient', image: Liverpool, leagueId: 'l4' },
+  { id: 'c64', name: 'Lyon', image: Liverpool, leagueId: 'l4' },
+  { id: 'c65', name: 'Marseille', image: Liverpool, leagueId: 'l4' },
+  { id: 'c66', name: 'Metz', image: Liverpool, leagueId: 'l4' },
+  { id: 'c67', name: 'Montpellier', image: Liverpool, leagueId: 'l4' },
+  { id: 'c68', name: 'Nantes', image: Liverpool, leagueId: 'l4' },
+  { id: 'c69', name: 'Nice', image: Liverpool, leagueId: 'l4' },
+  { id: 'c70', name: 'Paris Saint-Germain', image: Liverpool, leagueId: 'l4' },
+  { id: 'c71', name: 'Rennes', image: Liverpool, leagueId: 'l4' },
+  { id: 'c72', name: 'Saint-Étienne', image: Liverpool, leagueId: 'l4' },
+  { id: 'c73', name: 'Strasbourg', image: Liverpool, leagueId: 'l4' },
+  { id: 'c74', name: 'Troyes', image: Liverpool, leagueId: 'l4' },
+  { id: 'c75', name: 'Lens', image: Liverpool, leagueId: 'l4' },
+  { id: 'c76', name: 'Reims', image: Liverpool, leagueId: 'l4' },
+  { id: 'c77', name: 'Ajax', image: Liverpool, leagueId: 'l5' },
+  { id: 'c78', name: 'AZ Alkmaar', image: Liverpool, leagueId: 'l5' },
+  { id: 'c79', name: 'Cambuur', image: Liverpool, leagueId: 'l5' },
   { id: 'c80', name: 'FC Emmen', image: ManchesterCity, leagueId: 'l5' },
   { id: 'c81', name: 'FC Groningen', image: ManchesterCity, leagueId: 'l5' },
   { id: 'c82', name: 'FC Twente', image: ManchesterCity, leagueId: 'l5' },
@@ -100,26 +100,26 @@ export const clubs = [
   { id: 'c91', name: 'SC Heerenveen', image: ManchesterCity, leagueId: 'l5' },
   { id: 'c92', name: 'Sparta Rotterdam', image: ManchesterCity, leagueId: 'l5' },
   { id: 'c93', name: 'Utrecht', image: ManchesterCity, leagueId: 'l5' },
-  { id: 'c94', name: 'Vitesse', leagueId: 'l5' },
-  { id: 'c95', name: 'VVV-Venlo', leagueId: 'l5' },
-  { id: 'c96', name: 'Willem II', leagueId: 'l5' },
-  { id: 'c97', name: 'Alavés', leagueId: 'l6' },
-  { id: 'c98', name: 'Athletic Bilbao', leagueId: 'l6' },
-  { id: 'c99', name: 'Atlético Madrid', leagueId: 'l6' },
-  { id: 'c100', name: 'Barcelona', leagueId: 'l6' },
-  { id: 'c101', name: 'Cádiz', leagueId: 'l6' },
-  { id: 'c102', name: 'Celta Vigo', leagueId: 'l6' },
-  { id: 'c103', name: 'Elche', leagueId: 'l6' },
-  { id: 'c104', name: 'Espanyol', leagueId: 'l6' },
-  { id: 'c105', name: 'Getafe', leagueId: 'l6' },
-  { id: 'c106', name: 'Granada', leagueId: 'l6' },
-  { id: 'c107', name: 'Levante', leagueId: 'l6' },
-  { id: 'c108', name: 'Mallorca', leagueId: 'l6' },
-  { id: 'c109', name: 'Osasuna', leagueId: 'l6' },
-  { id: 'c110', name: 'Rayo Vallecano', leagueId: 'l6' },
-  { id: 'c111', name: 'Real Betis', leagueId: 'l6' },
-  { id: 'c112', name: 'Real Madrid', leagueId: 'l6' },
-  { id: 'c113', name: 'Real Sociedad', leagueId: 'l6' },
+  { id: 'c94', name: 'Vitesse', image: Liverpool, leagueId: 'l5' },
+  { id: 'c95', name: 'VVV-Venlo', image: Liverpool, leagueId: 'l5' },
+  { id: 'c96', name: 'Willem II', image: Liverpool, leagueId: 'l5' },
+  { id: 'c97', name: 'Alavés', image: Liverpool, leagueId: 'l6' },
+  { id: 'c98', name: 'Athletic Bilbao', image: Liverpool, leagueId: 'l6' },
+  { id: 'c99', name: 'Atlético Madrid', image: Liverpool, leagueId: 'l6' },
+  { id: 'c100', name: 'Barcelona', image: Liverpool, leagueId: 'l6' },
+  { id: 'c101', name: 'Cádiz', image: Liverpool, leagueId: 'l6' },
+  { id: 'c102', name: 'Celta Vigo', image: Liverpool, leagueId: 'l6' },
+  { id: 'c103', name: 'Elche', image: Liverpool, leagueId: 'l6' },
+  { id: 'c104', name: 'Espanyol', image: Liverpool, leagueId: 'l6' },
+  { id: 'c105', name: 'Getafe', image: Liverpool, leagueId: 'l6' },
+  { id: 'c106', name: 'Granada', image: Liverpool, leagueId: 'l6' },
+  { id: 'c107', name: 'Levante', image: Liverpool, leagueId: 'l6' },
+  { id: 'c108', name: 'Mallorca', image: Liverpool, leagueId: 'l6' },
+  { id: 'c109', name: 'Osasuna', image: Liverpool, leagueId: 'l6' },
+  { id: 'c110', name: 'Rayo Vallecano', image: Liverpool, leagueId: 'l6' },
+  { id: 'c111', name: 'Real Betis', image: Liverpool, leagueId: 'l6' },
+  { id: 'c112', name: 'Real Madrid', image: Liverpool, leagueId: 'l6' },
+  { id: 'c113', name: 'Real Sociedad', image: Liverpool, leagueId: 'l6' },
   { id: 'c114', name: 'Sevilla', image: ManchesterCity, leagueId: 'l6' },
   { id: 'c115', name: 'Valencia', image: ManchesterCity, leagueId: 'l6' },
   { id: 'c116', name: 'Villarreal', image: ManchesterCity, leagueId: 'l6' },
@@ -143,15 +143,29 @@ export const clubs = [
 
 const Clubs = () => {
   const navigate = useNavigate();
+  const { league, club } = useParams();
 
-  const { club } = useParams();
+  const isValidClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
+  const newLeague = leagues.find(leagueItem => leagueItem.title.toLowerCase().replace(/\s+/g, '-') === league); 
+  
+  let isValidLeagueClub;
+  if(isValidClub && newLeague) {
+    isValidLeagueClub = newLeague.id === isValidClub.leagueId;
+  }
 
-  const isValidClub = clubs.some(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
+  useEffect(() => {
+    if (!isValidClub || !isValidLeagueClub || !newLeague) {
+      navigate('/');
+    }
+  }, [isValidClub, isValidLeagueClub, newLeague, navigate]);
 
   if (!isValidClub) {
-    navigate('/');
     return null;
   }
+
+  if(!newLeague) {
+     return null;
+   }
 
   return (
     <div>

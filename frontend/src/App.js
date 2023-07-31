@@ -8,7 +8,6 @@ import SignUp from './user/pages/SignUp';
 import AuthContext from './shared/context/auth-context';
 import Clubs from './clubs/pages/Clubs';
 import League from './leagues/components/League';
-import LeagueTable from './leagues/components/LeagueTable';
 
 import { leagues } from './leagues/pages/Leagues';
 
@@ -57,24 +56,7 @@ const App = () => {
         <Route path='/register' element={<SignUp />} />
         <Route path='/:country/:league' element={<League leagues={leagues} />} />
         <Route path='/:country/:league/:club' element={<Clubs />} />
-        <Route path='/:country/:league/table' element={<League leagues={leagues}/> }/>
-        {/*leagues.map((league) => (
-                <Route
-                  key={league.id}
-                  path={`/${league.name}/${league.title}`}
-                  element={<League leagues={leagues} />}
-                />
-          ))*/}
-        {/*
-         {leagues.map((league) =>
-          league.clubs.map((club) => (
-            <Route
-              key={`${league.name}-${club}`} // Create a unique key for each route
-              path={`/${league.name}/${league.title}/${club}`}
-              element={<ClubDetail country={league.name} league={league.title} club={club} />}
-            />
-          ))
-        )}s*/}
+        <Route path='/:country/:league/:club/table' element={<League leagues={leagues}/> }/>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     );

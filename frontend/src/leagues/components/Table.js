@@ -39,7 +39,7 @@ const Table = props => {
     }
   };
 
-  const matchTime = '18:00';
+  const matchTime = '19:00';
   const newMatchTime = calculateMatchTime(matchTime);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -97,6 +97,7 @@ const Table = props => {
     return <p>No clubs available.</p>;
   }
 
+  
   return (
     <div key={props.id} className='league-table'>
       <Link to={`/${props.name}/${props.title}`} className='title-link' style={{ textDecoration: 'none' }}>

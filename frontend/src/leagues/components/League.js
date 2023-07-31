@@ -37,7 +37,12 @@ const League = props => {
 
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
 
+  //const selectedLeague = leagues.find(l => l.name === country);
+
+  //console.log("liga " + selectedLeague.name);
+
   if (!selectedLeague) {
+    console.log("tu sam");
     navigate(`/`);
     return null;
   }

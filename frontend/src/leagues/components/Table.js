@@ -145,8 +145,11 @@ const Table = props => {
                     >
                       <img src={club.image} alt={club.image} />
                       <span className='team-name'>{club.name}</span>
-                      {hoveredRow === index && <span className='tooltip'>Click for match details!</span>}
-                      {hoveredTeam === club && <span className='tooltip'>Click for team details!</span>}
+                      {hoveredTeam === club ? (
+                        <span className='tooltip'>Click for team details!</span>
+                      ) : (
+                        hoveredRow === index && <span className='tooltip'>Click for match details!</span>
+                      )}
                     </div>
                   </td>
                   <td className='team-cell'>
@@ -156,11 +159,9 @@ const Table = props => {
                       onMouseLeave={onMouseTeamLeaveHandler}
                       onClick={e => teamNameClickHandler(awayTeam.name, e)}
                     >
-                      <span className='team-name'>
-                        {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
-                        <img src={club.image} alt={club.image} />
-                        {awayTeam.name}
-                      </span>
+                      <img src={club.image} alt={club.image} />
+                      <span className='team-name'>{awayTeam.name}</span>
+                      {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
                     </div>
                   </td>
                   <td className='results'>0:0</td>

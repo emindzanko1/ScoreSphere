@@ -1,5 +1,7 @@
 const express = require('express');
 
+const HttpError = require('../models/http-error.js');
+
 const router = express.Router();
 
 const leagues = [
@@ -65,9 +67,7 @@ router.get('/:lname/:ltitle/:lid/', function (req, res, next) {
   });
 
   if (!league) {
-    const error = new Error('League not found.');
-    error.code = 404;
-    return next(error);
+    return next(new HttpError('League not found.', 404));
   }
   res.json({ league });
 });

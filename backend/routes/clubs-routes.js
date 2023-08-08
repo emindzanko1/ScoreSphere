@@ -146,9 +146,7 @@ router.get('/:cname/:cid', function (req, res, next) {
   });
 
   if (!club) {
-    const error = new Error('Club not found.');
-    error.code = 404;
-    return next(error);
+    return next(new Error('Club not found.'));
   }
 
   res.json({ club });

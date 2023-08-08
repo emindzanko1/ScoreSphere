@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import React, { useContext } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import AppleLogin from 'react-apple-login';
 import { FaGoogle, FaFacebook, FaApple } from 'react-icons/fa';
@@ -8,7 +8,6 @@ import AuthContext from '../../shared/context/auth-context';
 import './Auth.css';
 
 const Auth = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const auth = useContext(AuthContext);
 

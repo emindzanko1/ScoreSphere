@@ -168,7 +168,7 @@ const SignUp = () => {
         </form>
         <div className='signup-options'>
           <GoogleLogin
-            clientId='MY_GOOGLE_CLIENT_ID'
+            clientId={process.env.REACT_APP_CLIENT_ID}
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}

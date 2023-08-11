@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const HttpError = require('./models/http-error');
 
 const app = express();
 
@@ -11,6 +12,9 @@ const clubsRoutes = require('./routes/clubs-routes');
 
 app.use('/', leaguesRoutes);
 app.use('/', clubsRoutes);
+app.use((req, res, next) => {
+   throw next(new HttpError('Could not find this route.',404));
+});
 
 app.use((error, req, res, next) => {
   if (res.headerSent) {

@@ -4,43 +4,43 @@ const HttpError = require('../models/http-error.js');
 
 const leagues = [
   {
-    id: uuidv4(),
+    id: 'l1',
     name: 'england',
     title: 'premier-league',
     //image: England,
   },
   {
-    id: uuidv4(),
+    id: 'l2',
     name: 'brazil',
     title: 'brazilian-a-series',
     //image: Brazil,
   },
   {
-    id: uuidv4(),
+    id: 'l3',
     name: 'italy',
     title: 'seria-a',
     //image: Italy,
   },
   {
-    id: uuidv4(),
+    id: 'l4',
     name: 'france',
     title: 'ligue-1',
     //image: France,
   },
   {
-    id: uuidv4(),
+    id: 'l5',
     name: 'netherlands',
     title: 'eredivisie',
     //image: Netherlands,
   },
   {
-    id: uuidv4(),
+    id: 'l6',
     name: 'spain',
     title: 'primera-division',
     //image: Spain,
   },
   {
-    id: uuidv4(),
+    id: 'l7',
     name: 'portugal',
     title: 'primeira-liga',
     //image: Portugal,
@@ -48,7 +48,7 @@ const leagues = [
 ];
 
 const getAllLeagues = (req, res, next) => {
-  res.json({ leagues });
+  res.json({ leagues: leagues });
 };
 
 const getLeague = (req, res, next) => {

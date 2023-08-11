@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const HttpError = require('./models/http-error');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
@@ -16,7 +18,7 @@ app.use('/team', clubsRoutes);
 app.use('/user', usersRoutes);
 
 app.use((req, res, next) => {
-   throw next(new HttpError('Could not find this route.',404));
+  throw next(new HttpError('Could not find this route.', 404));
 });
 
 app.use((error, req, res, next) => {
@@ -27,6 +29,13 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occurred' });
 });
 
-app.listen(5000, () => {
-  console.log('Listening on port 5000');
-});
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    app.listen(5000, () => {
+      console.log('Listening on port 5000');
+    });
+  })
+  .catch(error => {
+    console.log(error);
+  });

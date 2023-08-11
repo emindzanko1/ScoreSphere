@@ -9,9 +9,11 @@ app.use(bodyParser.json());
 
 const leaguesRoutes = require('./routes/leagues-routes');
 const clubsRoutes = require('./routes/clubs-routes');
+const usersRoutes = require('./routes/users-routes');
 
 app.use('/', leaguesRoutes);
 app.use('/', clubsRoutes);
+app.use('/', usersRoutes);
 app.use((req, res, next) => {
    throw next(new HttpError('Could not find this route.',404));
 });

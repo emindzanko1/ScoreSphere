@@ -14,8 +14,4 @@ router.get('/search', function (req, res, next) {
   res.json({ message: 'Welcome to the search route' });
 });
 
-router.get('/login', function (req, res, next) {
-  res.json({ message: 'Welcome to  the login route' });
-});
-
 module.exports = router;

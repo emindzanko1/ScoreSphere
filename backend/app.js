@@ -15,7 +15,7 @@ const usersRoutes = require('./routes/users-routes');
 
 app.use('/tournament', leaguesRoutes);
 app.use('/team', clubsRoutes);
-app.use('/user', usersRoutes);
+app.use('/users', usersRoutes);
 
 app.use((req, res, next) => {
   throw next(new HttpError('Could not find this route.', 404));

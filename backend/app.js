@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios');
+
+const app = express();
+
+app.use(bodyParser.json());
 
 const leaguesRoutes = require('./routes/leagues-routes');
 const clubsRoutes = require('./routes/clubs-routes');
-
-const app = express();
 
 app.use('/', leaguesRoutes);
 app.use('/', clubsRoutes);

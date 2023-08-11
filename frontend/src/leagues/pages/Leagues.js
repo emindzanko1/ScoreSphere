@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import LeaguesList from '../components/LeaguesList';
+import axios from 'axios';
 import Brazil from '../../images/countries/Flag_of_Brazil.svg.png';
 import England from '../../images/countries/Flag_of_England.svg.png';
 import Italy from '../../images/countries/Flag_of_Italy.svg.png';

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const leaguesControllers = require('../controllers/leagues-controller.js');
+const leaguesControllers = require('../controllers/leagues-controllers.js');
 
 const router = express.Router();
 
@@ -12,6 +12,14 @@ router.get('/:lname/:ltitle/', leaguesControllers.getLeague);
 
 router.get('/search', function (req, res, next) {
   res.json({ message: 'Welcome to the search route' });
+});
+
+router.get('/login', function (req, res, next) {
+  res.json({ message: 'Welcome to the login route' });
+});
+
+router.get('/register', function (req, res, next) {
+  res.json({ message: 'Welcome to the register route' });
 });
 
 module.exports = router;

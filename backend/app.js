@@ -11,9 +11,10 @@ const leaguesRoutes = require('./routes/leagues-routes');
 const clubsRoutes = require('./routes/clubs-routes');
 const usersRoutes = require('./routes/users-routes');
 
-app.use('/', leaguesRoutes);
-app.use('/', clubsRoutes);
-app.use('/', usersRoutes);
+app.use('/tournament', leaguesRoutes);
+app.use('/team', clubsRoutes);
+app.use('/user', usersRoutes);
+
 app.use((req, res, next) => {
    throw next(new HttpError('Could not find this route.',404));
 });

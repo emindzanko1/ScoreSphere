@@ -33,7 +33,7 @@ const register = async (req, res, next) => {
   }
 
   if (existingUser) {
-    return next(new HttpError('User exists already, please login instead.', 500));
+    return next(new HttpError('User exists already, please login instead.', 422));
   }
 
   const createdUser = new User({
@@ -47,16 +47,22 @@ const register = async (req, res, next) => {
   } catch (error) {
     return next(new HttpError('Signing up failed, please try again.', 500));
   }
-  res.status(201).json({ user: createdUser.toObject({ getters: true}) });
+  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
-const login = (req, res, next) => {
+const login = async(req, res, next) => {
   const { email, password } = req.body;
 
-  const identifiedUser = DUMMY_USERS.find(user => user.email === email);
+  let existingUser;
 
-  if (!identifiedUser || identifiedUser.password !== password) {
-    throw new HttpError('Could not identify user, credentials seem to be wrong.', 401);
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (error) {
+    return next(new HttpError('Logging in failed, please try again.', 500));
+  }
+
+  if (!existingUser || existingUser.password !== password) {
+    return next(new HttpError('Invalid credentials, could not logged you in.', 401));
   }
 
   res.json({ message: 'Login successful' });

@@ -44,6 +44,13 @@ label {
   cursor: pointer;
 }
 
+.signin-button.disabled {
+  background: #ccc;
+  color: #979797;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
 .signin-options {
   display: flex;
   flex-direction: column;
@@ -90,7 +97,6 @@ label {
 p {
   text-align: center;
 }
-
 
 a {
   color: #4267b2;

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Leagues from './leagues/pages/Leagues';
 import Auth from './user/pages/Auth';
-import SignUp from './user/pages/SignUp';
 import AuthContext from './shared/context/auth-context';
 import Clubs from './clubs/pages/Clubs';
 import League from './leagues/components/League';
@@ -52,8 +51,7 @@ const App = () => {
         <Route path='/' element={<Leagues />} />
         <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
-        <Route path='/login' element={<Auth />} />
-        <Route path='/register' element={<SignUp />} />
+        <Route path='/auth' element={<Auth />} />
         <Route path='/:country/:league' element={<League leagues={leagues} />} />
         <Route path='/:country/:league/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />

@@ -18,6 +18,7 @@ h2 {
 
 .form-group {
   margin-bottom: 15px;
+  position: relative;
 }
 
 label {
@@ -90,13 +91,15 @@ p {
   text-align: center;
 }
 
+
 a {
   color: #4267b2;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .separator {
@@ -119,3 +122,9 @@ a:hover {
   text-transform: uppercase;
 }
 
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; 
+  transform: translateY(-50%);
+}

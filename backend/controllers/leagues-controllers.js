@@ -50,13 +50,23 @@ const getAllLeagues = async (req, res, next) => {
   res.json({ leagues: leagues.map(league => league.toObject({ getters: true })) });
 };
 
+const formatTitle = ltitle => {
+  const words = ltitle.split('-');
+  const capitalizedWords = words.map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  });
+  return capitalizedWords.join(' ');
+};
+
 const getLeagueByTitle = async (req, res, next) => {
-  const { ltitle } = req.body;
+  const { ltitle } = req.params;
 
+  formatTitle(ltitle);
+
+  const formattedTitle = formatTitle(ltitle);
   let league;
-
   try {
-    league = await League.findOne({ ltitle: ltitle });
+    league = await League.findOne({ title: formattedTitle });
   } catch (error) {
     return next(new HttpError('League with that name does not exist.', 401));
   }
@@ -65,7 +75,7 @@ const getLeagueByTitle = async (req, res, next) => {
     return next(new HttpError('League not found.', 404));
   }
 
-  res.json({ league: league.toObject({ getters: true })});
+  res.json({ league: league.toObject({ getters: true }) });
 };
 
 exports.createLeague = createLeague;

@@ -20,6 +20,9 @@ const capitalizeWords = str => {
 
 const League = props => {
   const [activeTable, setActiveTable] = useState('table');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  // const [selectedLeague, setSelectedLeague] = useState();
   const { leagues } = props;
   const { country, league } = useParams();
   const capitalizedCountry = capitalizeWords(country);
@@ -34,6 +37,28 @@ const League = props => {
     setActiveTable('leagueTable');
     //navigate(`./table`);
   };
+
+  // useEffect(() => {
+  //   const sendRequest = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await fetch('http://localhost:5000/:country/:league');
+
+  //       const responseData = await response.json();
+  //       console.log(responseData);
+  //       setSelectedLeague(responseData);
+
+  //       if (!response.ok) {
+  //         throw new Error(responseData.message);
+  //       }
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   sendRequest();
+  // }, []);
 
   const selectedLeague = leagues.find(l => l.name === country && l.title === league);
 

@@ -8,6 +8,9 @@ const LeaguesList = props => {
     return <p>No leagues available.</p>;
   }
 
+  console.log('Image URL:', props.items[0].image);
+
+
   return (
     <ul className='league-list'>
       {props.items.map((league) => (

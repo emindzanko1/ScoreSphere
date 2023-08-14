@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error.js');
@@ -27,7 +26,8 @@ const createLeague = async (req, res, next) => {
     name,
     title,
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/255px-Flag_of_Portugal.svg.png',
+      'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png',
+    clubs: [],
   });
 
   try {
@@ -60,8 +60,6 @@ const formatTitle = ltitle => {
 
 const getLeagueByTitle = async (req, res, next) => {
   const { ltitle } = req.params;
-
-  formatTitle(ltitle);
 
   const formattedTitle = formatTitle(ltitle);
   let league;

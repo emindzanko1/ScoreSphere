@@ -7,6 +7,7 @@ const leagueSchema = new Schema({
   name: { type: String, required: true },
   title: { type: String, required: true, unique: true },
   image: { type: String, required: true},
+  clubs: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Club' }]
 });
 
 leagueSchema.plugin(UniqueValidator);

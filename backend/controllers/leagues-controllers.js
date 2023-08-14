@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error.js');
 const League = require('../models/league.js');
 
-const createLeague = async(req, res, next) => {
+const createLeague = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(new HttpError('Invalid inputs passed, please check your data', 422));
@@ -26,7 +26,8 @@ const createLeague = async(req, res, next) => {
   const createdLeague = new League({
     name,
     title,
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/255px-Flag_of_Portugal.svg.png'
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/255px-Flag_of_Portugal.svg.png',
   });
 
   try {
@@ -35,14 +36,13 @@ const createLeague = async(req, res, next) => {
     return next(new HttpError('Creating league failed, please try again.', 500));
   }
   res.status(201).json({ league: createdLeague.toObject({ getters: true }) });
-}
+};
 
 const getAllLeagues = async (req, res, next) => {
   let leagues;
 
   try {
     leagues = await League.find({}, 'name title image');
-    console.log("evo liga " + leagues);
   } catch (error) {
     return next(new HttpError('Fetching leagues failed, please try again later.', 500));
   }
@@ -50,20 +50,24 @@ const getAllLeagues = async (req, res, next) => {
   res.json({ leagues: leagues.map(league => league.toObject({ getters: true })) });
 };
 
-const getLeague = (req, res, next) => {
-  const leagueName = req.params.lname;
-  const leagueTitle = req.params.ltitle;
+const getLeagueByTitle = async (req, res, next) => {
+  const { ltitle } = req.body;
 
-  const league = leagues.find(league => {
-     return league.name === leagueName && league.title === leagueTitle;
-  });
+  let league;
+
+  try {
+    league = await League.findOne({ ltitle: ltitle });
+  } catch (error) {
+    return next(new HttpError('League with that name does not exist.', 401));
+  }
 
   if (!league) {
     return next(new HttpError('League not found.', 404));
   }
-  res.json({ league });
+
+  res.json({ league: league.toObject({ getters: true })});
 };
 
 exports.createLeague = createLeague;
-exports.getLeague = getLeague;
+exports.getLeagueByTitle = getLeagueByTitle;
 exports.getAllLeagues = getAllLeagues;

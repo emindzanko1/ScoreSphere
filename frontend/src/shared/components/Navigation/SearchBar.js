@@ -1,23 +1,49 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { leagues } from '../../../leagues/pages/Leagues';
 import { clubs } from '../../../clubs/pages/Clubs';
+import LoadingSpinner from '../../UI/LoadingSpinner';
 
 import './SearchBar.css';
 
 const SearchBar = props => {
   const [searchText, setSearchText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [leagues, setLeagues] = useState();
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:5000/leagues');
+
+        const responseData = await response.json();
+        setLeagues(responseData.leagues);
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
 
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
-  const values = leagues.map(league => league.title);
-  values.push(...clubs.map(club => club.name));
+  let values, flags, filteredValues;
 
-  const flags = leagues.map(league => league.image);
-  flags.push(...clubs.map(club => club.image));
-
-  const filteredValues = values.filter(value => value.toLowerCase().startsWith(searchText.toLowerCase()));
+  if (leagues) {
+    values = leagues.map(league => league.title);
+    values.push(...clubs.map(club => club.name));
+    flags = leagues.map(league => league.image);
+    flags.push(...clubs.map(club => club.image));
+    filteredValues = values.filter(value => value.toLowerCase().startsWith(searchText.toLowerCase()));
+  }
 
   const handleSearchInputChange = event => {
     const searchText = event.target.value;
@@ -29,21 +55,29 @@ const SearchBar = props => {
     inputRef.current.focus();
   };
 
-  const handleSuggestedTeamClick = teamName => {
-    const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
+  const handleSuggestedTeamClick = name => {
 
-    const leagueMatch = leagues.find(league => league.title === teamName);
+    const formattedName = name.toLowerCase().replace(/\s+/g, '-');
 
-    let club, league;
+    const leagueMatch = leagues.find(league => league.title === name);
+
+    const leagueName = leagueMatch.name;
+    const leagueTitle = leagueMatch.title;
+
+    let formattedLeagueName, formatedLeagueTitle, club, league;
 
     if (!leagueMatch) {
-      club = clubs.find(c => c.name === teamName);
+      club = clubs.find(c => c.name === name);
       league = leagues.find(l => l.id === club.leagueId);
+    }
+    else {
+      formattedLeagueName = leagueName.toLowerCase().replace(/\s+/g, '-');
+      formatedLeagueTitle = leagueTitle.toLowerCase().replace(/\s+/g, '-')
     }
 
     leagueMatch
-      ? navigate(`/${leagueMatch.name}/${leagueMatch.title}`)
-      : navigate(`/${league.name}/${league.title}/${formattedTeamName}`);
+      ? navigate(`/${formattedLeagueName}/${formatedLeagueTitle}`)
+      : navigate(`/${league.name}/${league.title}/${formattedName}`);
   };
 
   const getFlagForName = name => {
@@ -52,29 +86,44 @@ const SearchBar = props => {
   };
 
   return (
-    <form className='search-form'>
-      <input type='text' placeholder='Search' value={searchText} onChange={handleSearchInputChange} ref={inputRef} />
-      <div className='suggestions-list'>
-        {filteredValues.length > 0 ? (
-          filteredValues.map((filteredValue, index) => (
-            <div className='list' onClick={() => handleSuggestedTeamClick(filteredValue)} key={index}>
-              <img src={getFlagForName(filteredValue)} alt={`${filteredValue} flag`} /> {filteredValue}
-            </div>
-          ))
-        ) : (
-          <div className='no-matches'>No matches found.</div>
-        )}
-      </div>
-      {searchText ? (
-        <button type='button' onClick={handleClearSearch}>
-          X
-        </button>
-      ) : (
-        <button type='button' onClick={props.onCloseSearch}>
-          Close
-        </button>
+    <React.Fragment>
+      {isLoading && (
+        <div className='center'>
+          <LoadingSpinner />
+        </div>
       )}
-    </form>
+      {!isLoading && leagues && (
+        <form className='search-form'>
+          <input
+            type='text'
+            placeholder='Search'
+            value={searchText}
+            onChange={handleSearchInputChange}
+            ref={inputRef}
+          />
+          <div className='suggestions-list'>
+            {filteredValues.length > 0 ? (
+              filteredValues.map((filteredValue, index) => (
+                <div className='list' onClick={() => handleSuggestedTeamClick(filteredValue)} key={index}>
+                  <img src={getFlagForName(filteredValue)} alt={`${filteredValue} flag`} /> {filteredValue}
+                </div>
+              ))
+            ) : (
+              <div className='no-matches'>No matches found.</div>
+            )}
+          </div>
+          {searchText ? (
+            <button type='button' onClick={handleClearSearch}>
+              X
+            </button>
+          ) : (
+            <button type='button' onClick={props.onCloseSearch}>
+              Close
+            </button>
+          )}
+        </form>
+      )}
+    </React.Fragment>
   );
 };
 

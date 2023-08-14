@@ -8,8 +8,6 @@ import AuthContext from './shared/context/auth-context';
 import Clubs from './clubs/pages/Clubs';
 import League from './leagues/components/League';
 
-import { leagues } from './leagues/pages/Leagues';
-
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -40,7 +38,7 @@ const App = () => {
         <Route path='/' element={<Leagues />} />
         <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
-        <Route path='/:country/:league' element={<League leagues={leagues} />} />
+        <Route path='/:country/:league' element={<League />} />
         <Route path='/:country/:league/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
@@ -52,7 +50,7 @@ const App = () => {
         <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
         <Route path='/auth' element={<Auth />} />
-        <Route path='/:country/:league' element={<League leagues={leagues} />} />
+        <Route path='/:country/:league' element={<League/>} />
         <Route path='/:country/:league/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>

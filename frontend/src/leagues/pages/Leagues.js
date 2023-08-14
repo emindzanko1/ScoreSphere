@@ -59,7 +59,7 @@ export const leagues = [
 const Leagues = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [loadedLeagues, setLoadedLeagues] = useState();
+  const [leagues, setLeagues] = useState();
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -68,7 +68,7 @@ const Leagues = () => {
         const response = await fetch('http://localhost:5000/leagues');
 
         const responseData = await response.json();
-        setLoadedLeagues(responseData.leagues);
+        setLeagues(responseData.leagues);
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -93,10 +93,10 @@ const Leagues = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedLeagues && (
+      {!isLoading && leagues && (
         <div className='leagues-container'>
-          <LeaguesList items={loadedLeagues} />
-          <LeaguesTables items={loadedLeagues} />
+          <LeaguesList items={leagues} />
+          <LeaguesTables items={leagues} />
         </div>
       )}
     </React.Fragment>

@@ -9,6 +9,8 @@ const LeaguesTables = props => {
     return <p>No tables available.</p>;
   }
 
+  console.log(props.items[0].id);
+
   return (
     <ul className='league-tables'>
       {props.items.map(league => {

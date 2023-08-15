@@ -42,7 +42,7 @@ const getAllLeagues = async (req, res, next) => {
   let leagues;
 
   try {
-    leagues = await League.find({}, 'name title image');
+    leagues = await League.find({}, 'name title image clubs');
   } catch (error) {
     return next(new HttpError('Fetching leagues failed, please try again later.', 500));
   }

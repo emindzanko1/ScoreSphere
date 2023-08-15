@@ -16,11 +16,12 @@ app.use((req, res, next) => {
   next();
 });
 
+const mainRoutes = require('./routes/main-routes');
 const leaguesRoutes = require('./routes/leagues-routes');
 const clubsRoutes = require('./routes/clubs-routes');
 const usersRoutes = require('./routes/users-routes');
 
-app.use('/', leaguesRoutes);
+app.use('/', mainRoutes);
 app.use('/tournament', leaguesRoutes);
 app.use('/team', clubsRoutes);
 app.use('/users', usersRoutes);

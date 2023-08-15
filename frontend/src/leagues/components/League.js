@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
 import LeagueTable from './LeagueTable';
-import { clubs } from '../../clubs/pages/Clubs';
 import LoadingSpinner from '../../shared/UI/LoadingSpinner';
 
 import './League.css';
@@ -25,17 +24,22 @@ const League = () => {
     //navigate(`./table`);
   };
 
-  console.log(league);
+  const formatName = cname => {
+    const words = cname.split('-');
+    const capitalizedWords = words.map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return capitalizedWords.join(' ');
+  };
 
   useEffect(() => {
     const sendRequest = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:5000/team/clubs/${league}`);
+        const response = await fetch(`http://localhost:5000/tournament/${country}/${league}`);
 
         const responseData = await response.json();
-        setSelectedLeague(responseData.clubs);
-        console.log(responseData.clubs);
+        setSelectedLeague(responseData.league);
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -49,7 +53,27 @@ const League = () => {
     sendRequest();
   }, [country, league]);
 
-  const leagueClubs = clubs.filter(club => club.leagueId === 'l2');
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:5000/team/clubs/${league}`);
+
+        const responseData = await response.json();
+        setSelecetedClub(responseData.clubs);
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, [country, league]);
 
   return (
     <React.Fragment>
@@ -58,13 +82,13 @@ const League = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && selectedLeague && (
+      {!isLoading && selectedClub && selectedLeague &&(
         <div className='league-title'>
-          <h2>Welcome to {selectedLeague.id}!</h2>
+          <h2>Welcome to {formatName(country)}!</h2>
           <div className='league-container'>
             <div className='button-container'>
               <button onClick={handleFixturesClick} className={activeTable === 'table' ? 'active' : ''}>
-                Fixtures
+                Fixture
               </button>
               <button onClick={handleTableClick} className={activeTable === 'leagueTable' ? 'active' : ''}>
                 Table
@@ -76,11 +100,11 @@ const League = () => {
                 id={selectedLeague.id}
                 name={selectedLeague.name}
                 title={selectedLeague.title}
-                clubs={selectedLeague }
+                clubs={selectedClub}
                 image={selectedLeague.image}
               />
             ) : (
-              <LeagueTable league={selectedLeague} teams={selectedLeague} image={selectedLeague.image} />
+              <LeagueTable league={selectedLeague} teams={selectedClub} image={selectedLeague.image} />
             )}
             <Link to='/' className='link'>
               <div className='button-container'>

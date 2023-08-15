@@ -38,7 +38,7 @@ const ClubDetails = props => {
       <h2 className='club-name'>{club.name}</h2>
       <div className='button-container'>
         <button onClick={handleFixturesClick} className={activeTable === 'table' ? 'active' : ''}>
-          Fixtures
+          Fixture
         </button>
         <button onClick={handleTableClick} className={activeTable === 'leagueTable' ? 'active' : ''}>
           Table

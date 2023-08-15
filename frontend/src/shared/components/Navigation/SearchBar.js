@@ -5,84 +5,106 @@ import LoadingSpinner from '../../UI/LoadingSpinner';
 import './SearchBar.css';
 
 const SearchBar = props => {
-  // const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState();
-  // const [leagues, setLeagues] = useState();
+  const [error, setError] = useState();
+  const [clubs, setClubs] = useState();
+  const [leagues, setLeagues] = useState();
 
-  // useEffect(() => {
-  //   const sendRequest = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const response = await fetch('http://localhost:5000/leagues');
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:5000/leagues');
 
-  //       const responseData = await response.json();
-  //       setLeagues(responseData.leagues);
+        const responseData = await response.json();
+        setLeagues(responseData.leagues);
 
-  //       if (!response.ok) {
-  //         throw new Error(responseData.message);
-  //       }
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //     setIsLoading(false);
-  //   };
-  //   sendRequest();
-  // }, []);
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
 
-  // const navigate = useNavigate();
-  // const inputRef = useRef(null);
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:5000/team/clubs`);
 
-  // let values, flags, filteredValues;
+        const responseData = await response.json();
+        setClubs(responseData.clubs);
 
-  // if (leagues) {
-  //   values = leagues.map(league => league.title);
-  //   values.push(...clubs.map(club => club.name));
-  //   flags = leagues.map(league => league.image);
-  //   flags.push(...clubs.map(club => club.image));
-  //   filteredValues = values.filter(value => value.toLowerCase().startsWith(searchText.toLowerCase()));
-  // }
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
 
-  // const handleSearchInputChange = event => {
-  //   const searchText = event.target.value;
-  //   setSearchText(searchText);
-  // };
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
 
-  // const handleClearSearch = () => {
-  //   setSearchText('');
-  //   inputRef.current.focus();
-  // };
+  let values, flags, filteredValues;
 
-  // const handleSuggestedTeamClick = name => {
+  if (leagues && clubs) {
+    values = leagues.map(league => league.title);
+    values.push(...clubs.map(club => club.name));
+    flags = leagues.map(league => league.image);
+    flags.push(...clubs.map(club => club.image));
+    filteredValues = values.filter(value => value.toLowerCase().startsWith(searchText.toLowerCase()));
+  }
 
-  //   const formattedName = name.toLowerCase().replace(/\s+/g, '-');
+  const handleSearchInputChange = event => {
+    const searchText = event.target.value;
+    setSearchText(searchText);
+  };
 
-  //   const leagueMatch = leagues.find(league => league.title === name);
+  const handleClearSearch = () => {
+    setSearchText('');
+    inputRef.current.focus();
+  };
 
-  //   const leagueName = leagueMatch.name;
-  //   const leagueTitle = leagueMatch.title;
+  const handleSuggestedTeamClick = name => {
 
-  //   let formattedLeagueName, formatedLeagueTitle, club, league;
+    const formattedName = name.toLowerCase().replace(/\s+/g, '-');
 
-  //   if (!leagueMatch) {
-  //     club = clubs.find(c => c.name === name);
-  //     league = leagues.find(l => l.id === club.leagueId);
-  //   }
-  //   else {
-  //     formattedLeagueName = leagueName.toLowerCase().replace(/\s+/g, '-');
-  //     formatedLeagueTitle = leagueTitle.toLowerCase().replace(/\s+/g, '-')
-  //   }
+    const leagueMatch = leagues.find(league => league.title === name);
 
-  //   leagueMatch
-  //     ? navigate(`/${formattedLeagueName}/${formatedLeagueTitle}`)
-  //     : navigate(`/${league.name}/${league.title}/${formattedName}`);
-  // };
+    const leagueName = leagueMatch.name;
+    const leagueTitle = leagueMatch.title;
 
-  // const getFlagForName = name => {
-  //   const index = values.findIndex(value => value.toLowerCase() === name.toLowerCase());
-  //   return flags[index];
-  // };
+    let formattedLeagueName, formatedLeagueTitle, club, league;
+
+    if (!leagueMatch) {
+      club = clubs.find(c => c.name === name);
+      league = leagues.find(l => l.id === club.leagueId);
+    }
+    else {
+      formattedLeagueName = leagueName.toLowerCase().replace(/\s+/g, '-');
+      formatedLeagueTitle = leagueTitle.toLowerCase().replace(/\s+/g, '-')
+    }
+
+    leagueMatch
+      ? navigate(`/${formattedLeagueName}/${formatedLeagueTitle}`)
+      : navigate(`/${league.name}/${league.title}/${formattedName}`);
+  };
+
+  const getFlagForName = name => {
+    const index = values.findIndex(value => value.toLowerCase() === name.toLowerCase());
+    return flags[index];
+  };
 
   return (
     <React.Fragment>
@@ -91,7 +113,7 @@ const SearchBar = props => {
           <LoadingSpinner />
         </div>
       )}
-      {/* {!isLoading && leagues && (
+      {!isLoading && leagues && (
         <form className='search-form'>
           <input
             type='text'
@@ -121,7 +143,7 @@ const SearchBar = props => {
             </button>
           )}
         </form>
-      )} */}
+      )}
     </React.Fragment>
   );
 };

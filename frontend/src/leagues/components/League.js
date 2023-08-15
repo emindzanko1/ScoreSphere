@@ -10,8 +10,8 @@ const League = () => {
   const [activeTable, setActiveTable] = useState('table');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [selectedLeague, setSelectedLeague] = useState();
-  const [selectedClub, setSelecetedClub] = useState();
+  const [cleague, setLeague] = useState();
+  const [clubs, setClubs] = useState();
   const { country, league } = useParams();
 
   const handleFixturesClick = () => {
@@ -39,7 +39,7 @@ const League = () => {
         const response = await fetch(`http://localhost:5000/tournament/${country}/${league}`);
 
         const responseData = await response.json();
-        setSelectedLeague(responseData.league);
+        setLeague(responseData.league);
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -61,7 +61,7 @@ const League = () => {
         const response = await fetch(`http://localhost:5000/team/clubs/${league}`);
 
         const responseData = await response.json();
-        setSelecetedClub(responseData.clubs);
+        setClubs(responseData.clubs);
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -82,7 +82,7 @@ const League = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && selectedClub && selectedLeague &&(
+      {!isLoading && clubs && cleague &&(
         <div className='league-title'>
           <h2>Welcome to {formatName(country)}!</h2>
           <div className='league-container'>
@@ -96,15 +96,15 @@ const League = () => {
             </div>
             {activeTable === 'table' ? (
               <Table
-                key={selectedLeague.id}
-                id={selectedLeague.id}
-                name={selectedLeague.name}
-                title={selectedLeague.title}
-                clubs={selectedClub}
-                image={selectedLeague.image}
+                key={cleague.id}
+                id={cleague.id}
+                name={cleague.name}
+                title={cleague.title}
+                clubs={clubs}
+                image={cleague.image}
               />
             ) : (
-              <LeagueTable league={selectedLeague} teams={selectedClub} image={selectedLeague.image} />
+              <LeagueTable league={cleague} teams={clubs} image={cleague.image} />
             )}
             <Link to='/' className='link'>
               <div className='button-container'>

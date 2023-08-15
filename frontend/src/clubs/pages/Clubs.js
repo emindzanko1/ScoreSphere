@@ -6,7 +6,7 @@ const Clubs = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [leagues, setLeagues] = useState();
-  const [clubs, selecetedClubs] = useState();
+  const [clubs, setClubs] = useState();
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -36,7 +36,7 @@ const Clubs = () => {
         const response = await fetch(`http://localhost:5000/team/clubs`);
 
         const responseData = await response.json();
-        selecetedClubs(responseData.clubs);
+        setClubs(responseData.clubs);
 
         if (!response.ok) {
           throw new Error(responseData.message);

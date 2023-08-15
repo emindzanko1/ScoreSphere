@@ -57,7 +57,7 @@ const Table = props => {
   const teamNameClickHandler = (teamName, event) => {
     event.stopPropagation();
     const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/${props.name}/${props.title}/${formattedTeamName}`);
+    navigate(`/team/${formattedTeamName}`);
   };
 
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -96,6 +96,12 @@ const Table = props => {
   if (!Array.isArray(props.clubs)) {
     return <p>No clubs available.</p>;
   }
+
+  //const formatedName = props.name.toLowerCase().replace(/\s+/g, '-');
+  //const formatedTitle = props.title.toLowerCase().replace(/\s+/g, '-');
+
+  console.log(props.name);
+
 
   return (
     <div key={props.id} className='table'>
@@ -159,7 +165,7 @@ const Table = props => {
                       onMouseLeave={onMouseTeamLeaveHandler}
                       onClick={e => teamNameClickHandler(awayTeam.name, e)}
                     >
-                      <img src={club.image} alt={club.image} />
+                      <img src={awayTeam.image} alt={awayTeam.image} />
                       <span className='team-name'>{awayTeam.name}</span>
                       {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
                     </div>

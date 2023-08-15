@@ -7,11 +7,12 @@ import LoadingSpinner from '../../shared/UI/LoadingSpinner';
 
 import './League.css';
 
-const League = props => {
+const League = () => {
   const [activeTable, setActiveTable] = useState('table');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [selectedLeague, setSelectedLeague] = useState();
+  const [selectedClub, setSelecetedClub] = useState();
   const { country, league } = useParams();
 
   const handleFixturesClick = () => {
@@ -24,14 +25,17 @@ const League = props => {
     //navigate(`./table`);
   };
 
+  console.log(league);
+
   useEffect(() => {
     const sendRequest = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:5000/${country}/${league}`);
+        const response = await fetch(`http://localhost:5000/team/clubs/${league}`);
 
         const responseData = await response.json();
-        setSelectedLeague(responseData.league);
+        setSelectedLeague(responseData.clubs);
+        console.log(responseData.clubs);
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -56,7 +60,7 @@ const League = props => {
       )}
       {!isLoading && selectedLeague && (
         <div className='league-title'>
-          <h2>Welcome to {selectedLeague.name}!</h2>
+          <h2>Welcome to {selectedLeague.id}!</h2>
           <div className='league-container'>
             <div className='button-container'>
               <button onClick={handleFixturesClick} className={activeTable === 'table' ? 'active' : ''}>
@@ -72,11 +76,11 @@ const League = props => {
                 id={selectedLeague.id}
                 name={selectedLeague.name}
                 title={selectedLeague.title}
-                clubs={leagueClubs}
+                clubs={selectedLeague }
                 image={selectedLeague.image}
               />
             ) : (
-              <LeagueTable league={selectedLeague} teams={clubs} image={selectedLeague.image} />
+              <LeagueTable league={selectedLeague} teams={selectedLeague} image={selectedLeague.image} />
             )}
             <Link to='/' className='link'>
               <div className='button-container'>

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import ClubsList from '../components/ClubsList';
-import { leagues } from '../../leagues/pages/Leagues';
+import LoadingSpinner from '../../shared/UI/LoadingSpinner';
 
 import ManchesterCity from '../../images/clubs/Manchester_City_FC.png';
 import Liverpool from '../../images/clubs/Liverpool_FC.png';
@@ -142,30 +141,71 @@ export const clubs = [
 ];
 
 const Clubs = () => {
-  const navigate = useNavigate();
-  const { league, club, country } = useParams();
-
-  const isValidClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
-  const newLeague = leagues.find(leagueItem => leagueItem.title.toLowerCase().replace(/\s+/g, '-') === league);
-  const isValidCountry = newLeague && newLeague.name.toLowerCase().replace(/\s+/g, '-') === country;
-  const isValidLeagueClub = isValidClub && newLeague && newLeague.id === isValidClub.leagueId;
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [leagues, setLeagues] = useState();
+  const [clubss, selecetedClubs] = useState();
 
   useEffect(() => {
-    if (!isValidClub || !isValidLeagueClub || !newLeague || !isValidCountry) {
-      navigate('/');
-    }
-  }, [isValidClub, isValidLeagueClub, isValidCountry, newLeague, navigate]);
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:5000/leagues');
 
-  if (!isValidClub || !newLeague || !isValidCountry) {
-    return null;
-  }
+        const responseData = await response.json();
+        setLeagues(responseData.leagues);
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:5000/team/clubs`);
+
+        const responseData = await response.json();
+        selecetedClubs(responseData.clubs);
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
+
+  const errorHandler = () => {
+    setError(null);
+  };
 
   return (
-    <div>
-      <ClubsList clubs={clubs} leagues={leagues} />
-    </div>
+    <React.Fragment>
+      {isLoading && (
+        <div className='center'>
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && clubss && leagues && (
+        <div>
+          <ClubsList clubs={clubss} leagues={leagues} />
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
 export default Clubs;
-

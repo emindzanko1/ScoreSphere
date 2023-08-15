@@ -6,11 +6,13 @@ import LeagueTable from '../../leagues/components/LeagueTable';
 import './ClubDetails.css';
 
 const ClubDetails = props => {
+
   const [activeTable, setActiveTable] = useState('table');
   const [selectedClub, setSelectedClub] = useState(null);
 
   const club = props.club;
   const league = props.league;
+
   const name = league.name.charAt(0).toUpperCase() + props.league.name.slice(1);
 
   const handleFixturesClick = () => {
@@ -25,7 +27,7 @@ const ClubDetails = props => {
     //navigate(`./table`); sa useEffect probati
   };
 
-  console.log(selectedClub);
+  console.log("selected club " + league.name);
 
   return (
     <div className='container'>

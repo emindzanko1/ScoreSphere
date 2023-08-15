@@ -28,12 +28,12 @@ const LeagueTable = props => {
     return null;
   }
 
-  const leagueClubs = teams.filter(team => team.leagueId === league.id);
+  const leagueClubs = teams.filter(team => team.league === league.id);
 
   const teamNameClickHandler = (teamName, event) => {
     event.stopPropagation();
     const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
-    navigate(`/${league.name}/${league.title}/${formattedTeamName}`);
+    navigate(`/team/${formattedTeamName}`);
   };
 
   return (

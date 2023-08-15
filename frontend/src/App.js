@@ -39,7 +39,7 @@ const App = () => {
         <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
         <Route path='/:country/:league' element={<League />} />
-        <Route path='/:country/:league/:club' element={<Clubs />} />
+        <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     );
@@ -51,7 +51,7 @@ const App = () => {
         <Route path='/search' element={<Leagues />} />
         <Route path='/auth' element={<Auth />} />
         <Route path='/:country/:league' element={<League/>} />
-        <Route path='/:country/:league/:club' element={<Clubs />} />
+        <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     );

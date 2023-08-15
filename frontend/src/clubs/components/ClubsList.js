@@ -1,6 +1,5 @@
 import React from 'react';
 import ClubDetails from './ClubDetails';
-
 import './ClubList.css';
 import { useParams } from 'react-router-dom';
 
@@ -13,16 +12,17 @@ const ClubsList = props => {
   }
 
   const myClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
-  const myLeague = leagues.find(league => league.id === myClub.leagueId);
 
-  const clubIdNumber = parseInt(myClub.id.slice(1), 10);
-  let myClubs;
+  if (!myClub) {
+    return <p>Club not found.</p>;
+  }
 
-  const opponentId = clubIdNumber % 2 === 0 ? clubIdNumber - 1 : clubIdNumber + 1;
+  const myLeague = leagues.find(league => league.id === myClub.league);
 
-  const opponentClub = clubs.find(c => parseInt(c.id.slice(1), 10) === opponentId);
-
-  myClubs = clubIdNumber < opponentId ? [myClub, opponentClub] : [opponentClub, myClub]; 
+  const clubIndex = clubs.findIndex(clubItem => clubItem.id === myClub.id);
+  const nextClubIndex = (clubIndex + 1) % clubs.length;
+  
+  const myClubs = [myClub, clubs[nextClubIndex]];
 
   return (
     <ul>
@@ -31,11 +31,11 @@ const ClubsList = props => {
         id={myClub.id}
         name={myClub.name}
         image={myClub.image}
-        leagueId={myClub.leagueId}
-        club = {myClub}
+        leagueId={myClub.league}
+        club={myClub}
         league={myLeague}
         myClubs={myClubs}
-        clubs = {clubs}
+        clubs={clubs}
       />
     </ul>
   );

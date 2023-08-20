@@ -6,29 +6,9 @@ import './LeaguesTables.css';
 const LeaguesTables = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [clubs, setClubs] = useState();
 
   const leagues = props.items;
-
-  useEffect(() => {
-    const sendRequest = async () => {
-      try {
-        setIsLoading(true);
-        //  const response = await fetch(`http://localhost:5000/team/clubs/64da69207990cf48660802e6`);
-        const response = await fetch(`http://localhost:5000/team/clubs/${leagues[0].title}`);
-        const responseData = await response.json();
-        setClubs(responseData.clubs);
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
-        setIsLoading(false);
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
-    };
-    sendRequest();
-  }, []);
+  const clubs = props.clubs; 
 
   const errorHandler = () => {
     setError(null);
@@ -48,13 +28,14 @@ const LeaguesTables = props => {
       {!isLoading && clubs && (
         <ul className='league-tables'>
           {leagues.map(league => {
+            const leagueClubs = clubs.filter(club => club.league === league.id);
             return (
               <Table
                 key={league.id}
                 id={league.id}
                 name={league.name}
                 title={league.title}
-                clubs={clubs}
+                clubs={leagueClubs} 
                 image={league.image}
               />
             );

@@ -82,23 +82,22 @@ const SearchBar = props => {
 
     const leagueMatch = leagues.find(league => league.title === name);
 
-    const leagueName = leagueMatch.name;
-    const leagueTitle = leagueMatch.title;
-
     let formattedLeagueName, formatedLeagueTitle, club, league;
 
     if (!leagueMatch) {
       club = clubs.find(c => c.name === name);
-      league = leagues.find(l => l.id === club.leagueId);
+      league = leagues.find(l => l.id === club.league);
     }
     else {
+      const leagueName = leagueMatch.name;
+      const leagueTitle = leagueMatch.title;
       formattedLeagueName = leagueName.toLowerCase().replace(/\s+/g, '-');
       formatedLeagueTitle = leagueTitle.toLowerCase().replace(/\s+/g, '-')
     }
 
     leagueMatch
       ? navigate(`/${formattedLeagueName}/${formatedLeagueTitle}`)
-      : navigate(`/${league.name}/${league.title}/${formattedName}`);
+      : navigate(`/team/${formattedName}`);
   };
 
   const getFlagForName = name => {
@@ -113,7 +112,7 @@ const SearchBar = props => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && leagues && (
+      {!isLoading && leagues && clubs &&(
         <form className='search-form'>
           <input
             type='text'

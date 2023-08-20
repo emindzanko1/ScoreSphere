@@ -10,6 +10,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import AuthContext from '../../shared/context/auth-context';
 import ErrorModal from '../../shared/UI/ErrorModal';
 import LoadingSpinner from '../../shared/UI/LoadingSpinner';
+import { Link } from 'react-router-dom';
 import './Auth.css';
 
 const Auth = () => {
@@ -261,9 +262,9 @@ const Auth = () => {
         </div>
         <p>
           {isLoginMode ? ' Not registered yet?  ' : 'Already have an account?  '}{' '}
-          <a onClick={switchModeHandler} role='button'>
+          <Link onClick={switchModeHandler} >
             {isLoginMode ? 'Sign Up!' : 'Log In!'}{' '}
-          </a>{' '}
+          </Link>{' '}
         </p>
       </div>
     </React.Fragment>

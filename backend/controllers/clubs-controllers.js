@@ -14,7 +14,7 @@ const createClub = async (req, res, next) => {
 
   const createdClub = new Club({
     name,
-    image: 'https://en.wikipedia.org/wiki/Everton_F.C.#/media/File:Everton_FC_logo.svg',
+    image: 'https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg',
     league,
   });
 

@@ -15,5 +15,4 @@ router.post('/register', [
 
 router.post('/login', usersControllers.login);
 
-
 module.exports = router;

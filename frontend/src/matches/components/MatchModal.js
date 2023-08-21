@@ -6,7 +6,7 @@ const MatchModal = props => {
     <>
       <div className='backdrop' onClick={props.onClose} />
       <div className='match-modal'>
-        <div className='modal-content'>
+        <div className='match-modal-content'>
           <h2 className='title'>{props.title}</h2>
           <span className='close' onClick={props.onClose}>
             &times;

@@ -109,7 +109,7 @@ const Auth = () => {
         }
         console.log(responseData);
         setIsLoading(false);
-        auth.login(responseData.email.userId);
+        auth.login(responseData.userId);
       } catch (err) {
         console.log(err);
         setIsLoading(false);

@@ -27,8 +27,6 @@ const ClubDetails = props => {
     //navigate(`./table`); sa useEffect probati
   };
 
-  console.log("selected club " + league.name);
-
   return (
     <div className='container'>
       <h1>{name}</h1>

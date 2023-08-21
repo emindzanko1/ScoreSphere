@@ -97,15 +97,16 @@ const Table = props => {
     return <p>No clubs available.</p>;
   }
 
-  const formatedName = props.name.toLowerCase().replace(/\s+/g, '-');
-  const formatedTitle = props.title.toLowerCase().replace(/\s+/g, '-');
-
-  // console.log(props.name);
-
+  const formattedName = props.name.toLowerCase().replace(/\s+/g, '-');
+  const formattedTitle = props.title.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div key={props.id} className='table'>
-      <Link to={`/${formatedName}/${formatedTitle}`} className='title-link' style={{ textDecoration: 'none' }}>
+      <Link
+        to={`/tournament/${formattedName}/${formattedTitle}`}
+        className='title-link'
+        style={{ textDecoration: 'none' }}
+      >
         <h2 className='title'>
           {props.title}
           <img src={props.image} alt={props.image} />

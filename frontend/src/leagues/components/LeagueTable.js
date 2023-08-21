@@ -36,9 +36,12 @@ const LeagueTable = props => {
     navigate(`/team/${formattedTeamName}`);
   };
 
+  const formattedName = league.name.toLowerCase().replace(/\s+/g, '-');
+  const formattedTitle = league.title.toLowerCase().replace(/\s+/g, '-');
+
   return (
     <div className='league-table'>
-      <Link to={`/${league.name}/${league.title}`} className='title-link' style={{ textDecoration: 'none' }}>
+      <Link to={`/tournament/${formattedName}/${formattedTitle}`} className='title-link' style={{ textDecoration: 'none' }}>
         <h2 className='title'>
           {league.title}
           <img src={image} alt={image} />

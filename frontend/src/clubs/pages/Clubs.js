@@ -58,7 +58,7 @@ const Clubs = () => {
     <React.Fragment>
       {isLoading && (
         <div className='center'>
-          <LoadingSpinner />
+          <LoadingSpinner asOverlay/>
         </div>
       )}
       {!isLoading && clubs && leagues && (

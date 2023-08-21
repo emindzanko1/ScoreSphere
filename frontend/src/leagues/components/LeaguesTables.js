@@ -22,7 +22,7 @@ const LeaguesTables = props => {
     <React.Fragment>
       {isLoading && (
         <div className='center'>
-          <LoadingSpinner />
+          <LoadingSpinner asOverlay/>
         </div>
       )}
       {!isLoading && clubs && (

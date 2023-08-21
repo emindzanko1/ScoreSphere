@@ -10,7 +10,7 @@ const LeagueItem = props => {
 
   return (
     <li className='league-item'>
-      <Link to={`/${formatedName}/${formatedTitle}`} className='league-item__link' style={{ textDecoration: 'none' }}>
+      <Link to={`tournament/${formatedName}/${formatedTitle}`} className='league-item__link' style={{ textDecoration: 'none' }}>
         <div className='league-item__content'>
           <div className='league-item__image'>
             <img src={props.image} alt={props.name} className='league-item__image-img' />

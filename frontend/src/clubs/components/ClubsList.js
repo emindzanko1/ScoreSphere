@@ -21,15 +21,9 @@ const ClubsList = props => {
 
   const clubIndex = clubs.findIndex(clubItem => clubItem.id === myClub.id);
 
-  let nextClubIndex;
-  if (clubIndex % 2 === 0) {
-    nextClubIndex = (clubIndex + 1) % clubs.length;
-  }
-  else {
-    nextClubIndex = (clubIndex - 1) % clubs.length;
-  }
+  const nextClubIndex = clubIndex % 2 === 0 ? (clubIndex + 1) % clubs.length : (clubIndex - 1) % clubs.length;
 
-  const myClubs = [myClub, clubs[nextClubIndex]];
+  const myClubs = nextClubIndex > clubIndex ? [myClub, clubs[nextClubIndex]] : [clubs[nextClubIndex], myClub];
 
   return (
     <ul>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -9,36 +9,38 @@ import Clubs from './clubs/pages/Clubs';
 import League from './leagues/components/League';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem('token');
 
-    if (storedToken) {
-      setIsLoggedIn(true);
-    }
+  //   if (storedToken) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
+
+  const login = useCallback((uid, token) => {
+    setToken(token);
+    setUserId(uid);
+    localStorage.setItem('token', 'your_auth_token_here');
   }, []);
 
-  const login = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem('token', 'your_auth_token_here');
-  };
-
-  const logout = () => {
-    setIsLoggedIn(false);
+  const logout = useCallback(() => {
+    setToken(null);
+    setUserId(null);
     localStorage.removeItem('token');
-  };
+  },[]);
 
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Routes>
         <Route path='/' element={<Leagues />} />
-        <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
-        <Route path='/:country/:league' element={<League />} />
+        <Route path='tournament/:country/:league' element={<League />} />
         <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
@@ -47,10 +49,9 @@ const App = () => {
     routes = (
       <Routes>
         <Route path='/' element={<Leagues />} />
-        <Route path='/leagues' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
         <Route path='/auth' element={<Auth />} />
-        <Route path='/:country/:league' element={<League/>} />
+        <Route path='tournament/:country/:league' element={<League/>} />
         <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
@@ -60,7 +61,9 @@ const App = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
         login: login,
         logout: logout,
       }}

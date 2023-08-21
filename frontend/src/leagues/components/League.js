@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Table from './Table';
 import LeagueTable from './LeagueTable';
-import LoadingSpinner from '../../shared/UI/LoadingSpinner';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 import './League.css';
 

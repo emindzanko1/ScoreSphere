@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ClubsList from '../components/ClubsList';
-import LoadingSpinner from '../../shared/UI/LoadingSpinner';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Clubs = () => {
   const [isLoading, setIsLoading] = useState(false);

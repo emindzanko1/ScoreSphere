@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table.js';
-import LoadingSpinner from '../../shared/UI/LoadingSpinner.js';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner.js';
 import './LeaguesTables.css';
 
 const LeaguesTables = props => {

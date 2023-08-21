@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Modal from './Modal';
-import Button from '../components/FormElements/Button';
+import './ErrorModal.css';
 
 const ErrorModal = props => {
   return (
     <Modal
       onCancel={props.onClear}
-      header="An Error Occurred!"
+      header='An Error Occurred!'
       show={!!props.error}
-      footer={<Button onClick={props.onClear}>Okay</Button>}
+      footer={<button onClick={props.onClear}>Okay</button>}
     >
       <p>{props.error}</p>
     </Modal>

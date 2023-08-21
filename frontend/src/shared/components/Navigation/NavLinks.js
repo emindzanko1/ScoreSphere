@@ -36,9 +36,15 @@ const NavLinks = props => {
               <BsSearch />
             </NavLink>
           </li>
+          {!auth.isLoggedIn ? (
           <li>
-            <NavLink to='/leagues'>ALL LEAGUES</NavLink>
+            <NavLink to='/' >ALL LEAGUES</NavLink>
           </li>
+          ) : (
+            <li>
+            <NavLink to='/' >MY FAVOURITES</NavLink>
+          </li>
+          )}
           {!auth.isLoggedIn && (
             <li>
               <NavLink to='/auth'>LOGIN</NavLink>

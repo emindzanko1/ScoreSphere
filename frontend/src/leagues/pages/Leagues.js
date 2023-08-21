@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LeaguesList from '../components/LeaguesList';
 import LeaguesTables from '../components/LeaguesTables';
-import LoadingSpinner from '../../shared/UI/LoadingSpinner';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const Leagues = () => {
   const [isLoading, setIsLoading] = useState(false);

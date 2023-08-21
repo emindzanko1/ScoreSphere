@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoadingSpinner from '../../UI/LoadingSpinner';
+import LoadingSpinner from '../UIElements/LoadingSpinner';
 
 import './SearchBar.css';
 

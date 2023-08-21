@@ -8,8 +8,8 @@ import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import AuthContext from '../../shared/context/auth-context';
-import ErrorModal from '../../shared/UI/ErrorModal';
-import LoadingSpinner from '../../shared/UI/LoadingSpinner';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal.js';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { Link } from 'react-router-dom';
 import './Auth.css';
 
@@ -82,7 +82,7 @@ const Auth = () => {
           throw new Error(responseData.message);
         }
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || 'Something went wrong, please try again');
@@ -109,7 +109,7 @@ const Auth = () => {
         }
         console.log(responseData);
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.email.userId);
       } catch (err) {
         console.log(err);
         setIsLoading(false);
@@ -140,7 +140,7 @@ const Auth = () => {
 
   return (
     <React.Fragment>
-    {/* <ErrorModal error={error} onClear={errorHandler}/> */}
+    <ErrorModal error={error} onClear={errorHandler}/>
       <div className='signin-form-container'>
         {isLoginMode ? <h2>Sign In</h2> : <h2>Create an Account</h2>}
         {isLoading && <LoadingSpinner as Overlay />}

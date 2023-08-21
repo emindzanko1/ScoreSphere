@@ -32,7 +32,6 @@ const App = () => {
     localStorage.removeItem('token');
   },[]);
 
-
   let routes;
 
   if (token) {

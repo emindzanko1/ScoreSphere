@@ -28,22 +28,24 @@ const LeagueTable = props => {
     return null;
   }
 
-  const leagueClubs = teams.filter(team => team.league === league.id);
-
   const teamNameClickHandler = (teamName, event) => {
     event.stopPropagation();
     const formattedTeamName = teamName.toLowerCase().replace(/\s+/g, '-');
     navigate(`/team/${formattedTeamName}`);
   };
 
-  const formattedName = league.name.toLowerCase().replace(/\s+/g, '-');
-  const formattedTitle = league.title.toLowerCase().replace(/\s+/g, '-');
+  let formattedName, formattedTitle;
+
+  if (league) {
+    formattedName = league.name.toLowerCase().replace(/\s+/g, '-');
+    formattedTitle = league.area.name.toLowerCase().replace(/\s+/g, '-');
+  }
 
   return (
     <div className='league-table'>
       <Link to={`/tournament/${formattedName}/${formattedTitle}`} className='title-link' style={{ textDecoration: 'none' }}>
         <h2 className='title'>
-          {league.title}
+          {league.area.name}
           <img src={image} alt={image} />
         </h2>
       </Link>
@@ -61,7 +63,7 @@ const LeagueTable = props => {
           </tr>
         </thead>
         <tbody>
-          {leagueClubs.map((team, index) => (
+          {teams.map((team, index) => (
             <tr
               key={index}
               onMouseEnter={() => onMouseRowEnterHandler(index)}
@@ -73,7 +75,7 @@ const LeagueTable = props => {
               </td>
               <td className={`league-team-cell ${selectedClub && team.id === selectedClub.id ? 'selected' : ''}`}>
                 <div className='league-team-container'>
-                  <img src={team.image} alt={team.image} />
+                  <img src={team.crest} alt={team.crest} />
                   <span className='league-team-name'>{team.name}</span>
                   {hoveredRow === index && <span className='tooltip'>Click for team details!</span>}
                 </div>

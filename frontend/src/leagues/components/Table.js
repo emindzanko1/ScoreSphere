@@ -93,17 +93,26 @@ const Table = props => {
     }
   };
 
-  if (!Array.isArray(props.clubs)) {
-    return <p>No clubs available.</p>;
+  let formattedName, formattedTitle;
+
+  if(props.name && props.title) {
+    formattedName = props.name.toLowerCase().replace(/\s+/g, '-')
+    formattedTitle = props.title.toLowerCase().replace(/\s+/g, '-')
   }
 
-  const formattedName = props.name.toLowerCase().replace(/\s+/g, '-');
-  const formattedTitle = props.title.toLowerCase().replace(/\s+/g, '-');
+  // const clubs = props.clubs.map(club => ({
+  //   ...club,
+  //   name: club.shortName.toLowerCase().replace(/\s+/g, '-'),
+  //   area: {
+  //     ...club.area,
+  //     name: club.area.name.toLowerCase().replace(/\s+/g, '-')
+  //   }
+  // }));
 
   return (
     <div key={props.id} className='table'>
       <Link
-        to={`/tournament/${formattedName}/${formattedTitle}`}
+        to={`/tournament/${formattedTitle}/${formattedName}`}
         className='title-link'
         style={{ textDecoration: 'none' }}
       >
@@ -127,11 +136,11 @@ const Table = props => {
               const awayTeam = props.clubs[index + 1];
               const match = {
                 dateTime: getCurrentDate(matchTime),
-                homeTeam: club.name,
-                awayTeam: awayTeam.name,
+                homeTeam: club.shortName,
+                awayTeam: awayTeam.shortName,
                 result: '0:0',
-                homeTeamImage: club.image,
-                awayTeamImage: awayTeam.image,
+                homeTeamImage: club.crest,
+                awayTeamImage: awayTeam.crest,
               };
               return (
                 <tr
@@ -148,10 +157,10 @@ const Table = props => {
                       className='team-container'
                       onMouseEnter={() => onMouseTeamEnterHandler(club)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(club.name, e)}
+                      onClick={e => teamNameClickHandler(club.shortName, e)}
                     >
-                      <img src={club.image} alt={club.image} />
-                      <span className='team-name'>{club.name}</span>
+                      <img src={club.crest} alt={club.crest} />
+                      <span className='team-name'>{club.shortName}</span>
                       {hoveredTeam === club ? (
                         <span className='tooltip'>Click for team details!</span>
                       ) : (
@@ -164,10 +173,10 @@ const Table = props => {
                       className='team-container'
                       onMouseEnter={() => onMouseTeamEnterHandler(awayTeam)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(awayTeam.name, e)}
+                      onClick={e => teamNameClickHandler(awayTeam.shortName, e)}
                     >
-                      <img src={awayTeam.image} alt={awayTeam.image} />
-                      <span className='team-name'>{awayTeam.name}</span>
+                      <img src={awayTeam.crest} alt={awayTeam.crest} />
+                      <span className='team-name'>{awayTeam.shortName}</span>
                       {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
                     </div>
                   </td>

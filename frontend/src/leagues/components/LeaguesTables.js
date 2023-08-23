@@ -25,18 +25,28 @@ const LeaguesTables = props => {
           <LoadingSpinner asOverlay/>
         </div>
       )}
-      {!isLoading && clubs && (
+      {!isLoading && leagues && clubs && (
         <ul className='league-tables'>
+        {/* {leagues.map(league => (
+            <Table
+              key={league.id}
+              id={league.id}
+              name={league.name}
+              title={league.area.name}
+              clubs={clubs}
+              image={league.area.flag}
+            />
+          ))} */}
           {leagues.map(league => {
-            const leagueClubs = clubs.filter(club => club.league === league.id);
+            const leagueClubs = clubs.filter(club => club.area.id === league.area.id);
             return (
               <Table
                 key={league.id}
                 id={league.id}
                 name={league.name}
-                title={league.title}
+                title={league.area.name}
                 clubs={leagueClubs} 
-                image={league.image}
+                image={league.area.flag}
               />
             );
           })}
@@ -47,3 +57,4 @@ const LeaguesTables = props => {
 };
 
 export default LeaguesTables;
+

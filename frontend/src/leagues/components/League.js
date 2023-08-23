@@ -12,7 +12,7 @@ const League = () => {
   const [error, setError] = useState();
   const [cleague, setLeague] = useState();
   const [clubs, setClubs] = useState();
-  const { country, league } = useParams();
+  const { country, league, code } = useParams();
 
   const handleFixturesClick = () => {
     setActiveTable('table');
@@ -32,48 +32,67 @@ const League = () => {
     return capitalizedWords.join(' ');
   };
 
+  // useEffect(() => {
+  //   const sendRequest = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await fetch(`http://localhost:5000/league`);
+
+  //       const responseData = await response.json();
+  //       setLeague(responseData.league);
+
+  //       if (!response.ok) {
+  //         throw new Error(responseData.message);
+  //       }
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   sendRequest();
+  // }, [country, league]);
+
   useEffect(() => {
-    const sendRequest = async () => {
+    const fetchLeague = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:5000/tournament/${country}/${league}`);
-
-        const responseData = await response.json();
-        setLeague(responseData.league);
-
+        const response = await fetch(`http://localhost:5000/league/${code}`);
         if (!response.ok) {
-          throw new Error(responseData.message);
+          throw new Error('API request failed');
         }
+        const data = await response.json();
+        setLeague(data);
         setIsLoading(false);
       } catch (error) {
-        setError(error.message);
+        console.error('Error fetching data:', error);
       }
       setIsLoading(false);
     };
-    sendRequest();
-  }, [country, league]);
-
+    fetchLeague();
+  }, []);
 
   useEffect(() => {
-    const sendRequest = async () => {
+    const fetchClubs = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:5000/team/clubs/${league}`);
-
-        const responseData = await response.json();
-        setClubs(responseData.clubs);
+        const response = await fetch(`http://localhost:5000/${code}/clubs`);
 
         if (!response.ok) {
-          throw new Error(responseData.message);
+          throw new Error('API request failed');
         }
+
+        const data = await response.json();
+
+        setClubs(data.teams);
         setIsLoading(false);
       } catch (error) {
-        setError(error.message);
+        console.error('Error fetching data:', error);
       }
       setIsLoading(false);
     };
-    sendRequest();
-  }, [country, league]);
+    fetchClubs();
+  }, []);
 
   return (
     <React.Fragment>
@@ -82,7 +101,7 @@ const League = () => {
           <LoadingSpinner asOverlay />
         </div>
       )}
-      {!isLoading && clubs && cleague &&(
+      {!isLoading && cleague && clubs && (
         <div className='league-title'>
           <h2>Welcome to {formatName(country)}!</h2>
           <div className='league-container'>
@@ -99,12 +118,12 @@ const League = () => {
                 key={cleague.id}
                 id={cleague.id}
                 name={cleague.name}
-                title={cleague.title}
+                title={cleague.area.name}
                 clubs={clubs}
-                image={cleague.image}
+                image={cleague.area.flag}
               />
             ) : (
-              <LeagueTable league={cleague} teams={clubs} image={cleague.image} />
+              <LeagueTable key={cleague.id} id={cleague.id} league={cleague} teams={clubs} image={cleague.area.flag} />
             )}
             <Link to='/' className='link'>
               <div className='button-container'>

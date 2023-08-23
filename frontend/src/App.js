@@ -39,7 +39,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
-        <Route path='tournament/:country/:league' element={<League />} />
+        <Route path='tournament/:country/:league/:code' element={<League/>} />
         <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
@@ -50,7 +50,7 @@ const App = () => {
         <Route path='/' element={<Leagues />} />
         <Route path='/search' element={<Leagues />} />
         <Route path='/auth' element={<Auth />} />
-        <Route path='tournament/:country/:league' element={<League/>} />
+        <Route path='tournament/:country/:league/:code' element={<League/>} />
         <Route path='/team/:club' element={<Clubs />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>

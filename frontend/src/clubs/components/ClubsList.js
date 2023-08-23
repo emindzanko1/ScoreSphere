@@ -1,29 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ClubDetails from './ClubDetails';
 import './ClubList.css';
 import { useParams } from 'react-router-dom';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const ClubsList = props => {
   const { clubs, leagues } = props;
   const { club } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [myClub, setMyClub] = useState(null);
 
-  if (!props.clubs) {
-    return <p>No clubs available.</p>;
+  useEffect(() => {
+    if (!clubs) {
+      setIsLoading(false);
+      return;
+    }
+
+    const foundClub = clubs.find(clubItem => clubItem.shortName.toLowerCase().replace(/\s+/g, '-') === club);
+    setMyClub(foundClub);
+    setIsLoading(false);
+  }, [clubs, club]);
+
+  console.log(myClub);
+
+  if (isLoading) {
+    return (
+      <div className='center'>
+        <LoadingSpinner asOverlay />
+      </div>
+    );
   }
-
-  const myClub = clubs.find(clubItem => clubItem.name.toLowerCase().replace(/\s+/g, '-') === club);
 
   if (!myClub) {
-    return <p>Club not found.</p>;
+    return (
+      <div className='center'>
+        <LoadingSpinner asOverlay />
+      </div>
+    );
   }
 
-  const myLeague = leagues.find(league => league.id === myClub.league);
+  let myLeague, clubIndex, nextClubIndex, myClubs;
 
-  const clubIndex = clubs.findIndex(clubItem => clubItem.id === myClub.id);
+  if (myClub) {
+    myLeague = leagues.find(league => league.id === myClub.runningCompetitions[0].id);
 
-  const nextClubIndex = clubIndex % 2 === 0 ? (clubIndex + 1) % clubs.length : (clubIndex - 1) % clubs.length;
+    clubIndex = clubs.findIndex(clubItem => clubItem.id === myClub.id);
 
-  const myClubs = nextClubIndex > clubIndex ? [myClub, clubs[nextClubIndex]] : [clubs[nextClubIndex], myClub];
+    nextClubIndex = clubIndex % 2 === 0 ? (clubIndex + 1) % clubs.length : (clubIndex - 1) % clubs.length;
+
+    myClubs = nextClubIndex > clubIndex ? [myClub, clubs[nextClubIndex]] : [clubs[nextClubIndex], myClub];
+  }
 
   return (
     <ul>
@@ -31,8 +57,7 @@ const ClubsList = props => {
         key={myClub.id}
         id={myClub.id}
         name={myClub.name}
-        image={myClub.image}
-        leagueId={myClub.league}
+        image={myClub.crest}
         club={myClub}
         league={myLeague}
         myClubs={myClubs}

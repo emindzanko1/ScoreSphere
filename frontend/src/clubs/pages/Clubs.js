@@ -80,10 +80,8 @@ const Clubs = () => {
     fetchLeagues();
   }, []);
 
-  // const plCode = 'PL';
-  // const blCode = 'BL1';
-  // const saCode = 'SA';
-  // const pdCode = 'PD';
+  // const codes = ["PL","BL1","SA","PD"];
+
 
   useEffect(() => {
     const fetchClubs = async () => {

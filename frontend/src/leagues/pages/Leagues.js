@@ -9,8 +9,6 @@ const Leagues = () => {
   const [leagues, setLeagues] = useState([]);
   const [clubs, setClubs] = useState([]);
 
-  const [competitions, setCompetitions] = useState([]);
-
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
@@ -29,11 +27,9 @@ const Leagues = () => {
     };
     fetchLeagues();
   }, []);
+  
+  //const codes = ["PL","BL1","SA","PD"];
 
-  // const plCode = 'PL';
-  // const blCode = 'BL1';
-  // const saCode = 'SA';
-  // const pdCode = 'PD';
 
   useEffect(() => {
     const fetchClubs = async () => {
@@ -115,30 +111,3 @@ const Leagues = () => {
 };
 
 export default Leagues;
-
-// useEffect(() => {
-  //   const fetchLeaguesAndClubs = async () => {
-  //     try {
-  //       setIsLoading(true);
-
-  //       const leaguesResponse = await fetch('http://localhost:5000/leagues');
-  //       const leaguesData = await leaguesResponse.json();
-  //       setLeagues(leaguesData.leagues);
-
-  //       const clubsResponse = await fetch('http://localhost:5000/team/clubs');
-  //       const clubsData = await clubsResponse.json();
-  //       setClubs(clubsData.clubs);
-
-  //       if (!leaguesResponse.ok || !clubsResponse.ok) {
-  //         throw new Error('Failed to fetch data.');
-  //       }
-
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //     setIsLoading(false);
-  //   };
-
-  //   fetchLeaguesAndClubs();
-  // }, []);

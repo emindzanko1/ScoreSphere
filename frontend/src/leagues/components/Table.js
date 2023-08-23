@@ -1,46 +1,47 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 import MatchModal from '../../matches/components/MatchModal';
 
 import './Table.css';
 
 const Table = props => {
-  const getCurrentDate = matchTime => {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const [hours, minutes] = matchTime.split(':');
-    return `${day}.${month}. ${hours}:${minutes}`;
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
-  const calculateMatchTime = startTime => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const currentDay = String(currentDate.getDate()).padStart(2, '0');
+  const [table, setTable] = useState([]);
 
-    const startDateTime = new Date(`${currentYear}-${currentMonth}-${currentDay}T${startTime}:00`);
-    const currentDateTime = new Date();
-    const diffInMinutes = Math.floor((currentDateTime - startDateTime) / 60000);
+  const { name, title, code } = props;
 
-    switch (true) {
-      case diffInMinutes > 105:
-        return 'The End';
-      case diffInMinutes >= 90 && diffInMinutes <= 105:
-      case diffInMinutes > 60 && diffInMinutes < 90:
-        return `${diffInMinutes - 15}'`;
-      case diffInMinutes > 45 && diffInMinutes <= 60:
-        return 'Half Time';
-      case diffInMinutes <= 0:
-        return getCurrentDate(startTime);
-      default:
-        return `${diffInMinutes}'`;
-    }
-  };
+  let formattedName, formattedTitle, formattedCode;
 
-  const matchTime = '19:00';
-  const newMatchTime = calculateMatchTime(matchTime);
+  if (name && title && code) {
+    formattedName = name.toLowerCase().replace(/\s+/g, '-');
+    formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
+    formattedCode = code.toLowerCase().replace(/\s+/g, '-');
+  }
+
+  useEffect(() => {
+    const fetchTable = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:5000/league/${formattedCode}/matches`);
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+        const data = await response.json();
+        setTable(data.matches);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchTable();
+  }, [code]);
+
+  if (table) {
+    console.log(table);
+  }
 
   const [selectedMatch, setSelectedMatch] = useState(null);
 
@@ -93,75 +94,64 @@ const Table = props => {
     }
   };
 
-  let formattedName, formattedTitle;
-
-  if(props.name && props.title) {
-    formattedName = props.name.toLowerCase().replace(/\s+/g, '-')
-    formattedTitle = props.title.toLowerCase().replace(/\s+/g, '-')
-  }
-
-  // const clubs = props.clubs.map(club => ({
-  //   ...club,
-  //   name: club.shortName.toLowerCase().replace(/\s+/g, '-'),
-  //   area: {
-  //     ...club.area,
-  //     name: club.area.name.toLowerCase().replace(/\s+/g, '-')
-  //   }
-  // }));
+  const formatMatchDate = utcDate => {
+    const date = new Date(utcDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}.${month}. ${hours}:${minutes}`;
+  };
 
   return (
-    <div key={props.id} className='table'>
-      <Link
-        to={`/tournament/${formattedTitle}/${formattedName}`}
-        className='title-link'
-        style={{ textDecoration: 'none' }}
-      >
-        <h2 className='title'>
-          {props.title}
-          <img src={props.image} alt={props.image} />
-        </h2>
-      </Link>
-      <table>
-        <thead>
-          <tr>
-            {newMatchTime !== getCurrentDate(matchTime) ? <th>Match Time</th> : <th>Date & Time</th>}
-            <th>Home Team</th>
-            <th>Away Team</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.clubs.map((club, index) => {
-            if (index % 2 === 0 && index + 1 < props.clubs.length) {
-              const awayTeam = props.clubs[index + 1];
-              const match = {
-                dateTime: getCurrentDate(matchTime),
-                homeTeam: club.shortName,
-                awayTeam: awayTeam.shortName,
-                result: '0:0',
-                homeTeamImage: club.crest,
-                awayTeamImage: awayTeam.crest,
-              };
-              return (
+    <React.Fragment>
+      {isLoading && (
+        <div className='center'>
+          <LoadingSpinner asOverlay />
+        </div>
+      )}
+      {!isLoading  && (
+        <div key={props.id} className='table'>
+          <Link
+            to={`/tournament/${formattedName}/${formattedTitle}/${formattedCode}`}
+            className='title-link'
+            style={{ textDecoration: 'none' }}
+          >
+            <h2 className='title'>
+              {title}
+              <img src={props.image} alt={props.image} />
+            </h2>
+          </Link>
+          <table>
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {table.map((match, index) => (
                 <tr
-                  key={index}
+                  key={match.id}
                   ref={rowRef}
                   onClick={() => rowClickHandler(match)}
                   className={`clickable-row ${hoveredRow === index ? 'hovered' : ''}`}
                   onMouseEnter={() => onMouseRowEnterHandler(index)}
                   onMouseLeave={onMouseRowLeaveHandler}
                 >
-                  <td className='date-time-cell'>{newMatchTime}</td>
+                  <td className='date-time-cell'>{formatMatchDate(match.utcDate)}</td>
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(club)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(match.homeTeam)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(club.shortName, e)}
+                      onClick={e => teamNameClickHandler(match.homeTeam.shortName, e)}
                     >
-                      <img src={club.crest} alt={club.crest} />
-                      <span className='team-name'>{club.shortName}</span>
-                      {hoveredTeam === club ? (
+                      <img src={match.homeTeam.crest} alt={match.homeTeam.crest} />
+                      <span className='team-name'>{match.homeTeam.shortName}</span>
+                      {hoveredTeam === match.homeTeam ? (
                         <span className='tooltip'>Click for team details!</span>
                       ) : (
                         hoveredRow === index && <span className='tooltip'>Click for match details!</span>
@@ -171,33 +161,38 @@ const Table = props => {
                   <td className='team-cell'>
                     <div
                       className='team-container'
-                      onMouseEnter={() => onMouseTeamEnterHandler(awayTeam)}
+                      onMouseEnter={() => onMouseTeamEnterHandler(match.awayTeam)}
                       onMouseLeave={onMouseTeamLeaveHandler}
-                      onClick={e => teamNameClickHandler(awayTeam.shortName, e)}
+                      onClick={e => teamNameClickHandler(match.awayTeam.shortName, e)}
                     >
-                      <img src={awayTeam.crest} alt={awayTeam.crest} />
-                      <span className='team-name'>{awayTeam.shortName}</span>
-                      {hoveredTeam === awayTeam && <span className='tooltip'>Click for team details!</span>}
+                      <img src={match.awayTeam.crest} alt={match.awayTeam.crest} />
+                      <span className='team-name'>{match.awayTeam.shortName}</span>
+                      {hoveredTeam === match.awayTeam && <span className='tooltip'>Click for team details!</span>}
                     </div>
                   </td>
-                  <td className='results'>0:0</td>
+                  <td className='results'>{`${match.score.fullTime.home ?? '-'}:${
+                    match.score.fullTime.away ?? '-'
+                  }`}</td>
                 </tr>
-              );
-            }
-            return null;
-          })}
-        </tbody>
-      </table>
-      {selectedMatch && (
-        <MatchModal
-          show={true}
-          onClose={() => setSelectedMatch(null)}
-          title={props.title}
-          newMatchTime={newMatchTime}
-          {...selectedMatch}
-        />
+              ))}
+            </tbody>
+          </table>
+          {selectedMatch && (
+            <MatchModal
+              show={true}
+              onClose={() => setSelectedMatch(null)}
+              title={title}
+              homeTeam={selectedMatch.homeTeam.shortName}
+              awayTeam={selectedMatch.awayTeam.shortName}
+              homeTeamImage={selectedMatch.homeTeam.crest}
+              awayTeamImage={selectedMatch.awayTeam.crest}
+              dateTime={formatMatchDate(selectedMatch.utcDate)}
+              result={`${selectedMatch.score.fullTime.home ?? '-'}:${selectedMatch.score.fullTime.away ?? '-'}`}
+            />
+          )}
+        </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

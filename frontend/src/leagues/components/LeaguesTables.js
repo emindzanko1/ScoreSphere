@@ -45,6 +45,7 @@ const LeaguesTables = props => {
                 id={league.id}
                 name={league.name}
                 title={league.area.name}
+                code = {league.code}
                 clubs={leagueClubs} 
                 image={league.area.flag}
               />

@@ -21,8 +21,6 @@ const ClubsList = props => {
     setIsLoading(false);
   }, [clubs, club]);
 
-  console.log(myClub);
-
   if (isLoading) {
     return (
       <div className='center'>

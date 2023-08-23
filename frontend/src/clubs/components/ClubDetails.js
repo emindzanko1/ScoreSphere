@@ -53,6 +53,7 @@ const ClubDetails = props => {
               id={league.id}
               name={league.name}
               title={league.area.name}
+              code = {league.code}
               clubs={props.myClubs}
               image={league.area.flag}
             />

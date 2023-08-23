@@ -21,7 +21,6 @@ const MatchModal = props => {
             <div className='result'>
               <p className='date-time'>{props.dateTime}</p>
               <h2>{props.result}</h2>
-              <p>{props.newMatchTime}</p>
             </div>
             <div className='team'>
               <div className='team-image-container'>

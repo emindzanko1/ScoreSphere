@@ -1,11 +1,12 @@
-import './App.css'
+import Header from '../components/Header';
+import './App.css';
 
 function App() {
   return (
     <>
-    <p>Initial</p>
+      <Header />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,7 @@
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-size: 1.1rem;
+  transition: font-size 0.3s ease;
+}

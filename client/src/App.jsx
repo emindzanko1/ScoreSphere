@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import './App.css';
 import Home from '../components/Home';
 import AuthForm from '../components/Auth';
+import Footer from '../components/Footer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/search' element={<AuthForm isRegister={true} />} />
         </Routes>
       </Router>
+      <Footer />
     </>
   );
 }

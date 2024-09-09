@@ -8,6 +8,7 @@ export default function Home() {
       <SportLink />
       <main>
         <PinnedSection />
+        <FilterButton />
       </main>
     </>
   );

@@ -115,8 +115,8 @@
   font-size: 18px;
   font-weight: bold;
   color: #00aaff;
-  background: #f1f1f1;
-  border-radius: 20px;
+  /* background: #f1f1f1; */
+  /* border-radius: 20px; */
 }
 
 .glass-effect {

@@ -1,14 +1,15 @@
-import NavLink from './NavLink';
+import NavLinks from './NavLink';
 import '../styles/Header.css';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
     <>
       <header>
         <div className='title'>
-          <a href='/'>ScoreSphere</a>
+          <Link to='/'>ScoreSphere</Link>
         </div>
-        <NavLink />
+        <NavLinks />
       </header>
     </>
   );

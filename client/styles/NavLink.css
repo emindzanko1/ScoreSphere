@@ -4,24 +4,25 @@
   align-items: center;
 }
 
-.icon-container {
+.nav-links a, .theme-switch-wrapper {
   padding: 5px;
   background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
   border-radius: 8px;
   margin-left: 15px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  color: white;
 }
 
-.icon-container:hover {
+.nav-links a:hover, .theme-switch-wrapper:hover {
   background-color: var(--color-accent);
   transform: scale(1.1);
 }
 
-.icon-container a {
-  color: white;
+.nav-links a.active {
+  background: white;
 }
 
-.icon-container svg {
+.nav-links svg, .theme-switch-wrapper svg {
   width: 24px;
   height: 24px;
 }
@@ -31,11 +32,17 @@
     font-size: 0.9rem;
     margin-left: 10px;
   }
+  .theme-switch-wrapper {
+    margin-left: 10px;
+  }
 }
 
 @media (max-width: 480px) {
   .nav-links a {
     font-size: 0.8rem;
+    margin-left: 8px;
+  }
+  .theme-switch-wrapper {
     margin-left: 8px;
   }
 }

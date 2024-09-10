@@ -6,21 +6,36 @@
 
 .icon-container {
   padding: 5px;
-  background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);  border-radius: 8px;
+  background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
+  border-radius: 8px;
   margin-left: 15px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .icon-container:hover {
-  background-color: var(--color-accent); 
-  transform: scale(1.1); 
+  background-color: var(--color-accent);
+  transform: scale(1.1);
 }
 
 .icon-container a {
-  color: white; 
+  color: white;
 }
 
 .icon-container svg {
   width: 24px;
   height: 24px;
+}
+
+@media (max-width: 768px) {
+  .nav-links a {
+    font-size: 0.9rem;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links a {
+    font-size: 0.8rem;
+    margin-left: 8px;
+  }
 }

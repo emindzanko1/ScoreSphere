@@ -1,0 +1,9 @@
+.toggle {
+  background: none;
+  border: none;
+  color: white;
+}
+
+.toggle:hover {
+  cursor: pointer;
+}

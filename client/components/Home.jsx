@@ -1,6 +1,7 @@
-import FilterButton from "./FilterButton";
-import PinnedSection from "./PinnedSection";
-import SportLink from "./SportLink";
+import FilterButton from './FilterButton';
+import PinnedSection from './PinnedSection';
+import ResultTable from './ResultTable';
+import SportLink from './SportLink';
 
 export default function Home() {
   return (
@@ -8,7 +9,10 @@ export default function Home() {
       <SportLink />
       <main>
         <PinnedSection />
-        <FilterButton />
+        <div className='main-content'>
+          <FilterButton />
+          <ResultTable />
+        </div>
       </main>
     </>
   );

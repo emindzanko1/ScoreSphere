@@ -37,3 +37,15 @@ main {
     rgb(240, 251, 244) 100.7%
   );
 }
+
+.dark main {
+  /* background: radial-gradient(
+    328px at 2.9% 15%,
+    rgb(30, 30, 30) 0%,
+    rgb(40, 40, 40) 25.8%,
+    rgb(50, 50, 50) 50.8%,
+    rgb(60, 60, 60) 77.6%,
+    rgb(70, 70, 70) 100.7%
+  ); */
+  background: #121d2c;
+}

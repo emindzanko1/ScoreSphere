@@ -21,18 +21,22 @@ const ThemeSwitch = () => {
     const localTheme = window.localStorage.getItem('theme');
 
     if (localTheme) {
-        setTheme(localTheme);
+      setTheme(localTheme);
 
-        if (localTheme === 'dark') {
-          document.documentElement.classList.add('dark');
-        }
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      if (localTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setTheme('dark');
       document.documentElement.classList.add('dark');
     }
   }, []);
 
-  return <button onClick={toggleTheme} className='toggle'>{theme === 'light' ? <BsSun /> : <BsMoon />}</button>;
+  return (
+    <button onClick={toggleTheme} className='toggle'>
+      {theme === 'light' ? <BsMoon /> : <BsSun />}
+    </button>
+  );
 };
 
 export default ThemeSwitch;

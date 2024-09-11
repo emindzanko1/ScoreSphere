@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { MdPushPin } from "react-icons/md";
+import { MdPushPin } from 'react-icons/md';
 
 import '../styles/PinnedSection.css';
+import { Link } from 'react-router-dom';
 
 export default function PinnedSection() {
   const [pinnedLeagues, setPinnedLeagues] = useState([
@@ -26,7 +27,8 @@ export default function PinnedSection() {
     { id: 2, name: 'Barcelona', flag: 'https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg' },
   ]);
 
-  const handlePinClick = (id, type) => {
+  const handlePinClick = (e, id, type) => {
+    e.stopPropagation(); // Prevent the Link's onClick from firing
     if (type === 'league') {
       setPinnedLeagues(pinnedLeagues.filter(league => league.id !== id));
     } else if (type === 'club') {
@@ -39,27 +41,27 @@ export default function PinnedSection() {
       <div className='pinned-section'>
         <h2>Pinned Leagues</h2>
         {pinnedLeagues.map(league => (
-          <div key={league.id} className='pinned-item'>
+          <Link to={`/league/${league.id}`} key={league.id} className='pinned-item'>
             <img src={league.flag} alt={`${league.name} flag`} />
             <div className='name'>{league.name}</div>
             <div className='unpin-tooltip'>
               <span className='tooltiptext'>Remove this league from your Pinned Leagues!</span>
-              <MdPushPin className='unpin-icon' onClick={() => handlePinClick(league.id, 'league')} />
+              <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, league.id, 'league')} />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className='pinned-section'>
         <h2>Pinned Clubs</h2>
         {pinnedClubs.map(club => (
-          <div key={club.id} className='pinned-item'>
+          <Link to={`/club/${club.id}`} key={club.id} className='pinned-item'>
             <img src={club.flag} alt={`${club.name} flag`} />
             <div className='name'>{club.name}</div>
             <div className='unpin-tooltip'>
               <span className='tooltiptext'>Remove this club from your Pinned Clubs!</span>
-              <MdPushPin className='unpin-icon' onClick={() => handlePinClick(club.id, 'club')} />
+              <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, club.id, 'club')} />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </aside>

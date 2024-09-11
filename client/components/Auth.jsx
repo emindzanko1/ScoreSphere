@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function AuthForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [searchParams] = useSearchParams();
-  const isLogin = searchParams.get('mode') === 'login' || 'auth';
+  const isLogin = searchParams.get('mode') === 'login';
   console.log('isLogin', isLogin);
 
   const togglePasswordVisibility = () => {
@@ -20,7 +20,7 @@ export default function AuthForm() {
         <h2>{isLogin ? 'Sign in to your account' : 'Register to continue'}</h2>
       </div>
 
-      <Form method='post'>
+      <form>
         {!isLogin && (
           <div className='form-group'>
             <label>Full Name</label>
@@ -69,7 +69,7 @@ export default function AuthForm() {
             <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>{isLogin ? 'Register' : 'Sign In'}</Link>
           </span>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }

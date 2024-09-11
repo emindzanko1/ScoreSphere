@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { formatDate, getLastAndNext7Days } from '../utils/helper';
+import { formatDate, getLastAndNext7Days } from '../util/helper';
 import '../styles/CalendarDropdown.css';
 
 export default function CalendarDropdown({ date, setDate }) {

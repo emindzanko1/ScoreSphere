@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MdPushPin } from 'react-icons/md';
+import PinnedItem from './PinnedItem';
 
 import '../styles/PinnedSection.css';
-import { Link } from 'react-router-dom';
 
 export default function PinnedSection() {
   const [leagues, setLeagues] = useState([]);
@@ -28,7 +27,6 @@ export default function PinnedSection() {
     fetchLeagues();
   }, []);
 
-  
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -49,7 +47,7 @@ export default function PinnedSection() {
   }, []);
 
   const handlePinClick = (e, id, type) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     if (type === 'league') {
       setLeagues(leagues.filter(league => league.id !== id));
     } else if (type === 'team') {
@@ -65,27 +63,29 @@ export default function PinnedSection() {
           <div className='pinned-section'>
             <h2>Pinned Leagues</h2>
             {leagues.map(league => (
-              <Link to={`/league/${league.id}`} key={league.id} className='pinned-item'>
-                <img src={league.emblem} alt={`${league.name} flag`} />
-                <div className='name'>{league.name}</div>
-                <div className='unpin-tooltip'>
-                  <span className='tooltiptext'>Remove this league from your Pinned Leagues!</span>
-                  <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, league.id, 'league')} />
-                </div>
-              </Link>
+              <PinnedItem
+                key={league.id}
+                id={league.id}
+                name={league.name}
+                emblem={league.emblem}
+                type='league'
+                onUnpin={handlePinClick}
+                link={`/league/${league.id}`}
+              />
             ))}
           </div>
           <div className='pinned-section'>
             <h2>Pinned Teams</h2>
             {teams.map(team => (
-              <Link to={`/team/${team.id}`} key={team.id} className='pinned-item'>
-                <img src={team.crest} alt={`${team.name} flag`} />
-                <div className='name'>{team.name}</div>
-                <div className='unpin-tooltip'>
-                  <span className='tooltiptext'>Remove this team from your Pinned Teams!</span>
-                  <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, team.id, 'team')} />
-                </div>
-              </Link>
+              <PinnedItem
+                key={team.id}
+                id={team.id}
+                name={team.name}
+                emblem={team.crest}
+                type='team'
+                onUnpin={handlePinClick}
+                link={`/team/${team.id}`}
+              />
             ))}
           </div>
         </>

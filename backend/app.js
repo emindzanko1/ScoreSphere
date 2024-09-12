@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 const { json } = bodyParser;
 import express from 'express';
 
+// import standingRoutes from './routes/standings.js';
 import eventRoutes from './routes/events.js';
 import authRoutes from './routes/auth.js';
 
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use(authRoutes);
 
-app.use('/events', eventRoutes);
+app.use('/leagues', eventRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;

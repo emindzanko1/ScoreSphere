@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLoaderData, useSubmit } from 'react-router-dom';
 import Header from '../components/Header';
 import { getTokenDuration } from '../util/auth';
+import Footer from '../components/Footer';
 
 const RootLayout = () => {
   const token = useLoaderData();

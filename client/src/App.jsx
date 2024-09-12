@@ -4,7 +4,7 @@ import Home from '../components/Home';
 import RootLayout from '../pages/Root';
 import Error from '../pages/Error';
 import LeagueDetail from '../pages/LeagueDetail';
-import ClubDetail from '../pages/ClubDetail';
+import TeamDetail from '../pages/TeamDetail';
 import AuthPage, { action as authAction } from '../pages/AuthPage';
 import Favorite from '../pages/Favorite';
 import { action as logoutAction } from '../pages/Logout';
@@ -18,10 +18,10 @@ const router = createBrowserRouter([
     id: 'root',
     loader: tokenLoader,
     children: [
-      { path: '/', element: <Home /> },
+      { index: true, element: <Home /> },
       { path: '/auth', element: <AuthPage />, action: authAction },
       { path: '/league/:leagueId', element: <LeagueDetail /> },
-      { path: '/club/:clubId', element: <ClubDetail /> },
+      { path: '/team/:teamId', element: <TeamDetail /> },
       { path: '/favorites', element: <Favorite /> },
       { path: '/logout', action: logoutAction },
     ],

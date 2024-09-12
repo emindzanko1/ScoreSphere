@@ -1,69 +1,95 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdPushPin } from 'react-icons/md';
 
 import '../styles/PinnedSection.css';
 import { Link } from 'react-router-dom';
 
 export default function PinnedSection() {
-  const [pinnedLeagues, setPinnedLeagues] = useState([
-    {
-      id: 1,
-      name: 'Premier League',
-      flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1920px-Premier_League_Logo.svg.png',
-    },
-    {
-      id: 2,
-      name: 'La Liga',
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/LaLiga_EA_Sports_2023_Vertical_Logo.svg/360px-LaLiga_EA_Sports_2023_Vertical_Logo.svg.png',
-    },
-  ]);
+  const [leagues, setLeagues] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [pinnedClubs, setPinnedClubs] = useState([
-    {
-      id: 1,
-      name: 'Manchester City',
-      flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/800px-Manchester_City_FC_badge.svg.png',
-    },
-    { id: 2, name: 'Barcelona', flag: 'https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg' },
-  ]);
+  useEffect(() => {
+    const fetchLeagues = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:8080/leagues/all-leagues');
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+        const data = await response.json();
+        setLeagues(data.leagues);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setIsLoading(false);
+    };
+    fetchLeagues();
+  }, []);
+
+  
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:8080/leagues/all-teams');
+        if (!response.ok) {
+          throw new Error('API request failed');
+        }
+        const data = await response.json();
+        setTeams(data.teams);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setIsLoading(false);
+    };
+    fetchTeams();
+  }, []);
 
   const handlePinClick = (e, id, type) => {
-    e.stopPropagation(); // Prevent the Link's onClick from firing
+    e.stopPropagation(); 
     if (type === 'league') {
-      setPinnedLeagues(pinnedLeagues.filter(league => league.id !== id));
-    } else if (type === 'club') {
-      setPinnedClubs(pinnedClubs.filter(club => club.id !== id));
+      setLeagues(leagues.filter(league => league.id !== id));
+    } else if (type === 'team') {
+      setTeams(teams.filter(team => team.id !== id));
     }
   };
 
   return (
     <aside>
-      <div className='pinned-section'>
-        <h2>Pinned Leagues</h2>
-        {pinnedLeagues.map(league => (
-          <Link to={`/league/${league.id}`} key={league.id} className='pinned-item'>
-            <img src={league.flag} alt={`${league.name} flag`} />
-            <div className='name'>{league.name}</div>
-            <div className='unpin-tooltip'>
-              <span className='tooltiptext'>Remove this league from your Pinned Leagues!</span>
-              <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, league.id, 'league')} />
-            </div>
-          </Link>
-        ))}
-      </div>
-      <div className='pinned-section'>
-        <h2>Pinned Clubs</h2>
-        {pinnedClubs.map(club => (
-          <Link to={`/club/${club.id}`} key={club.id} className='pinned-item'>
-            <img src={club.flag} alt={`${club.name} flag`} />
-            <div className='name'>{club.name}</div>
-            <div className='unpin-tooltip'>
-              <span className='tooltiptext'>Remove this club from your Pinned Clubs!</span>
-              <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, club.id, 'club')} />
-            </div>
-          </Link>
-        ))}
-      </div>
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && (
+        <>
+          <div className='pinned-section'>
+            <h2>Pinned Leagues</h2>
+            {leagues.map(league => (
+              <Link to={`/league/${league.id}`} key={league.id} className='pinned-item'>
+                <img src={league.emblem} alt={`${league.name} flag`} />
+                <div className='name'>{league.name}</div>
+                <div className='unpin-tooltip'>
+                  <span className='tooltiptext'>Remove this league from your Pinned Leagues!</span>
+                  <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, league.id, 'league')} />
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className='pinned-section'>
+            <h2>Pinned Teams</h2>
+            {teams.map(team => (
+              <Link to={`/team/${team.id}`} key={team.id} className='pinned-item'>
+                <img src={team.crest} alt={`${team.name} flag`} />
+                <div className='name'>{team.name}</div>
+                <div className='unpin-tooltip'>
+                  <span className='tooltiptext'>Remove this team from your Pinned Teams!</span>
+                  <MdPushPin className='unpin-icon' onClick={e => handlePinClick(e, team.id, 'team')} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </aside>
   );
 }

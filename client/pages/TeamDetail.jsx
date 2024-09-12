@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ClubDetail = () => {
+const TeamDetail = () => {
   return <h1>Emin</h1>;
 };
 
-export default ClubDetail;
+export default TeamDetail;

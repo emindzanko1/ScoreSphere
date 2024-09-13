@@ -7,6 +7,7 @@ import TableBody from './ResultTableBody';
 import { fetchCurrentMatches } from '../util/http';
 import { useFetch } from '../hooks/useFetch';
 import TableHead from './ResultTableHead';
+import LeagueInfo from './LeagueInfo';
 
 const ResultTable = () => {
   const [allStarsActive, setAllStarsActive] = useState(false);
@@ -44,7 +45,6 @@ const ResultTable = () => {
   const { isLoading: isLoadingMatches, error: matchesError, fetchedData: matches } = useFetch(fetchCurrentMatches, []);
 
   if (matches) {
-    // Group matches by league
     const leagues = matches.reduce((acc, match) => {
       const leagueName = match.competition.name;
       if (!acc[leagueName]) {
@@ -60,14 +60,13 @@ const ResultTable = () => {
         {Object.entries(leagues).map(([leagueName, leagueMatches]) => (
           <div key={leagueName} className='league-section'>
             <div className='league-info'>
-              <button onClick={handleMainStarClick} className='star-btn'>
-                {allStarsActive ? <FaStar /> : <CiStar />}
-              </button>
-              <img src={leagueMatches[0].competition.emblem} alt={`${leagueName} Badge`} className='league_badge' />
-              <div className='club-text'>
-                <span className='text1'>{leagueName}</span>
-                <span className='text2'>{leagueMatches[0].area.name}</span>
-              </div>
+              <LeagueInfo
+                leagueName={leagueName}
+                leagueEmblem={leagueMatches[0].competition.emblem}
+                areaName={leagueMatches[0].area.name}
+                allStarsActive={allStarsActive}
+                handleMainStarClick={handleMainStarClick}
+              />
             </div>
             <table className='styled-table'>
               <TableHead />

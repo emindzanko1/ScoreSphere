@@ -2,50 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PinnedItem from './PinnedItem';
 
 import '../styles/PinnedSection.css';
+import { fetchAllLeagues, fetchAllTeams } from '../util/http';
+import { useFetch } from '../hooks/useFetch';
 
 const PinnedSection = () => {
-  const [leagues, setLeagues] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchLeagues = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('http://localhost:8080/leagues/all-leagues');
-        if (!response.ok) {
-          throw new Error('API request failed');
-        }
-        const data = await response.json();
-        setLeagues(data.leagues);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setIsLoading(false);
-    };
-    fetchLeagues();
-  }, []);
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('http://localhost:8080/leagues/all-teams');
-        if (!response.ok) {
-          throw new Error('API request failed');
-        }
-        const data = await response.json();
-        setTeams(data.teams);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setIsLoading(false);
-    };
-    fetchTeams();
-  }, []);
-
+  const { isLoading: isLoadingLeagues, error: leaguesError, fetchedData: leagues, setFetchedData: setLeagues } = useFetch(fetchAllLeagues, []);
+  const { isLoading, isLoadingTeams, error: teamsError, fetchedData: teams, setFetchedData: setTeams } = useFetch(fetchAllTeams, []);
+  
   const handlePinClick = (e, id, type) => {
     e.stopPropagation();
     if (type === 'league') {
@@ -57,8 +20,8 @@ const PinnedSection = () => {
 
   return (
     <aside>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && (
+      {isLoadingLeagues && <p>Loading...</p>}
+      {!isLoadingLeagues && (
         <>
           <div className='pinned-section'>
             <h2>Pinned Leagues</h2>

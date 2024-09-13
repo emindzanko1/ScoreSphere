@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { formatMatchDate } from '../util/helper';
 import '../styles/LeagueDetail.css';
+import { fetchFutureMatches, fetchPastMatches, fetchLeague, fetchLeagueStandings } from '../util/http';
+import { useFetch } from '../hooks/useFetch';
 
 const renderMatchesWithHeaders = (matches, type) => {
   let lastMatchday = null;
@@ -13,17 +15,18 @@ const renderMatchesWithHeaders = (matches, type) => {
     return (
       <React.Fragment key={index}>
         {isNewMatchday && (
-          <li className="matchday-header">
+          <li className='matchday-header'>
             <h4>Matchday {match.matchday}</h4>
           </li>
         )}
         {type === 'schedule' ? (
           <li>
-             {formatMatchDate(match.utcDate)} {match.homeTeam.name}    -  :  -    {match.awayTeam.name}
-             </li>
+            {formatMatchDate(match.utcDate)} {match.homeTeam.name} - : - {match.awayTeam.name}
+          </li>
         ) : (
           <li>
-             {formatMatchDate(match.utcDate)} {match.homeTeam.name} {match.score.fullTime.home} - {match.score.fullTime.away} {match.awayTeam.name}
+            {formatMatchDate(match.utcDate)} {match.homeTeam.name} {match.score.fullTime.home} -{' '}
+            {match.score.fullTime.away} {match.awayTeam.name}
           </li>
         )}
       </React.Fragment>
@@ -33,39 +36,51 @@ const renderMatchesWithHeaders = (matches, type) => {
 
 const LeagueDetail = () => {
   const [league, setLeague] = useState(null);
-  const [selectedTab, setSelectedTab] = useState('table');
   const [standings, setStandings] = useState([]);
-  const [schedule, setSchedule] = useState([]);
-  const [results, setResults] = useState([]);
-
+  const [selectedTab, setSelectedTab] = useState('table');
   const params = useParams();
   const leagueId = params.leagueId;
 
   useEffect(() => {
     const fetchLeagueDetails = async () => {
       try {
-        const leagueResponse = await fetch(`http://localhost:8080/leagues/${leagueId}`);
-        const leagueData = await leagueResponse.json();
-        setLeague(leagueData.league);
-
-        const standingsResponse = await fetch(`http://localhost:8080/leagues/${leagueId}/standings`);
-        const standingsData = await standingsResponse.json();
-        setStandings(standingsData.standing[0].table);
-
-        const scheduleResponse = await fetch(`http://localhost:8080/leagues/futureMatches`);
-        const scheduleData = await scheduleResponse.json();
-        setSchedule(scheduleData.matches);
-
-        const resultsResponse = await fetch(`http://localhost:8080/leagues/pastMatches`);
-        const resultsData = await resultsResponse.json();
-        setResults(resultsData.matches);
+        const league = await fetchLeague(leagueId);
+        setLeague(league);
       } catch (error) {
-        console.error('Error fetching league data:', error);
+        console.error('Error fetching league details:', error);
       }
     };
-
     fetchLeagueDetails();
   }, [leagueId]);
+
+  useEffect(() => {
+    const fetchStandings = async () => {
+      try {
+        const standing = await fetchLeagueStandings(leagueId);
+        setStandings(standing);
+      } catch (error) {
+        console.error('Error fetching standings:', error);
+      }
+    };
+    fetchStandings();
+  }, [leagueId]);
+
+  // const {
+  //   isLoading: isLoadingLeague,
+  //   error: leagueError,
+  //   fetchedData: league,
+  // } = useFetch(() => fetchLeague(leagueId), [leagueId]);
+  // const {
+  //   isLoading: isLoadingStanding,
+  //   error: standingError,
+  //   fetchedData: standings,
+  // } = useFetch(() => fetchLeagueStandings(leagueId), [leagueId]);
+  const {
+    isLoading: isLoadingSchedule,
+    error: scheduleError,
+    fetchedData: schedule,
+  } = useFetch(fetchFutureMatches, []);
+  const { isLoading: isLoadingResults, error: resultsError, fetchedData: results } = useFetch(fetchPastMatches, []);
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -115,7 +130,7 @@ const LeagueDetail = () => {
           <div className='league-schedule'>
             <h3>Schedule</h3>
             <ul>
-            {renderMatchesWithHeaders(schedule, 'schedule')}
+              {renderMatchesWithHeaders(schedule, 'schedule')}
               {/* {schedule.map((match, index) => (
                 <li key={index}>
                   {formatMatchDate(match.utcDate)} {match.homeTeam.name} {match.score.fullTime.home} -{' '}
@@ -130,8 +145,8 @@ const LeagueDetail = () => {
           <div className='league-results'>
             <h3>Results</h3>
             <ul>
-            {renderMatchesWithHeaders(results, 'results')}
-            {/* {results.map((match, index) => (
+              {renderMatchesWithHeaders(results, 'results')}
+              {/* {results.map((match, index) => (
                 <li key={index}>
                   {formatMatchDate(match.utcDate)} {match.homeTeam.name} - : - {match.awayTeam.name}
                 </li>

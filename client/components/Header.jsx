@@ -17,7 +17,7 @@ const Header = () => {
         <Link to='/'>ScoreSphere</Link>
       </div>
       {showSearchInput && <Input />}
-      <NavLinks onToggleSearch={handleToggleSearch} />
+      <NavLinks onToggleSearch={handleToggleSearch} showSearchInput={showSearchInput} />
     </header>
   );
 };

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PinnedItem from './PinnedItem';
 
 import '../styles/PinnedSection.css';
 
-export default function PinnedSection() {
+const PinnedSection = () => {
   const [leagues, setLeagues] = useState([]);
   const [teams, setTeams] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,4 +92,6 @@ export default function PinnedSection() {
       )}
     </aside>
   );
-}
+};
+
+export default PinnedSection;

@@ -1,9 +1,10 @@
+import React from 'react';
 import { Form, NavLink, useRouteLoaderData } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md';
 import '../styles/NavLink.css';
 import ThemeSwitch from './ThemeSwitch';
 
-export default function NavLinks() {
+const NavLinks = () => {
   const token = useRouteLoaderData('root');
 
   return (
@@ -51,10 +52,12 @@ export default function NavLinks() {
           </button>
         </Form>
       )}
-      
+
       <div className='theme-switch-wrapper'>
         <ThemeSwitch />
       </div>
     </nav>
   );
-}
+};
+
+export default NavLink;

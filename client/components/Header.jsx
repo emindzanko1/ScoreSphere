@@ -1,8 +1,9 @@
+import React from 'react';
 import NavLinks from './NavLink';
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+const Header = () => {
   return (
     <>
       <header>
@@ -13,4 +14,6 @@ export default function Header() {
       </header>
     </>
   );
-}
+};
+
+export default Header;

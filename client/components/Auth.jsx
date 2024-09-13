@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React,{ useState }  from 'react'
 import { Form, Link, useActionData, useNavigation, useSearchParams } from 'react-router-dom';
 import '../styles/Auth.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
-export default function AuthForm() {
+const AuthForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const data = useActionData();
   const navigation = useNavigation();
@@ -82,3 +82,5 @@ export default function AuthForm() {
     </div>
   );
 }
+
+export default AuthForm;

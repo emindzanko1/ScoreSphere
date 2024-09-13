@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/FilterButton.css';
 import CalendarDropdown from './CalendarDropdown';
 
-export default function FilterButton() {
+const FilterButton = () => {
   const [activeButton, setActiveButton] = useState(0);
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -42,4 +42,6 @@ export default function FilterButton() {
       </div>
     </div>
   );
-}
+};
+
+export default FilterButton;

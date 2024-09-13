@@ -8,6 +8,7 @@ import {
   getTeams,
   getStanding,
   getFutureMatches,
+  getCurrentMatches,
   getPastMatches,
   add,
   replace,
@@ -37,11 +38,19 @@ router.get('/all-leagues', async (req, res, next) => {
   }
 });
 
-
 router.get('/all-teams', async (req, res, next) => {
   try {
     const teams = await getTeams();
     res.json({ teams });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/currentMatches', async (req, res, next) => {
+  try {
+    const matches = await getCurrentMatches();
+    res.json({ matches });
   } catch (error) {
     next(error);
   }

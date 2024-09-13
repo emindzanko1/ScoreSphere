@@ -1,7 +1,16 @@
 import { v4 as generateId } from 'uuid';
 
 import { NotFoundError } from '../util/errors.js';
-import { readData, readLeagueData, readTeamData, readStandingData, readFutureMatchesData, readPastMatchesData, writeData } from './util.js';
+import {
+  readData,
+  readLeagueData,
+  readTeamData,
+  readStandingData,
+  readCurrentMatchesData,
+  readFutureMatchesData,
+  readPastMatchesData,
+  writeData,
+} from './util.js';
 
 async function getAll() {
   const storedData = await readData();
@@ -16,8 +25,8 @@ async function get(id) {
   if (!storedData.events || storedData.events.length === 0) {
     throw new NotFoundError('Could not find any events.');
   }
-  
-  const event = storedData.events.find((ev) => ev.id == id);
+
+  const event = storedData.events.find(ev => ev.id == id);
 
   if (!event) {
     throw new NotFoundError('Could not find event for id ' + id);
@@ -48,8 +57,8 @@ async function getLeague(id) {
   if (!storedData.leagues || storedData.leagues.length === 0) {
     throw new NotFoundError('Could not find any leagues.');
   }
-  
-  const league = storedData.leagues.find((ev) => ev.id == id);
+
+  const league = storedData.leagues.find(ev => ev.id == id);
 
   if (!league) {
     throw new NotFoundError('Could not find league for id ' + id);
@@ -64,14 +73,19 @@ async function getStanding(id) {
   if (!storedData.standings || storedData.standings.length === 0) {
     throw new NotFoundError('Could not find any competition.');
   }
-  
-  const standing = storedData.standings.find((ev) => ev.competition.id == id).standings;
+
+  const standing = storedData.standings.find(ev => ev.competition.id == id).standings;
 
   if (!standing) {
     throw new NotFoundError('Could not find league for id ' + id);
   }
 
   return standing;
+}
+
+async function getCurrentMatches() {
+  const storedData = await readCurrentMatchesData();
+  return storedData;
 }
 
 async function getFutureMatches() {
@@ -110,7 +124,7 @@ async function replace(id, data) {
     throw new NotFoundError('Could not find any events.');
   }
 
-  const index = storedData.events.findIndex((ev) => ev.id === id);
+  const index = storedData.events.findIndex(ev => ev.id === id);
   if (index < 0) {
     throw new NotFoundError('Could not find event for id ' + id);
   }
@@ -122,7 +136,7 @@ async function replace(id, data) {
 
 async function remove(id) {
   const storedData = await readData();
-  const updatedData = storedData.events.filter((ev) => ev.id !== id);
+  const updatedData = storedData.events.filter(ev => ev.id !== id);
   await writeData({ ...storedData, events: updatedData });
 }
 
@@ -138,6 +152,8 @@ const _getTeams = getTeams;
 export { _getTeams as getTeams };
 const _getStanding = getStanding;
 export { _getStanding as getStanding };
+const _getCurrentMatches = getCurrentMatches;
+export { _getCurrentMatches as getCurrentMatches };
 const _getFutureMatches = getFutureMatches;
 export { _getFutureMatches as getFutureMatches };
 const _getPastMatches = getPastMatches;

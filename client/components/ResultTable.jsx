@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import '../styles/ResultTable.css';
 import MatchModal from './MatchModal';
 import TableBody from './ResultTableBody';
+import { fetchCurrentMatches } from '../util/http';
+import { useFetch } from '../hooks/useFetch';
 
 const ResultTable = () => {
   const [allStarsActive, setAllStarsActive] = useState(false);
   const [favourites, setFavourites] = useState([]);
-  const [selectedMatch, setSelectedMatch] = useState(null); 
-  const [isModalOpen, setIsModalOpen] = useState(false);    
+  const [selectedMatch, setSelectedMatch] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const handleMainStarClick = () => {
     setAllStarsActive(!allStarsActive);
@@ -30,17 +33,19 @@ const ResultTable = () => {
   };
 
   const handleRowClick = matchData => {
-    setSelectedMatch(matchData); 
-    setIsModalOpen(true); 
+    setSelectedMatch(matchData);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
   };
 
+  const { isLoading: isLoadingMatches, error: matchesError, fetchedData: matches } = useFetch(fetchCurrentMatches, []);
+  
   return (
     <div className='table-container'>
-      <MatchModal isOpen={isModalOpen} matchData={selectedMatch} onClose={closeModal} /> 
+      <MatchModal isOpen={isModalOpen} matchData={selectedMatch} onClose={closeModal} />
       <div className='league-info'>
         <button onClick={handleMainStarClick} className='star-btn'>
           {allStarsActive ? <FaStar /> : <CiStar />}
@@ -59,11 +64,7 @@ const ResultTable = () => {
         <thead className='table-head'>
           <tr>{/* Add table headers here if needed */}</tr>
         </thead>
-        <TableBody
-          favourites={favourites}
-          handleFavorite={handleFavorite}
-          handleRowClick={handleRowClick}
-        />
+        <TableBody favourites={favourites} handleFavorite={handleFavorite} handleRowClick={handleRowClick} />
       </table>
     </div>
   );

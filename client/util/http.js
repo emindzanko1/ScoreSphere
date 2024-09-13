@@ -42,6 +42,18 @@ export async function fetchLeagueStandings(leagueId) {
   return data.standing[0].table;
 }
 
+export async function fetchCurrentMatches() {
+  const response = await fetch('http://localhost:8080/leagues/currentMatches');
+
+  if (!response.ok) {
+    throw new Error('API request failed');
+  }
+
+  const data = await response.json();
+  return data.matches;
+}
+
+
 export async function fetchFutureMatches() {
   const response = await fetch('http://localhost:8080/leagues/futureMatches');
 

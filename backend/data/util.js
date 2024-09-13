@@ -24,6 +24,17 @@ async function readStandingData() {
   return JSON.parse(data);
 }
 
+async function readCurrentMatchesData() {
+  const fileData = await readFile('matches.json', 'utf8');
+  const data = JSON.parse(fileData);
+  const today = new Date();
+  const currentMatches = data.matches[0].matches.filter(match => {
+    const matchDate = new Date(match.utcDate);
+    return matchDate.toDateString() === today.toDateString();
+  });
+  return currentMatches;
+}
+
 async function readFutureMatchesData() {
   const fileData = await readFile('matches.json', 'utf8');
   const data = JSON.parse(fileData);
@@ -57,6 +68,8 @@ const _readTeamData = readTeamData;
 export { _readTeamData as readTeamData };
 const _readStandingData = readStandingData;
 export { _readStandingData as readStandingData };
+const _readCurrentMatchesData = readCurrentMatchesData;
+export { _readCurrentMatchesData as readCurrentMatchesData };
 const _readFutureMatchesData = readFutureMatchesData;
 export { _readFutureMatchesData as readFutureMatchesData };
 const _readPastMatchesData = readPastMatchesData;

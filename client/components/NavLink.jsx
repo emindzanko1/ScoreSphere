@@ -60,4 +60,4 @@ const NavLinks = () => {
   );
 };
 
-export default NavLink;
+export default NavLinks;

@@ -34,3 +34,19 @@ export const formatMatchDate = utcDate => {
 
   return `${day}.${month}.${year}`;
 };
+
+export const formatTime = utcDate => {
+  const date = new Date(utcDate);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+};
+
+export const formatScore = score => {
+  if (!score || !score.fullTime) {
+    return '- : -';
+  }
+  const home = score.fullTime.home !== null ? score.fullTime.home : '-';
+  const away = score.fullTime.away !== null ? score.fullTime.away : '-';
+  return `${home} : ${away}`;
+};

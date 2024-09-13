@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import '../styles/ResultTable.css';
@@ -6,13 +6,13 @@ import MatchModal from './MatchModal';
 import TableBody from './ResultTableBody';
 import { fetchCurrentMatches } from '../util/http';
 import { useFetch } from '../hooks/useFetch';
+import TableHead from './ResultTableHead';
 
 const ResultTable = () => {
   const [allStarsActive, setAllStarsActive] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const handleMainStarClick = () => {
     setAllStarsActive(!allStarsActive);
@@ -42,32 +42,49 @@ const ResultTable = () => {
   };
 
   const { isLoading: isLoadingMatches, error: matchesError, fetchedData: matches } = useFetch(fetchCurrentMatches, []);
-  
-  return (
-    <div className='table-container'>
-      <MatchModal isOpen={isModalOpen} matchData={selectedMatch} onClose={closeModal} />
-      <div className='league-info'>
-        <button onClick={handleMainStarClick} className='star-btn'>
-          {allStarsActive ? <FaStar /> : <CiStar />}
-        </button>
-        <img
-          src='https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1920px-Premier_League_Logo.svg.png'
-          alt='League 1 Badge'
-          className='league_badge'
-        />
-        <div className='club-text'>
-          <span className='text1'>La Liga</span>
-          <span className='text2'>Spain</span>
-        </div>
+
+  if (matches) {
+    // Group matches by league
+    const leagues = matches.reduce((acc, match) => {
+      const leagueName = match.competition.name;
+      if (!acc[leagueName]) {
+        acc[leagueName] = [];
+      }
+      acc[leagueName].push(match);
+      return acc;
+    }, {});
+
+    return (
+      <div className='table-container'>
+        <MatchModal isOpen={isModalOpen} matchData={selectedMatch} onClose={closeModal} />
+        {Object.entries(leagues).map(([leagueName, leagueMatches]) => (
+          <div key={leagueName} className='league-section'>
+            <div className='league-info'>
+              <button onClick={handleMainStarClick} className='star-btn'>
+                {allStarsActive ? <FaStar /> : <CiStar />}
+              </button>
+              <img src={leagueMatches[0].competition.emblem} alt={`${leagueName} Badge`} className='league_badge' />
+              <div className='club-text'>
+                <span className='text1'>{leagueName}</span>
+                <span className='text2'>{leagueMatches[0].area.name}</span>
+              </div>
+            </div>
+            <table className='styled-table'>
+              <TableHead />
+              <TableBody
+                matches={leagueMatches}
+                favourites={favourites}
+                handleFavorite={handleFavorite}
+                handleRowClick={handleRowClick}
+              />
+            </table>
+          </div>
+        ))}
       </div>
-      <table className='styled-table'>
-        <thead className='table-head'>
-          <tr>{/* Add table headers here if needed */}</tr>
-        </thead>
-        <TableBody favourites={favourites} handleFavorite={handleFavorite} handleRowClick={handleRowClick} />
-      </table>
-    </div>
-  );
+    );
+  }
+
+  return <p>Loading matches...</p>;
 };
 
 export default ResultTable;

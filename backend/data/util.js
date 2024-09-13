@@ -24,14 +24,35 @@ async function readStandingData() {
   return JSON.parse(data);
 }
 
+// bit ce vjv svaka liga svoje meceve za potrebe testiranja mijenjam kode
+// async function readCurrentMatchesData() {
+//   const fileData = await readFile('matches.json', 'utf8');
+//   const data = JSON.parse(fileData);
+//   const today = new Date();
+//   const currentMatches = data.matches[0].matches.filter(match => {
+//     const matchDate = new Date(match.utcDate);
+//     return matchDate.toDateString() === today.toDateString();
+//   });
+//   return currentMatches;
+// }
+
 async function readCurrentMatchesData() {
   const fileData = await readFile('matches.json', 'utf8');
   const data = JSON.parse(fileData);
-  const today = new Date();
-  const currentMatches = data.matches[0].matches.filter(match => {
-    const matchDate = new Date(match.utcDate);
-    return matchDate.toDateString() === today.toDateString();
-  });
+
+  const today = new Date().toDateString();
+
+  const currentMatches = [];
+
+  for (const matchObject of data.matches) {
+    const matchesForToday = matchObject.matches.filter(match => {
+      const matchDate = new Date(match.utcDate);
+      return matchDate.toDateString() === today;
+    });
+
+    currentMatches.push(...matchesForToday);
+  }
+
   return currentMatches;
 }
 

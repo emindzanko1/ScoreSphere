@@ -32,8 +32,16 @@
 
 .table-head {
   text-align: left;
+  background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%);
+  background-color: blue;
   /* height: auto;
     width: auto; */
+}
+
+.styled-table thead {
+  /* background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%); */
+  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  /* background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%); */
 }
 
 .league-info {

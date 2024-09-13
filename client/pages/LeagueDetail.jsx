@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { formatMatchDate } from '../util/helper';
+import { formatMatchDate } from '../util/helpers';
 import '../styles/LeagueDetail.css';
 import { fetchFutureMatches, fetchPastMatches, fetchLeague, fetchLeagueStandings } from '../util/http';
 import { useFetch } from '../hooks/useFetch';

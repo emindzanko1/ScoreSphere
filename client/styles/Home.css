@@ -1,0 +1,43 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  margin-left: 15px;
+}
+
+.main-content {
+  display: flex;
+  /* background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); */
+  flex-direction: column;
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+body {
+  background: rgba(198, 187, 226, 0.563);
+}
+
+.FilterButton,
+.ResultTable {
+  flex: 1;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .FilterButton,
+  .ResultTable {
+    width: 100%;
+  }
+}

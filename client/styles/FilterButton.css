@@ -1,12 +1,3 @@
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 1rem;
-  margin-top: 2rem;
-  /* align-items: center; */
-}
-
 .main-controls {
   margin: 20px 0px;
   display: flex;
@@ -61,7 +52,8 @@
 .calendar__datepicker {
   background: transparent;
   border: none;
-  margin: 0 10rem;
+  margin-left: auto;
+  margin-right: 0;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
@@ -74,9 +66,9 @@
 
 .calendar__navigation:hover,
 .calendar__datepicker:hover {
-  /* background: var(--color-tertiary);  */
-  /* border-radius: 50%;
-    transform: scale(1.1); */
+  /* background: var(--color-tertiary);
+  border-radius: 50%;
+  transform: scale(1.1); */
 }
 
 .calendar__datepicker {
@@ -100,10 +92,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  padding: 4px;
 }
 
 .calendar__navigation--yesterday:hover,
 .calendar__navigation--tommorow:hover {
   cursor: pointer;
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.35);
+  border-radius: 8px;
 }
 
+.calendar__navigation--yesterday:active,
+.calendar__navigation--tomorrow:active {
+  transform: scale(1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

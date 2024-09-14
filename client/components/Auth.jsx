@@ -1,7 +1,7 @@
-import React,{ useState }  from 'react'
+import React, { useState } from 'react';
 import { Form, Link, useActionData, useNavigation, useSearchParams } from 'react-router-dom';
 import '../styles/Auth.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AuthForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -33,24 +33,18 @@ const AuthForm = () => {
       <Form method='post'>
         {!isLogin && (
           <div className='form-group'>
-            <label>Full Name</label>
-            <input type='text' id='full-name' name='full-name' placeholder='Full Name' required />
+            <input type='text' id='full-name' name='full-name' placeholder=' ' required />
+            <label htmlFor='full-name'>Full Name</label>
           </div>
         )}
         <div className='form-group'>
-          <label>Email</label>
-          <input type='email' id='email' name='email' placeholder='Email' required />
+          <input type='email' id='email' name='email' placeholder=' ' required />
+          <label htmlFor='email'>Email</label>
         </div>
 
         <div className='form-group password-group'>
-          <label>Password</label>
-          <input
-            type={passwordVisible ? 'text' : 'password'}
-            id='password'
-            name='password'
-            placeholder='Password'
-            required
-          />
+          <input type={passwordVisible ? 'text' : 'password'} id='password' name='password' placeholder=' ' required />
+          <label htmlFor='password'>Password</label>
           <span className='password-toggle' onClick={togglePasswordVisibility}>
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
           </span>
@@ -81,6 +75,6 @@ const AuthForm = () => {
       </Form>
     </div>
   );
-}
+};
 
 export default AuthForm;

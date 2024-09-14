@@ -1,10 +1,15 @@
 .table-container {
-  width: 69%;
+  width: 100%;
   max-width: 1200px;
   /* padding: 20px; */
 }
 
-.styled-table {
+.league-section {
+  margin-bottom: 50px;
+}
+
+.styled-table,
+.league-info {
   width: 100%;
   border-collapse: collapse;
   background: rgba(255, 255, 255, 0.1);
@@ -40,11 +45,12 @@
 
 .styled-table thead {
   /* background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%); */
-  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  /* background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); */
   /* background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%); */
 }
 
 .league-info {
+  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
   padding: 20px 20px;
   padding-left: 10px;
   display: flex;

@@ -9,7 +9,8 @@
 .nav-links form button,
 .search-button {
   padding: 5px;
-  background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
+  /* background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%); */
+  background: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);
   border-radius: 8px;
   margin-left: 15px;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -24,10 +25,6 @@
 .search-button:hover {
   background-color: var(--color-accent);
   transform: scale(1.1);
-}
-
-.nav-links a.active {
-  background: white;
 }
 
 .nav-links svg,

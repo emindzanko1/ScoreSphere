@@ -25,18 +25,56 @@ h2 {
   font-weight: 400;
 }
 
+form {
+  background: black;
+  border-radius: 0px 0px 8px 8px;
+  padding: 20px;
+}
+
 .form-group {
-  /* margin-top: 10px; */
-  margin: 30px;
-  /* margin-bottom: 20px; */
+  position: relative;
+  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 15px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 18px;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: transparent;
+  padding: 0 5px;
+  margin-left: -10px;
+}
+
+.form-group input:focus {
+  border: 2px solid white;
+}
+
+.form-group input:focus~label,
+.form-group input:not(:placeholder-shown)~label {
+  top: -10px;
+  left: 10px;
+  font-size: 14px;
+  padding: 0 5px;
+  background: transparent;
 }
 
 .password-group {
@@ -49,13 +87,14 @@ h2 {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  color: white;
 }
 
 .login-btn,
 .register-btn {
   width: 100%;
   padding: 12px;
-  background-color: greenyellow;
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 5px;
@@ -72,7 +111,6 @@ h2 {
   border-top: 1px solid #ddd;
 }
 
-/* Social login buttons */
 .social-login {
   display: flex;
   justify-content: space-between;
@@ -97,23 +135,11 @@ h2 {
   color: white;
 }
 
-.form-group label{
-  position: absolute;
-  left: 8px;
-  top: -5px;
-  font-size: 20px;
-  /* font-weight: bold; */
-  font-weight: 100;
-  padding: 0px 10px;
-  pointer-events: none;
-  transition: 0.3s;
-  color: grey;
-}
-
 .register-link {
   margin-top: 20px;
   text-align: center;
   padding-bottom: 20px;
+  color: white;
 }
 
 .register-link a {

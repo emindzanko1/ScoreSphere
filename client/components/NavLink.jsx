@@ -1,14 +1,13 @@
 import React from 'react';
 import { Form, NavLink, useRouteLoaderData } from 'react-router-dom';
-import { MdSearch } from 'react-icons/md';
-import { MdOutlineSearchOff } from 'react-icons/md';
-import { FaUserLarge } from 'react-icons/fa6';
-import { MdLogout } from 'react-icons/md';
+import { MdSearch, MdOutlineSearchOff, MdLogout } from 'react-icons/md';
+import { FaRegUser, FaUser } from 'react-icons/fa';
 import '../styles/NavLink.css';
 import ThemeSwitch from './ThemeSwitch';
 
 const NavLinks = ({ onToggleSearch, showSearchInput }) => {
   const token = useRouteLoaderData('root');
+
   return (
     <nav className='nav-links'>
       <button onClick={onToggleSearch} className='search-button'>
@@ -16,8 +15,8 @@ const NavLinks = ({ onToggleSearch, showSearchInput }) => {
       </button>
 
       {!token && (
-        <NavLink to='/auth' className={({ isActive }) => (isActive ? 'active' : '')}>
-          <FaUserLarge />
+        <NavLink to='/auth'>
+          {({ isActive }) => (isActive ? <FaUser /> : <FaRegUser />)}
         </NavLink>
       )}
 

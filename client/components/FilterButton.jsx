@@ -11,6 +11,7 @@ import {
   fetchInProgressTodayMatches,
   fetchPastTodayMatches,
 } from '../util/http';
+import CalendarDatePicker from './CalendarDatePicker';
 
 const FilterButton = ({ setMatches }) => {
   const [activeButton, setActiveButton] = useState(0);
@@ -86,33 +87,14 @@ const FilterButton = ({ setMatches }) => {
           {label}
         </button>
       ))}
-      <div className='calendar__datepicker'>
-        <button
-          className='calendar__navigation--yesterday'
-          title='The previous day'
-          onClick={() => setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() - 1)))}
-        >
-          &lt;
-        </button>
-        <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className='calendar__dropdown'>
-          <FaRegCalendarAlt />
-          <span>{formatDate(currentDate)}</span>
-          {isDropdownOpen && (
-            <CalendarDropdown
-              date={currentDate}
-              setDate={setCurrentDate}
-              setIsDropdownOpen={setIsDropdownOpen}
-            />
-          )}
-        </button>
-        <button
-          className='calendar__navigation--tommorow'
-          title='The next day'
-          onClick={() => setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() + 1)))}
-        >
-          &gt;
-        </button>
-      </div>
+      {activeButton !== 1 && (
+        <CalendarDatePicker
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          isDropdownOpen={isDropdownOpen}
+          setIsDropdownOpen={setIsDropdownOpen}
+        />
+      )}
     </div>
   );
 };

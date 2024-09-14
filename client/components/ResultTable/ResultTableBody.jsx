@@ -1,8 +1,8 @@
 import React from 'react';
 import { CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
-import '../styles/ResultTable.css';
-import { formatScore, formatTime } from '../util/helpers';
+import '../../styles/ResultTable.css';
+import { formatScore, formatTime } from '../../util/helpers';
 
 const TableBody = ({ favourites, handleFavorite, handleRowClick, matches }) => {
   const rows = matches.map((match, index) => {

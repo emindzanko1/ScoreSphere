@@ -4,6 +4,7 @@ import { formatMatchDate } from '../util/helpers';
 import '../styles/LeagueDetail.css';
 import { fetchFutureMatches, fetchPastMatches, fetchLeague, fetchLeagueStandings } from '../util/http';
 import { useFetch } from '../hooks/useFetch';
+import LeagueTable from '../components/StandingTable/LeagueTable';
 
 const renderMatchesWithHeaders = (matches, type) => {
   let lastMatchday = null;
@@ -85,46 +86,47 @@ const LeagueDetail = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case 'table':
-        return (
-          <div className='league-table'>
-            <h3>Standings</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Team</th>
-                  <th>Played</th>
-                  <th>W</th>
-                  <th>D</th>
-                  <th>L</th>
-                  <th>GF</th>
-                  <th>GA</th>
-                  <th>GD</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {standings.map(team => (
-                  <tr key={team.team.id}>
-                    <td>{team.position}</td>
-                    <td className='team-info'>
-                      <img src={team.team.crest} alt={`${team.team.name} crest`} className='team-crest' />
-                      {team.team.name}
-                    </td>
-                    <td>{team.playedGames}</td>
-                    <td>{team.won}</td>
-                    <td>{team.draw}</td>
-                    <td>{team.lost}</td>
-                    <td>{team.goalsFor}</td>
-                    <td>{team.goalsAgainst}</td>
-                    <td>{team.goalDifference}</td>
-                    <td>{team.points}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
+        return <LeagueTable standings={standings} />;
+      // return (
+      //   <div className='league-table'>
+      //     <h3>Standings</h3>
+      //     <table>
+      //       <thead>
+      //         <tr>
+      //           <th>#</th>
+      //           <th>Team</th>
+      //           <th>Played</th>
+      //           <th>W</th>
+      //           <th>D</th>
+      //           <th>L</th>
+      //           <th>GF</th>
+      //           <th>GA</th>
+      //           <th>GD</th>
+      //           <th>Points</th>
+      //         </tr>
+      //       </thead>
+      //       <tbody>
+      //         {standings.map(team => (
+      //           <tr key={team.team.id}>
+      //             <td>{team.position}</td>
+      //             <td className='team-info'>
+      //               <img src={team.team.crest} alt={`${team.team.name} crest`} className='team-crest' />
+      //               {team.team.name}
+      //             </td>
+      //             <td>{team.playedGames}</td>
+      //             <td>{team.won}</td>
+      //             <td>{team.draw}</td>
+      //             <td>{team.lost}</td>
+      //             <td>{team.goalsFor}</td>
+      //             <td>{team.goalsAgainst}</td>
+      //             <td>{team.goalDifference}</td>
+      //             <td>{team.points}</td>
+      //           </tr>
+      //         ))}
+      //       </tbody>
+      //     </table>
+      //   </div>
+      // );
       case 'schedule':
         return (
           <div className='league-schedule'>

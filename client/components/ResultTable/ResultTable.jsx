@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { CiStar } from 'react-icons/ci';
-import { FaStar } from 'react-icons/fa';
-import '../styles/ResultTable.css';
-import MatchModal from './MatchModal';
+import '../../styles/ResultTable.css';
+import MatchModal from '../MatchModal';
 import TableBody from './ResultTableBody';
-import { fetchCurrentMatches } from '../util/http';
-import { useFetch } from '../hooks/useFetch';
+import { fetchCurrentMatches } from '../../util/http';
+import { useFetch } from '../../hooks/useFetch';
 import TableHead from './ResultTableHead';
-import LeagueInfo from './LeagueInfo';
+import TableInfo from './ResultTableInfo';
 
 const ResultTable = () => {
   const [allStarsActive, setAllStarsActive] = useState(false);
@@ -60,7 +58,7 @@ const ResultTable = () => {
         {Object.entries(leagues).map(([leagueName, leagueMatches]) => (
           <div key={leagueName} className='league-section'>
             <div className='league-info'>
-              <LeagueInfo
+              <TableInfo
                 leagueName={leagueName}
                 leagueEmblem={leagueMatches[0].competition.emblem}
                 areaName={leagueMatches[0].area.name}

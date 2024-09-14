@@ -1,7 +1,7 @@
 import React from 'react';
 import FilterButton from './FilterButton';
 import PinnedSection from './PinnedSection';
-import ResultTable from './ResultTable';
+import ResultTable from './ResultTable/ResultTable';
 import SportLink from './SportLink';
 
 const Home = () => {

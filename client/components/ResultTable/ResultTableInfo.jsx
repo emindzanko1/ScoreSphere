@@ -1,9 +1,9 @@
 import React from 'react';
 import { CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
-import '../styles/ResultTable.css';
+import '../../styles/ResultTable.css';
 
-const LeagueInfo = ({ leagueName, leagueEmblem, areaName, allStarsActive, handleMainStarClick }) => {
+const TableInfo = ({ leagueName, leagueEmblem, areaName, allStarsActive, handleMainStarClick }) => {
   return (
     <div className='league-info'>
       <button onClick={handleMainStarClick} className='star-btn'>
@@ -18,4 +18,4 @@ const LeagueInfo = ({ leagueName, leagueEmblem, areaName, allStarsActive, handle
   );
 };
 
-export default LeagueInfo;
+export default TableInfo;

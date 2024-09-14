@@ -76,5 +76,37 @@ export async function fetchPastMatches() {
   return data.matches;
 }
 
+export async function fetchInProgressTodayMatches() {
+  const response = await fetch('http://localhost:8080/leagues/inProgressTodayMatches');
+
+  if (!response.ok) {
+    throw new Error('API request failed');
+  }
+
+  const data = await response.json();
+  return data.matches;
+}
+
+export async function fetchPastTodayMatches() {
+  const response = await fetch('http://localhost:8080/leagues/pastTodayMatches');
+
+  if (!response.ok) {
+    throw new Error('API request failed');
+  }
+
+  const data = await response.json();
+  return data.matches;
+}
+
+export async function fetchFutureTodayMatches() {
+  const response = await fetch('http://localhost:8080/leagues/futureTodayMatches');
+
+  if (!response.ok) {
+    throw new Error('API request failed');
+  }
+
+  const data = await response.json();
+  return data.matches;
+}
 
 

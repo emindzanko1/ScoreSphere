@@ -4,6 +4,7 @@ import PinnedSection from './PinnedSection';
 import ResultTable from './ResultTable/ResultTable';
 import SportLink from './SportLink';
 import '../styles/Home.css';
+import ScrollToTopButton from './ScrollToTop';
 
 const Home = () => {
   const [matches, setMatches] = useState([]);
@@ -18,6 +19,9 @@ const Home = () => {
             <FilterButton setMatches={setMatches} />
             <ResultTable matches={matches} />
           </div>
+        </div>
+        <div className='scroll'>
+          <ScrollToTopButton />
         </div>
       </main>
     </>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/Input.css';
+import { Link } from 'react-router-dom';
 
 const Input = () => {
   const [searchText, setSearchText] = useState('');
@@ -7,23 +8,23 @@ const Input = () => {
   const [filter, setFilter] = useState('all');
   const [pinnedLeagues, setPinnedLeagues] = useState([
     {
-      id: 1,
+      id: 2021,
       name: 'Premier League',
       flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Premier_League_Logo.svg/1920px-Premier_League_Logo.svg.png',
     },
     {
-      id: 2,
+      id: 2014,
       name: 'La Liga',
       flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/LaLiga_EA_Sports_2023_Vertical_Logo.svg/360px-LaLiga_EA_Sports_2023_Vertical_Logo.svg.png',
     },
   ]);
   const [pinnedClubs, setPinnedClubs] = useState([
     {
-      id: 3,
+      id: 65,
       name: 'Manchester City',
       flag: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/800px-Manchester_City_FC_badge.svg.png',
     },
-    { id: 4, name: 'Barcelona', flag: 'https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg' },
+    { id: 81, name: 'Barcelona', flag: 'https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg' },
   ]);
 
   const searchWrapperRef = useRef(null);
@@ -116,10 +117,14 @@ const Input = () => {
           </div>
           <ul className='search-results'>
             {filteredItems.map(item => (
-              <li key={item.id} className='search-result-item'>
+              <Link
+                to={item.type === 'league' ? `/league/${item.id}` : `/team/${item.id}`}
+                key={item.id}
+                className='search-result-item'
+              >
                 <img src={item.flag} alt={`${item.name} flag`} className='search-result-flag' />
                 <span>{item.name}</span>
-              </li>
+              </Link>
             ))}
           </ul>
         </div>

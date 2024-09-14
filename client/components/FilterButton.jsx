@@ -1,10 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { formatDate } from '../util/helpers';
+
 import '../styles/FilterButton.css';
 import CalendarDropdown from './CalendarDropdown';
+import { useFetch } from '../hooks/useFetch';
+import {
+  fetchCurrentMatches,
+  fetchFutureTodayMatches,
+  fetchInProgressTodayMatches,
+  fetchPastTodayMatches,
+} from '../util/http';
 
 const FilterButton = ({ setMatches }) => {
   const [activeButton, setActiveButton] = useState(0);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // const fetchFn = useCallback(() => {
+  //   switch (activeButton) {
+  //     case 0:
+  //       return fetchCurrentMatches;
+  //     case 1:
+  //       return fetchInProgressTodayMatches;
+  //     case 2:
+  //       return fetchPastTodayMatches;
+  //     case 3:
+  //       return fetchFutureTodayMatches;
+  //     default:
+  //       return null;
+  //   }
+  // }, [activeButton]);
+
+  // // Use the custom useFetch hook
+  // const { isLoading, fetchedData, error } = useFetch(fetchFn(), [activeButton]);
+
+  // // Set matches when fetchedData changes
+  // useEffect(() => {
+  //   if (fetchedData) {
+  //     setMatches(fetchedData);
+  //   }
+  // }, [fetchedData, setMatches]);
 
   useEffect(() => {
     const fetchMatches = async endpoint => {
@@ -12,7 +48,6 @@ const FilterButton = ({ setMatches }) => {
         const response = await fetch(endpoint);
         const data = await response.json();
         setMatches(data.matches);
-        console.log(data.matches);
       } catch (error) {
         console.error('Error fetching matches:', error);
       }
@@ -59,9 +94,19 @@ const FilterButton = ({ setMatches }) => {
         >
           &lt;
         </button>
-        <CalendarDropdown date={currentDate} setDate={setCurrentDate} />
+        <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className='calendar__dropdown'>
+          <FaRegCalendarAlt />
+          <span>{formatDate(currentDate)}</span>
+          {isDropdownOpen && (
+            <CalendarDropdown
+              date={currentDate}
+              setDate={setCurrentDate}
+              setIsDropdownOpen={setIsDropdownOpen}
+            />
+          )}
+        </button>
         <button
-          className='calendar__navigation--tomorrow'
+          className='calendar__navigation--tommorow'
           title='The next day'
           onClick={() => setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() + 1)))}
         >

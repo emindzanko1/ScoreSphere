@@ -1,44 +1,35 @@
-.calendar__dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 4px 0;
-}
-
-.calendar__dropdown svg {
-  margin-right: 2px; 
-}
-
-.calendar__dropdown span {
-  font-size: 16px; 
-}
-
 .calendar__dropdown-menu {
   position: absolute;
-  background-color: white;
+  background: var(--color-primary);
   border: 1px solid #ccc;
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  max-height: 200px;
+  border-radius: 5px;
+  margin-top: 5px;
+  max-height: 900px;
   overflow-y: auto;
   z-index: 1;
+  width: 100%;
+  left: 0;
+  top: 100%;
+  box-sizing: border-box;
 }
 
 .calendar__dropdown-menu li {
-  padding: 10px;
+  display: inline-block; 
+  padding: 5px 10px; 
+  margin: 5px; 
   cursor: pointer;
+  background-color: transparent; 
+  border-radius: 5px; 
 }
 
 .calendar__dropdown-menu li:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; 
+  color: black;
 }
 
-.calendar__dropdown:hover {
-  cursor: pointer;
-  color: white;
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: scale(1.1);
-  border-radius: 8px;
+.calendar__dropdown-menu .today-item {
+  background-color: var(--color-secondary);
+  color: black;
 }

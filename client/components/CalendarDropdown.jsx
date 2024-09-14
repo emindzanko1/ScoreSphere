@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
-import { FaRegCalendarAlt } from 'react-icons/fa';
-import { formatDate, getLastAndNext7Days } from '../util/helpers';
+import React from 'react';
+import { getLastAndNext7Days, areDatesEqual } from '../util/helpers';
 import '../styles/CalendarDropdown.css';
 
-const CalendarDropdown = ({ date, setDate }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const dates = getLastAndNext7Days(new Date());
 
-  const dates = getLastAndNext7Days(date);
-
+const CalendarDropdown = ({ date, setDate, setIsDropdownOpen }) => {
   const handleDateClick = selectedDate => {
     setDate(selectedDate);
     setIsDropdownOpen(false);
   };
 
   return (
-    <div className='calendar__dropdown'>
-      <FaRegCalendarAlt onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
-      <span>{formatDate(date)}</span>
-      {isDropdownOpen && (
-        <ul className='calendar__dropdown-menu'>
-          {dates.map((dateObj, index) => (
-            <li key={index} onClick={() => handleDateClick(dateObj.date)}>
-              {dateObj.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul className='calendar__dropdown-menu'>
+      {dates.map((dateObj, index) => (
+        <li
+          key={index}
+          onClick={() => handleDateClick(dateObj.date)}
+          className={areDatesEqual(date, dateObj.label) ? 'today-item' : ''}
+        >
+          {dateObj.label}
+        </li>
+      ))}
+    </ul>
   );
 };
 

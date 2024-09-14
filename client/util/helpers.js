@@ -50,3 +50,19 @@ export const formatScore = score => {
   const away = score.fullTime.away !== null ? score.fullTime.away : '-';
   return `${home} : ${away}`;
 };
+
+const formatDateForComparison = isoDate => {
+  const date = new Date(isoDate);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${day}/${month}`;
+};
+
+export const areDatesEqual = (isoDate, label) => {
+  const labelDate = label.split(' ')[0];
+
+  const formattedDate = formatDateForComparison(isoDate);
+  const formatedToday = formatDateForComparison(new Date())
+
+  return formattedDate === labelDate || (label === 'Today' && formattedDate === formatedToday);
+};

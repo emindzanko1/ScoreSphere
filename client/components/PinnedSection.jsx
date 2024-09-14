@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PinnedItem from './PinnedItem';
 
 import '../styles/PinnedSection.css';
@@ -20,7 +20,7 @@ const PinnedSection = () => {
 
   return (
     <aside>
-      {isLoadingLeagues && <p>Loading...</p>}
+      {isLoadingLeagues || isLoadingLeagues && <p>Loading...</p>}
       {!isLoadingLeagues && (
         <>
           <div className='pinned-section'>

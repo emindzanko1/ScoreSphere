@@ -10,6 +10,9 @@ import {
   getFutureMatches,
   getCurrentMatches,
   getPastMatches,
+  getPastTodayMatches,
+  getFutureTodayMatches,
+  getInProgressTodayMatches,
   add,
   replace,
   remove,
@@ -68,6 +71,33 @@ router.get('/futureMatches', async (req, res, next) => {
 router.get('/pastMatches', async (req, res, next) => {
   try {
     const matches = await getPastMatches();
+    res.json({ matches });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/pastTodayMatches', async (req, res, next) => {
+  try {
+    const matches = await getPastTodayMatches();
+    res.json({ matches });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/futureTodayMatches', async (req, res, next) => {
+  try {
+    const matches = await getFutureTodayMatches();
+    res.json({ matches });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/inProgressTodayMatches', async (req, res, next) => {
+  try {
+    const matches = await getInProgressTodayMatches();
     res.json({ matches });
   } catch (error) {
     next(error);

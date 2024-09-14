@@ -9,6 +9,9 @@ import {
   readCurrentMatchesData,
   readFutureMatchesData,
   readPastMatchesData,
+  readPastTodayMatchesData,
+  readFutureTodayMatchesData,
+  readInProgressTodayMatchesData,
   writeData,
 } from './util.js';
 
@@ -112,6 +115,21 @@ async function getPastMatches() {
   return storedData;
 }
 
+async function getPastTodayMatches() {
+  const storedData = await readPastTodayMatchesData();
+  return storedData;
+}
+
+async function getFutureTodayMatches() {
+  const storedData = await readFutureTodayMatchesData();
+  return storedData;
+}
+
+async function getInProgressTodayMatches() {
+  const storedData = await readInProgressTodayMatchesData();
+  return storedData;
+}
+
 async function add(data) {
   const storedData = await readData();
   storedData.events.unshift({ ...data, id: generateId() });
@@ -158,6 +176,12 @@ const _getFutureMatches = getFutureMatches;
 export { _getFutureMatches as getFutureMatches };
 const _getPastMatches = getPastMatches;
 export { _getPastMatches as getPastMatches };
+const _getPastTodayMatches = getPastTodayMatches;
+export { _getPastTodayMatches as getPastTodayMatches };
+const _getFutureTodayMatches = getFutureTodayMatches;
+export { _getFutureTodayMatches as getFutureTodayMatches };
+const _getInProgressTodayMatches = getInProgressTodayMatches;
+export { _getInProgressTodayMatches as getInProgressTodayMatches };
 const _add = add;
 export { _add as add };
 const _replace = replace;

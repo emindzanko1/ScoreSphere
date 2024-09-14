@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import '../../styles/ResultTable.css';
 import MatchModal from '../MatchModal';
 import TableBody from './ResultTableBody';
-import { fetchCurrentMatches } from '../../util/http';
-import { useFetch } from '../../hooks/useFetch';
 import TableHead from './ResultTableHead';
 import TableInfo from './ResultTableInfo';
 
-const ResultTable = () => {
+const ResultTable = ({ matches }) => {
   const [allStarsActive, setAllStarsActive] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -40,9 +38,7 @@ const ResultTable = () => {
     setIsModalOpen(false);
   };
 
-  const { isLoading: isLoadingMatches, error: matchesError, fetchedData: matches } = useFetch(fetchCurrentMatches, []);
-
-  if (matches) {
+  if (matches && matches.length > 0) {
     const leagues = matches.reduce((acc, match) => {
       const leagueName = match.competition.name;
       if (!acc[leagueName]) {
@@ -81,7 +77,7 @@ const ResultTable = () => {
     );
   }
 
-  return <p>Loading matches...</p>;
+  return <p>No matches available.</p>;
 };
 
 export default ResultTable;

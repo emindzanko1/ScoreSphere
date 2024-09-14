@@ -1,58 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { formatMatchDate } from '../util/helpers';
 import '../styles/LeagueDetail.css';
 import { fetchFutureMatches, fetchPastMatches, fetchLeague, fetchLeagueStandings } from '../util/http';
 import { useFetch } from '../hooks/useFetch';
 import LeagueTable from '../components/StandingTable/LeagueTable';
-
-const renderMatchesWithHeaders = (matches, type) => {
-  let lastMatchday = null;
-
-  return matches.map((match, index) => {
-    const isNewMatchday = match.matchday !== lastMatchday;
-    lastMatchday = match.matchday;
-
-    return (
-      <React.Fragment key={index}>
-        {isNewMatchday && (
-          <li className='matchday-header'>
-            <h4>Matchday {match.matchday}</h4>
-          </li>
-        )}
-        {type === 'schedule' ? (
-          <li>
-            {formatMatchDate(match.utcDate)} {match.homeTeam.name} - : - {match.awayTeam.name}
-          </li>
-        ) : (
-          <li>
-            {formatMatchDate(match.utcDate)} {match.homeTeam.name} {match.score.fullTime.home} -{' '}
-            {match.score.fullTime.away} {match.awayTeam.name}
-          </li>
-        )}
-      </React.Fragment>
-    );
-  });
-};
+import MatchesList from '../components/MatchesList';
 
 const LeagueDetail = () => {
-  const [league, setLeague] = useState(null);
   const [standings, setStandings] = useState([]);
   const [selectedTab, setSelectedTab] = useState('table');
   const params = useParams();
   const leagueId = params.leagueId;
-
-  useEffect(() => {
-    const fetchLeagueDetails = async () => {
-      try {
-        const league = await fetchLeague(leagueId);
-        setLeague(league);
-      } catch (error) {
-        console.error('Error fetching league details:', error);
-      }
-    };
-    fetchLeagueDetails();
-  }, [leagueId]);
 
   useEffect(() => {
     const fetchStandings = async () => {
@@ -71,89 +29,39 @@ const LeagueDetail = () => {
   //   error: leagueError,
   //   fetchedData: league,
   // } = useFetch(() => fetchLeague(leagueId), [leagueId]);
+
   // const {
-  //   isLoading: isLoadingStanding,
-  //   error: standingError,
-  //   fetchedData: standings,
-  // } = useFetch(() => fetchLeagueStandings(leagueId), [leagueId]);
-  const {
-    isLoading: isLoadingSchedule,
-    error: scheduleError,
-    fetchedData: schedule,
-  } = useFetch(fetchFutureMatches, []);
-  const { isLoading: isLoadingResults, error: resultsError, fetchedData: results } = useFetch(fetchPastMatches, []);
+  //   isLoading: isLoadingSchedule,
+  //   error: scheduleError,
+  //   fetchedData: schedule,
+  // } = useFetch(fetchFutureMatches, []);
+
+  // const { isLoading: isLoadingResults, error: resultsError, fetchedData: results } = useFetch(fetchPastMatches, []);
+
+  // Use the `fetchLeague` directly as `fetchFn` without wrapping it in an inline function
+const { isLoading: isLoadingLeague, error: leagueError, fetchedData: league } = useFetch(() => fetchLeague(leagueId), [leagueId]);
+
+const { isLoading: isLoadingSchedule, error: scheduleError, fetchedData: schedule } = useFetch(fetchFutureMatches, []);
+
+const { isLoading: isLoadingResults, error: resultsError, fetchedData: results } = useFetch(fetchPastMatches, []);
+
 
   const renderContent = () => {
     switch (selectedTab) {
       case 'table':
         return <LeagueTable standings={standings} />;
-      // return (
-      //   <div className='league-table'>
-      //     <h3>Standings</h3>
-      //     <table>
-      //       <thead>
-      //         <tr>
-      //           <th>#</th>
-      //           <th>Team</th>
-      //           <th>Played</th>
-      //           <th>W</th>
-      //           <th>D</th>
-      //           <th>L</th>
-      //           <th>GF</th>
-      //           <th>GA</th>
-      //           <th>GD</th>
-      //           <th>Points</th>
-      //         </tr>
-      //       </thead>
-      //       <tbody>
-      //         {standings.map(team => (
-      //           <tr key={team.team.id}>
-      //             <td>{team.position}</td>
-      //             <td className='team-info'>
-      //               <img src={team.team.crest} alt={`${team.team.name} crest`} className='team-crest' />
-      //               {team.team.name}
-      //             </td>
-      //             <td>{team.playedGames}</td>
-      //             <td>{team.won}</td>
-      //             <td>{team.draw}</td>
-      //             <td>{team.lost}</td>
-      //             <td>{team.goalsFor}</td>
-      //             <td>{team.goalsAgainst}</td>
-      //             <td>{team.goalDifference}</td>
-      //             <td>{team.points}</td>
-      //           </tr>
-      //         ))}
-      //       </tbody>
-      //     </table>
-      //   </div>
-      // );
       case 'schedule':
         return (
           <div className='league-schedule'>
             <h3>Schedule</h3>
-            <ul>
-              {renderMatchesWithHeaders(schedule, 'schedule')}
-              {/* {schedule.map((match, index) => (
-                <li key={index}>
-                  {formatMatchDate(match.utcDate)} {match.homeTeam.name} {match.score.fullTime.home} -{' '}
-                  {match.score.fullTime.away} {match.awayTeam.name}
-                </li>
-              ))} */}
-            </ul>
+            <MatchesList matches={schedule} type='schedule' />
           </div>
         );
       case 'results':
         return (
           <div className='league-results'>
             <h3>Results</h3>
-            <ul>
-              {renderMatchesWithHeaders(results, 'results')}
-              {/* {results.map((match, index) => (
-                <li key={index}>
-                  {formatMatchDate(match.utcDate)} {match.homeTeam.name} - : - {match.awayTeam.name}
-                </li>
-              ))} */}
-            </ul>
+            <MatchesList matches={results} type='results' />
           </div>
         );
       default:
@@ -172,8 +80,9 @@ const LeagueDetail = () => {
         <div>
           <h2>{league.name}</h2>
           <p>
-            Season: {new Date(league.currentSeason.startDate).getFullYear()}/
-            {new Date(league.currentSeason.endDate).getFullYear()}
+            Season: 2024/2025
+            {/* Season: {new Date(league.currentSeason.startDate).getFullYear()}/
+            {new Date(league.currentSeason.endDate).getFullYear()} */}
           </p>
         </div>
       </header>

@@ -53,15 +53,28 @@ const ResultTable = ({ matches }) => {
         <MatchModal isOpen={isModalOpen} matchData={selectedMatch} onClose={closeModal} />
         {Object.entries(leagues).map(([leagueName, leagueMatches]) => (
           <div key={leagueName} className='league-section'>
-            <TableInfo
+            {/* <TableInfo
               leagueName={leagueName}
               leagueEmblem={leagueMatches[0].competition.emblem}
               areaName={leagueMatches[0].area.name}
               allStarsActive={allStarsActive}
               handleMainStarClick={handleMainStarClick}
-            />
+            /> */}
+            <TableHead
+                leagueName={leagueName}
+                leagueEmblem={leagueMatches[0].competition.emblem}
+                areaName={leagueMatches[0].area.name}
+                allStarsActive={allStarsActive}
+                handleMainStarClick={handleMainStarClick}
+              />
             <table className='styled-table'>
-              <TableHead />
+              {/* <TableHead
+                leagueName={leagueName}
+                leagueEmblem={leagueMatches[0].competition.emblem}
+                areaName={leagueMatches[0].area.name}
+                allStarsActive={allStarsActive}
+                handleMainStarClick={handleMainStarClick}
+              /> */}
               <TableBody
                 matches={leagueMatches}
                 favourites={favourites}

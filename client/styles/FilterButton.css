@@ -38,18 +38,7 @@
   display: inline-block;
 }
 
-.calendar {
-  display: flex;
-  align-items: center;
-  background: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  padding: 20px;
-}
-
-.calendar__navigation,
-.calendar__datepicker {
+.calendar__navigation {
   background: transparent;
   border: none;
   margin-left: auto;
@@ -77,8 +66,11 @@
   gap: 8px;
   background: var(--color-primary);
   color: #fff;
-  border-radius: 8px;
-  padding: 10px 15px;
+  border-radius: 5px;
+  padding: 5px 12px;
+  margin-left: auto;
+  margin-right: 0;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .calendar__datepicker span {

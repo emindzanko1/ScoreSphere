@@ -1,6 +1,16 @@
 .calendar__dropdown {
   position: relative;
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.calendar__dropdown svg {
+  margin-right: 2px; 
+}
+
+.calendar__dropdown span {
+  font-size: 16px; 
 }
 
 .calendar__dropdown-menu {
@@ -22,4 +32,13 @@
 
 .calendar__dropdown-menu li:hover {
   background-color: #f0f0f0;
+}
+
+.calendar__dropdown:hover {
+  cursor: pointer;
+  color: white;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+  border-radius: 8px;
 }

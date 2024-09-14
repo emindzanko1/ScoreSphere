@@ -1,4 +1,5 @@
 .table-container {
+  margin-top: 20px;
   width: 100%;
   max-width: 1200px;
   /* padding: 20px; */
@@ -51,8 +52,7 @@
 
 .league-info {
   background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-  padding: 20px 20px;
-  padding-left: 10px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
 }
